@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MINffORT - A Canteen Live Status Website</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+    
+    <div class="container">
+
+        <div class="box z-depth-4">
+
+            <div class="row in_box">
+
+                <div class="col s12 l8 ">
+                    
+                    <h1 class="hedor center-align"><span class="material-icons" id="logo" style="color: rgb(247, 250, 183); --darkreader-inline-color: #eee8a5;" data-darkreader-inline-color="">shopping_cart</span><span id="nothing1">MIN</span><span id="nothing2">ff</span><span id="nothing3">ORT</span></h1>
+                    <br>
+                    <h5 id="gyan">
+                    <span id="gyan1">Have you ever walked from Rosaline to Amul Canteen just to find out that it was closed? 
+                    </span>
+                    <br>
+                    <br>
+                    <span id="gyan2">.....Feels so bad, doesn’t it?</span>
+                    <br>
+                    <br>
+                    <span id="gyan3"><span>MIN</span><span id="nothing4">ff</span><span>ORT, a Canteen Live Status Website, lets you check the canteen’s status, from the comfort of your couch.</span></span>
+                    <br>
+                    <br>
+                    <span id="gyan4">Saves your hard-earned Time and requires Minimum Effort, isn’t it?</span>
+                    </h5>
+
+                </div>
+
+                <div class="col s12 l4 z-depth-2" id="signin_box">
+                    
+                    <div class="row">
+
+                        <div class="col s12">
+                            <br>
+                            <ul class="tabs center-align">
+
+                                <li class="tab col s6"><a href="#customer_login" class="orange-text" style="font-weight: bold">Customer</a></li>
+
+                                <li class="tab col s6"><a href="#vendor_login" class="orange-text" style="font-weight: bold">Vendor</a></li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                    <div id="customer_login" class="col s12 center-align l11 ">
+
+                        <h3 class="title" style="font-weight: bold;">Welcome!</h3>
+
+                        <h5 class="title">Sign In to Check Canteen’s Status</h5>
+
+                        <br>
+
+                        <form id="customer_logInForm" action="">
+
+                            <div class="input-field type1 z-depth-2">
+                                <i class="material-icons prefix">email</i>
+                                <input type="text" id="customer_email" placeholder="Email ID" required \>
+                            </div>
+            
+                            <div class="input-field type1 z-depth-2">
+                                <i class="material-icons prefix">lock</i>
+                                <input type="password" id="customer_password" placeholder="Password" required \>
+                            </div>
+
+                            <br>
+                            <br>
+
+                            <button class="btn cyan accent-1 black-text z-depth-2 waves-effect waves-light" style="font-weight: bold; margin-left: 2vw;" type="submit">Login</button>
+
+                        </form>
+
+                        <br>
+                        <br>
+                        
+                        <div class="right"><a href=""><u style="font-weight: bold;">Forgot Password?</u></a></div>
+                        <br>
+                        <div class="right">New to Website? <a href="#customer_signup_popup" class="modal-trigger"><u style="font-weight: bold;">Create New Account</u></a></div>
+
+                        <div class="modal" id="customer_signup_popup">
+
+                            <div class="modal-content">
+
+                                <h4 style="font-weight: bold;">Make a New Account</h4>
+
+                                <form action="" id="customer_signup">
+
+                                    <div class="input-field type2">
+                                        <i class="material-icons prefix">email</i>
+                                        <input type="text" id="customer_signup_email" placeholder="Email ID" required \>
+                                    </div>
+
+                                    <div class="input-field type2">
+                                        <i class="material-icons prefix">lock</i>
+                                        <input type="password" id="customer_signup_password" placeholder="Password" required \>
+                                    </div>
+                                    <div class="input-field type2">
+                                        <i class="material-icons prefix">lock</i>
+                                        <input type="password" id="customer_signup_confirm_password" placeholder="Confirm Password" required \>
+                                    </div>
+
+                                    <br>
+
+                                    <button class="btn cyan accent-1 black-text z-depth-2 waves-effect waves-light" style="font-weight: bold; margin-left: 2vw;" type="submit">Sign Up</button>
+
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                        
+                    </div>
+                    
+                    <div id="vendor_login" class="col s12 center-align l11 ">
+                        
+                        <h4 class="title" style="font-weight: bold;">Welcome Maintainer!</h4>
+                        
+                        <h5 class="title">Sign In to Maintain your Canteen</h5>
+                        
+                        <br>
+                        
+                        <form id="vendor_logInForm" action="">
+                            
+                            <div class="input-field type1 z-depth-2">
+                                <i class="material-icons prefix">email</i>
+                                <input type="text" id="vendor_email" placeholder="Email ID" required \>
+                            </div>
+                            
+                            <div class="input-field type1 z-depth-2">
+                                <i class="material-icons prefix">lock</i>
+                                <input type="password" id="vendor_password" placeholder="Password" required \>
+                            </div>
+                            
+                            <br>
+                            <br>
+                            
+                            <button class="btn cyan accent-1 black-text z-depth-2 wave-effect waves-light" style="font-weight: bold; margin-left: 2vw;" type="submit">Login</button>
+                            
+                        </form>
+                        
+                        <br>
+                        <br>
+                        
+                        <div class="right"><a href="" ><u style="font-weight: bold;">Forgot Password?</u></a></div>
+                        <br>
+                        <div class="right">New to Website? <a href="#vendor_signup_popup" class="modal-trigger" ><u style="font-weight: bold;">Create New Account</u></a></div>
+
+                        <div class="modal" id="vendor_signup_popup">
+
+                            <div class="modal-content">
+
+                                <h4 style="font-weight: bold;">Make a New Account</h4>
+
+                                <form action="" id="vendor_signup">
+
+                                    <div class="input-field type2">
+                                        <i class="material-icons prefix">email</i>
+                                        <input type="text" id="vendor_signup_email" placeholder="Email ID" required \>
+                                    </div>
+
+                                    <div class="input-field type2">
+                                        <i class="material-icons prefix">lock</i>
+                                        <input type="password" id="vendor_signup_password" placeholder="Password" required \>
+                                    </div>
+                                    <div class="input-field type2">
+                                        <i class="material-icons prefix">lock</i>
+                                        <input type="password" id="vendor_signup_confirm_password" placeholder="Confirm Password" required \>
+                                    </div>
+
+                                    <br>
+
+                                    <button class="btn cyan accent-1 black-text z-depth-2 waves-effect waves-light" style="font-weight: bold; margin-left: 2vw;" type="submit">Sign Up</button>
+
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            let elems = document.querySelectorAll('.tabs');
+            let instances = M.Tabs.init(elems, {});
+        })
+        document.addEventListener('DOMContentLoaded', function(){
+            let elems = document.querySelectorAll('.modal');
+            let instances = M.Modal.init(elems, {});
+        })
+    </script>
+    <script src="index.bundle.js"></script>
+</body>
+</html>

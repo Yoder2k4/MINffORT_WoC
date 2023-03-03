@@ -1,0 +1,13 @@
+#name{
+    width: 20vw;
+    display: inline-block;
+}
+
+#pfp{
+    position: absolute;
+    top: 40vh;
+    right: 5vw;
+    width: 400px;
+    height: 300px;
+    border: 2px black solid;
+}
