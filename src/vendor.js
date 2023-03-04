@@ -60,8 +60,7 @@ onAuthStateChanged(auth, (user) => {
                 phoneNo: add.phoneNo.value,
                 address: add.address.value,
                 about: add.about.value,
-                status: st,
-                ImgURL: img_url
+                status: st
             };
             
             setDoc(doc(db, "Canteen", email), { data });
@@ -149,7 +148,7 @@ async function UploadProcess(){
         getDownloadURL(UploadTask.snapshot.ref).then((downloadURL) => {
             img_url = downloadURL;
             console.log(downloadURL);
-            // SaveURLtoFirestore(img_url);
+            SaveURLtoFirestore(img_url);
         })
     }   
     )
@@ -157,16 +156,15 @@ async function UploadProcess(){
 
 reader.onload = function(){
     pfp.src = reader.result;
-    UploadProcess;
 }
-// upbtn.onclick = UploadProcess;
 
-// async function SaveURLtoFirestore(url){
+upbtn.onclick = UploadProcess;
+
+async function SaveURLtoFirestore(url){
     
-//     let ref = doc(db, "Canteen/" , email);
+    let ref = doc(db, "Canteen/" , email);
 
-//     await setDoc(ref,{
-//         ImageName: (name+ext),
-//         ImageURL: url
-//     })
-// }
+    await setDoc(ref,{
+        ImageURL: url
+    })
+}
