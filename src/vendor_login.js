@@ -31,6 +31,15 @@ let db = getFirestore(app);
 
 let email;
 
+
+let shopName = document.querySelector('#shopName');
+let ownerName = document.querySelector('#ownerName');
+let phoneNo = document.querySelector('#phoneNo');
+let address = document.querySelector('#address');
+let about = document.querySelector('#about');
+let s = document.getElementsByName('s');
+let pfp = document.getElementById('pfp');
+
 onAuthStateChanged(auth , (user) => {
     if (user){
         
@@ -42,7 +51,20 @@ onAuthStateChanged(auth , (user) => {
 
         getDoc(docRef)
             .then((doc) => {
-                console.log(doc.data(), doc.id);
+                let ob = doc.data().data;
+                shopName.value = ob.shopName;
+                ownerName.value = ob.ownerName;
+                phoneNo.value = ob.phoneNo;
+                address.value = ob.address;
+                about.value = ob.about
+
+                if(ob.status === false){
+                    s[0].checked = true;
+                }
+                else{
+                    s[1].checked = true;
+                }
+                pfp.src = ob.ImgURL;
             })
 
     }
