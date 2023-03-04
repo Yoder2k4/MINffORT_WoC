@@ -127,7 +127,7 @@ vLogInForm.addEventListener('submit', (e) => {
     signInWithEmailAndPassword(auth2, v_signin_email, v_signin_password)
         .then((cred) => {
             console.log('User logged in: ', cred.user);
-            window.location.replace("vendor-signup-form.html");
+            window.location.replace("vendor-login-form.html");
 
         })
         .catch((err) => {

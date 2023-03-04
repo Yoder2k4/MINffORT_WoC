@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/img/MINffORT.png" type="image/x-icon">
+    <title>Change you Canteen's Status</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/src/style_vendor_login.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <form action="" id="details">
+
+            <div class="input-field">
+
+                <input type="text" id="shopName" placeholder="Shop Name">
+                <input type="text" id="ownerName" placeholder="Owner's Name">
+                <input type="text" id="phoneNo" placeholder="Phone No.">
+                <input type="text" id="address" placeholder="Address">
+                <input type="text" class="text-area" id="about" placeholder="About Shop">
+                <p>
+                    Status: 
+                    <label>
+                        <input type="radio" class="with-gap" name="s" value=false>
+                        <span>CLOSE</span>  
+                    </label>
+                    <label>
+                        <input type="radio" class="with-gap" name="s" value=true>
+                        <span>OPEN</span>
+                    </label>
+                </p>
+
+                <br><br>
+
+                <img id="pfp">
+
+                <button class="btn" id="selbtn">Select Image</button>
+                <button class="btn" id="changebtn">Change Image</button>
+
+                
+
+
+            </div>
+
+            <br>
+            <br>
+
+            <button class="btn" type="submit">Save Changes</button>
+
+            <button class="btn"
+            id="logout">Log Out</button>
+
+
+
+        </form>
+
+    </div>
+    
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="vendor_login.bundle.js"></script>
+</body>
+</html>
