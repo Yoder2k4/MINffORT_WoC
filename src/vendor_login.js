@@ -30,6 +30,7 @@ let db = getFirestore(app);
 
 
 let email;
+let st;
 
 
 let shopName = document.querySelector('#shopName');
@@ -39,6 +40,21 @@ let address = document.querySelector('#address');
 let about = document.querySelector('#about');
 let s = document.getElementsByName('s');
 let pfp = document.getElementById('pfp');
+
+let log_out = document.getElementById('logout');
+
+log_out.addEventListener('click', () => {
+    signOut(auth)
+        .then(() => {
+            console.log("User logged out");
+            
+            window.location.replace("index.html");
+        })
+        .catch((err) => {
+            console.log(err.message);
+            console.log(err.code);
+        })
+})
 
 onAuthStateChanged(auth , (user) => {
     if (user){
@@ -64,9 +80,35 @@ onAuthStateChanged(auth , (user) => {
                 else{
                     s[1].checked = true;
                 }
-                pfp.src = ob.ImgURL;
+                pfp.src = doc.data().ImgURL;
             })
 
+        update_form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if(s[0].checked){
+                st = (s[0].value != 'false');
+            }
+            if(s[1].checked){
+                st = (s[1].value === 'true');
+            }
+            let data = {
+                shopName: update_form.shopName.value,
+                ownerName: update_form.ownerName.value,
+                phoneNo: update_form.phoneNo.value,
+                address: update_form.address.value,
+                about: update_form.about.value,
+                status: st
+            };
+
+            updateDoc(docRef, { data })
+                .then(() => {
+                    console.log("Changes saved");
+                })
+
+        });
+
+        
     }
 });
 

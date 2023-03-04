@@ -5,6 +5,7 @@ import {
     collection,
     onSnapshot,
     setDoc,
+    updateDoc,
     doc
 } from 'firebase/firestore'
 
@@ -63,7 +64,7 @@ onAuthStateChanged(auth, (user) => {
                 status: st
             };
             
-            setDoc(doc(db, "Canteen", email), { data });
+            updateDoc(doc(db, "Canteen", email), { data });
         })
     }
     
@@ -164,7 +165,7 @@ async function SaveURLtoFirestore(url){
     
     let ref = doc(db, "Canteen/" , email);
 
-    await setDoc(ref,{
-        ImageURL: url
+    await updateDoc(ref,{
+        ImgURL: url
     })
 }

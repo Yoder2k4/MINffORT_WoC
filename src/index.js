@@ -88,9 +88,9 @@ cLogInForm.addEventListener('submit', (e) => {
 
 //FOR VENDORS
 
-let vSignInForm = document.getElementById('vendor_signup');
+let vSignUpForm = document.getElementById('vendor_signup');
 
-vSignInForm.addEventListener('submit', (e) => {
+vSignUpForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     let v_email = document.getElementById('vendor_signup_email').value;
@@ -101,7 +101,7 @@ vSignInForm.addEventListener('submit', (e) => {
         createUserWithEmailAndPassword(auth2, v_email, v_password)
             .then((cred) => {
                 console.log("User Created: ", cred.user);
-                // cSignInForm.reset();
+                window.location.replace("vendor-signup-form.html")
             })
             .catch((err) => {
                 console.log(err.code);
@@ -145,6 +145,6 @@ onAuthStateChanged(auth2, (user) => {
         window.location.replace("vendor-signup-form.html");
     }
     else{
-        console.log("User Signed out");
+        console.log("Vendor-login to index");
     }
 })
