@@ -64,7 +64,7 @@ onAuthStateChanged(auth, (user) => {
                 status: st
             };
             
-            updateDoc(doc(db, "Canteen", email), { data });
+            setDoc(doc(db, "Canteen", email), { ImgURL: img_url, data });
         })
     }
     
@@ -149,7 +149,7 @@ async function UploadProcess(){
         getDownloadURL(UploadTask.snapshot.ref).then((downloadURL) => {
             img_url = downloadURL;
             console.log(downloadURL);
-            SaveURLtoFirestore(img_url);
+            // SaveURLtoFirestore(img_url);
         })
     }   
     )
@@ -161,11 +161,11 @@ reader.onload = function(){
 
 upbtn.onclick = UploadProcess;
 
-async function SaveURLtoFirestore(url){
+// async function SaveURLtoFirestore(url){
     
-    let ref = doc(db, "Canteen/" , email);
+//     let ref = doc(db, "Canteen/" , email);
 
-    await updateDoc(ref,{
-        ImgURL: url
-    })
-}
+//     await updateDoc(ref,{
+//         ImgURL: url
+//     })
+// }

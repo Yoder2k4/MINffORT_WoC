@@ -1,0 +1,63 @@
+*{
+    font-family: Ubuntu;
+}
+
+.navbar{
+    height: 12vh;
+    position: sticky
+    ;
+    background-image: linear-gradient(to bottom, #84f4d2, white,#84f4d2);
+
+
+}
+
+.container{
+    height: 100%;
+}
+
+.hedor{
+    height: 100%;
+    margin: 0   ;
+}
+
+.brand-logo{
+    height: 12vh;
+    left: 4vw;
+    width: 22.4vw;
+}
+
+#logo{
+    font-size: 4vw;
+    text-shadow: 3px 3px rgba(0, 0, 0, 0.503);
+    margin-top: 1.8vh;
+}
+
+
+#nothing1, #nothing2, #nothing3{
+    position: absolute;
+    font-weight: bold;
+}
+
+#nothing1{
+    left: 18%;
+}
+#nothing2{
+    left: 45%;
+    margin-top: 17px;
+}
+#nothing3{
+    left: 54%;
+}
+
+#nothing1, #nothing3{
+    font-size: 4rem;
+    color: black;
+    text-shadow: 3px 3px rgba(0, 0, 0, 0.51);
+    margin-top: 10px;
+}
+
+#nothing2{
+    font-size: 3rem;
+    color: red;
+    text-shadow: 2px 2px rgba(250, 101, 101, 0.682);
+}
