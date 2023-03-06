@@ -23,7 +23,7 @@ const firebaseConfig2 = {
     storageBucket: "minffort-woc-vendor.appspot.com",
     messagingSenderId: "981907816915",
     appId: "1:981907816915:web:55af6abe5cc5489b9aef26"
-  };
+};
 
 let app1 = initializeApp(firebaseConfig1, "customer");
 let app2 = initializeApp(firebaseConfig2, "vendor");
@@ -37,9 +37,10 @@ let auth2 = getAuth(app2);
 
 // Sign Up
 
-let cSignInForm = document.getElementById('customer_signup');
+let cSignUpForm = document.getElementById('customer_signup');
+let c_signup_error = document.getElementById('c_signup_error');
 
-cSignInForm.addEventListener('submit', (e) => {
+cSignUpForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     let email = document.getElementById('customer_signup_email').value;
@@ -50,15 +51,24 @@ cSignInForm.addEventListener('submit', (e) => {
         createUserWithEmailAndPassword(auth1, email, password)
             .then((cred) => {
                 console.log("User Created: ", cred.user);
-                // cSignInForm.reset();
+                // cSignUpForm.reset();
             })
             .catch((err) => {
                 console.log(err.code);
                 console.log(err.message);
+                if(err.code === "auth/invalid-email"){
+                    c_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Invalid Email ID. &nbsp; &nbsp; ( example@gmail.com )</span>";
+                }
+                if(err.code === "auth/weak-password"){
+                    c_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Weak Password. Password should be at least 6 characters</span>";
+                }
+                if(err.code === "auth/email-already-in-use"){
+                    c_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Email ID already in use. Please try different email address</span>";
+                }
             })
     }
     else {
-        alert("Passwords do not match!!");
+        c_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Passwords do not match.</span>";
     }
 
 })
@@ -66,6 +76,7 @@ cSignInForm.addEventListener('submit', (e) => {
 // Sign In
 
 let cLogInForm = document.getElementById('customer_logInForm');
+let c_login_error = document.getElementById('c_login_error');
 
 cLogInForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -76,10 +87,23 @@ cLogInForm.addEventListener('submit', (e) => {
     signInWithEmailAndPassword(auth1, c_signin_email, c_signin_password)
         .then((cred) => {
             console.log('User logged in: ', cred.user);
+            window.location.replace('home_page.html');
         })
         .catch((err) => {
             console.log(err.code);
             console.log(err.message);
+            if(err.code === "auth/invalid-email"){
+                c_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Invalid Email ID. &nbsp; &nbsp; ( example@gmail.com ) </span>";
+            }
+            if(err.code === "auth/user-not-found"){
+                c_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>User address does not exist. Please make a New Account.</span>";
+            }
+            if(err.code === "auth/wrong-password"){
+                c_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Wrong Email/Password. &nbsp; Please try again.</span>";
+            }
+            if(err.code === "auth/too-many-requests"){
+                c_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; Too many failed attempts. Please try again later.";
+            }
         })
 
 })
@@ -89,6 +113,7 @@ cLogInForm.addEventListener('submit', (e) => {
 //FOR VENDORS
 
 let vSignUpForm = document.getElementById('vendor_signup');
+let v_signup_error = document.getElementById('v_signup_error');
 
 vSignUpForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -106,10 +131,19 @@ vSignUpForm.addEventListener('submit', (e) => {
             .catch((err) => {
                 console.log(err.code);
                 console.log(err.message);
+                if(err.code === "auth/invalid-email"){
+                    v_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Invalid Email ID. &nbsp; &nbsp; ( example@gmail.com )</span>";
+                }
+                if(err.code === "auth/weak-password"){
+                    v_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Weak Password. Password should be at least 6 characters</span>";
+                }
+                if(err.code === "auth/email-already-in-use"){
+                    v_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Email ID already in use. Please try different email address</span>";
+                }
             })
     }
     else {
-        alert("Passwords do not match!!");
+        v_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Passwords do not match.</span>";
     }
 
 })
@@ -117,6 +151,7 @@ vSignUpForm.addEventListener('submit', (e) => {
 // Sign In
 
 let vLogInForm = document.getElementById('vendor_logInForm');
+let v_login_error = document.getElementById('v_login_error');
 
 vLogInForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -133,9 +168,22 @@ vLogInForm.addEventListener('submit', (e) => {
         .catch((err) => {
             console.log(err.code);
             console.log(err.message);
+            if(err.code === "auth/invalid-email"){
+                v_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Invalid Email ID. &nbsp; &nbsp; ( example@gmail.com ) </span>";
+            }
+            if(err.code === "auth/user-not-found"){
+                v_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>User address does not exist. Please make a New Account.</span>";
+            }
+            if(err.code === "auth/wrong-password"){
+                v_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Wrong Email/Password. &nbsp;&nbsp; Please try again.</span>";
+            }
+            if(err.code === "auth/too-many-requests"){
+                v_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; Too many failed attempts. Please try again later.";
+            }
         })
 
 })
+
 
 
 // Redirecting to different page

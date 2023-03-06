@@ -5,7 +5,8 @@ module.exports = {
     entry: {
         index: './src/index.js',
         vendor: './src/vendor.js',
-        vendor_login: './src/vendor_login.js'
+        vendor_login: './src/vendor_login.js',
+        customer: './src/home_page.js'
     },
     output: {
         path:path.resolve(__dirname, 'dist' ),
