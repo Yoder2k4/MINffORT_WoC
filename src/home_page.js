@@ -45,85 +45,188 @@ let db = getFirestore(app2);
 onAuthStateChanged(auth1, (user) => {
     
     if(user){
-
+        
         let colRef = collection(db, 'Canteen');
 
+        let canteens = [];
+        
         onSnapshot(colRef, (snapshot) => {
 
-            let canteens = [];
             snapshot.docs.forEach((doc) => {
                 canteens.push({...doc.data(), id: doc.id})
             })
             console.log(canteens);
+            
+            let container_remove = document.getElementById('card-container');
+            container_remove.remove();
 
+            let card_container = document.createElement('div');
+            card_container.setAttribute('id','card-container');
+            document.body.appendChild(card_container);
+    
             canteens.forEach((canteen) => {
-
-                let col = document.createElement("div");
-                col.classList.add("col");
-                col.classList.add("l4");
-
-                let card = document.createElement('div');
-                card.classList.add('card');
-                col.appendChild(card);
-
-                let card_image = document.createElement('div');
-                card_image.classList.add('card-image');
-                card.appendChild(card_image); 
-
+    
+                // Fetching data from firestore
+                let card_id = canteen.id;
+                let v_name = canteen.data.shopName;
+                let o_name = canteen.data.ownerName;
+                let v_address = canteen.data.address;
+                let v_about = canteen.data.about;
+                let v_phone = canteen.data.phoneNo;
+                let s = canteen.data.status;
+                let v_status;
+                if(s === true){
+                    v_status = "OPEN";
+                }else{
+                    v_status = "CLOSE";
+                }
+                let img_src = canteen.ImgURL;
+            
+            
+            
+                // Card Overall
+            
+                let card_item = document.createElement('div');
+                card_item.classList.add('card-item');
+                card_item.classList.add('modal-trigger');
+                card_item.classList.add('z-depth-2');
+                card_item.setAttribute('href', '#' + card_id);
+            
+            
+                // Image Container
+            
+                let image = document.createElement('div');
+                image.classList.add('image');
                 let img = document.createElement('img');
-                img.src = canteen.ImgURL;
-                card_image.appendChild(img);
-
-                let card_content = document.createElement('div');
-                card_content.classList.add('card-content');
-                card.appendChild(card_content);
-
-                let shopName = document.createElement('span');
-                let ownerName = document.createElement('span');
-                let phoneNo = document.createElement('span');
+                img.src = img_src;
+                image.appendChild(img);
+            
+            
+            
+                // Content Container
+            
+                let content = document.createElement('div');
+                content.classList.add('content');
+            
+            
+            
+                // Vendor Name Box
+            
+                let vendor_name_box = document.createElement('div');
+                vendor_name_box.classList.add('vendor_name_box');
+                let vendor_name = document.createElement('span');
+                vendor_name.classList.add('vendor_name');
+                vendor_name.innerHTML = v_name;
+                vendor_name_box.appendChild(vendor_name);
+            
+                content.appendChild(vendor_name_box);
+            
+            
+            
+                // Vendor Address Box
+            
+                let vendor_address_box = document.createElement('div');
+                vendor_address_box.classList.add('vendor_address_box');
+                let box_title_a = document.createElement('span');
+                box_title_a.classList.add('box_title_a');
+                let i_home = document.createElement('i');
+                i_home.classList.add('material-icons');
+                i_home.innerHTML = "home";
+                box_title_a.appendChild(i_home);
                 let address = document.createElement('span');
-                let about = document.createElement('span');
-                let status = document.createElement('span');
-                let br = document.createElement('br');
-
-                shopName.classList.add('card-title');
-                ownerName.classList.add('ownerName');
-                phoneNo.classList.add('phoneNo');
                 address.classList.add('address');
-                about.classList.add('about');
+                let address_innerTEXT = document.createElement('span');
+                address_innerTEXT.innerHTML =  v_address;
+                address.appendChild(address_innerTEXT);
+                vendor_address_box.appendChild(box_title_a);
+                vendor_address_box.appendChild(address);
+            
+                content.appendChild(vendor_address_box);
+            
+            
+            
+                // Vendor Description Box
+            
+                let vendor_description_box = document.createElement('div');
+                vendor_description_box.classList.add('vendor_description_box');
+                let box_title_d = document.createElement('span');
+                box_title_d.classList.add('box_title_d');
+                let i_description = document.createElement('i');
+                i_description.classList.add('material-icons');
+                i_description.innerHTML = "description";
+                box_title_d.appendChild(i_description);
+                let description = document.createElement('span');
+                description.classList.add('description');
+                let description_innerTEXT = document.createElement('span');
+                description_innerTEXT.innerHTML =  v_about;
+                description.appendChild(description_innerTEXT);
+                vendor_description_box.appendChild(box_title_d);
+                vendor_description_box.appendChild(description);
+            
+                content.appendChild(vendor_description_box);
+            
+            
+                // Status Box
+            
+                let status_box = document.createElement('div');
+                status_box.classList.add('status_box');
+                let status = document.createElement('span');
                 status.classList.add('status');
-
-                shopName.innerHTML = canteen.data.shopName;
-                ownerName.innerHTML = canteen.data.ownerName;
-                phoneNo.innerHTML = canteen.data.phoneNo;
-                address.innerHTML = canteen.data.address;
-                about.innerHTML = canteen.data.about;
-                if(canteen.data.status === true){
-                    status.innerHTML = "Open";
+                status.innerHTML = "Status: ";
+                let open_close = document.createElement('span');
+                open_close.classList.add('open-close');
+                open_close.innerHTML = v_status;
+                if(v_status === "OPEN"){
+                    open_close.style.color = "chartreuse";
                 }
-                else{
-                    status.innerHTML = "Close";
+                if(v_status === "CLOSE"){
+                    open_close.style.color = "red";
                 }
-
-                card_content.appendChild(shopName);
+                status_box.appendChild(status);
+                status_box.appendChild(open_close);
                 
-                card_content.appendChild(ownerName);
-
-                card_content.appendChild(phoneNo);
+                content.appendChild(status_box);
+            
+            
+                // Phone Number Box
+            
+                let phoneNo_box = document.createElement('div');
+                phoneNo_box.classList.add('phoneNo_box');
+                let phone_label = document.createElement('span');
+                phone_label.classList.add('phone_label');
+                phone_label.innerHTML = "Phone No.";
+                let phoneNo = document.createElement('span');
+                phoneNo.classList.add('phoneNo');
+                let i_phone = document.createElement('i');
+                i_phone.classList.add('material-icons');
+                i_phone.innerHTML = "call";
+                phoneNo.appendChild(i_phone);
+                let phone_innerTEXT = document.createElement('span');
+                phone_innerTEXT.innerHTML = ' ' + v_phone;
+                phoneNo.appendChild(phone_innerTEXT);
+                phoneNo_box.appendChild(phone_label);
+                phoneNo_box.appendChild(phoneNo);
+            
+                content.appendChild(phoneNo_box);
+            
+            
+            
                 
-                card_content.appendChild(address);
-                
-                card_content.appendChild(about);
-                
-                card_content.appendChild(status);
-
-
-
-
-                let row = document.querySelector('.row');
-                row.appendChild(col);
+                card_item.appendChild(image);
+                card_item.appendChild(content);
+            
+                card_container.appendChild(card_item);
             });
 
+            let card_item = document.getElementsByClassName('card-item');
+
+            console.log(card_item);
+
+            // Array.from(card_item).forEach((item) => {
+            //     item.addEventListener('click', () => {
+                    
+            //     });
+            // });
 
         })
 
@@ -143,3 +246,7 @@ sign_out.addEventListener('click', () => {
             console.log(err.message);
         })
 });
+
+
+
+
