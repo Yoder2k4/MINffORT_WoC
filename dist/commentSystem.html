@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment System</title>
+</head>
+
+<body>
+
+    <div class="canteenName">Amul Canteen</div>
+
+    <br><br><br>
+
+    <form action="" id="details">
+        <label for="name">Name: </label>
+        <input type="text" id="username" placeholder="Enter your name">
+        <label for="">Comment: </label>
+        <input type="text" id="comment" placeholder="Add a comment..." autocomplete="off">
+        <br>
+        <br>
+        <button id="post" type="submit">Post Comment</button>
+    </form>
+
+    <br><br>
+
+    <div class="comment_box">
+
+        <h3>Comments: </h3>
+
+        <div class="username" style="font-weight: bold;">xyz</div>
+        <div class="comment">very good shop<br></div>
+
+    </div>
+    <br><br><br>
+    <div class="voting_system">
+
+        <button id="upvote">UpVote</button>
+        <button id="novote">No Vote</button>
+        <button id="downvote">DownVote</button>
+        <br>
+        <span id="netVote"></span>
+
+    </div>
+
+    <script src="commentSystem.bundle.js"></script>
+</body>
+
+</html>

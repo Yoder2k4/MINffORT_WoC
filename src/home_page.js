@@ -222,11 +222,11 @@ onAuthStateChanged(auth1, (user) => {
 
             console.log(card_item);
 
-            // Array.from(card_item).forEach((item) => {
-            //     item.addEventListener('click', () => {
-                    
-            //     });
-            // });
+            Array.from(card_item).forEach((item) => {
+                item.addEventListener('click', () => {
+                    window.location.replace('commentSystem.html');
+                });
+            });
 
         })
 
