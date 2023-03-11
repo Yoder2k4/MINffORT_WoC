@@ -73,40 +73,42 @@ onSnapshot(com_colRef,(snapshot) => {
                     // console.log(docum.data()[key]);
                 }
             };
-            console.log(vendor_comments);
+            // console.log(vendor_comments);
             
         }
     });
 
     // Fetched Below
 
-    // let comment_box_del = document.querySelector('.comment_box');
-    // comment_box_del.remove();
+    let comment_box_del = document.querySelector('.comment_box');
+    comment_box_del.remove();
 
 
-    // let comment_box = document.createElement('div');
-    // comment_box.classList.add('comment_box');
-    // let heading = document.createElement('h3');
-    // heading.innerHTML = "Comments: ";
-    // comment_box.appendChild(heading);
+    let comment_box = document.createElement('div');
+    comment_box.classList.add('comment_box');
+    let heading = document.createElement('h3');
+    heading.innerHTML = "Comments: ";
+    comment_box.appendChild(heading);
 
-    // vendor_comments.forEach((c) => {
 
-    //     let userName = document.createElement('div');
-    //     userName.classList.add('username');
-    //     userName.setAttribute('style', 'font-weight: bold;');
-    //     userName.innerHTML = c.username;
+    console.log(vendor_comments);
+    vendor_comments.forEach((c) => {
+        console.log(c);
+        let userName = document.createElement('div');
+        userName.classList.add('username');
+        userName.setAttribute('style', 'font-weight: bold;');
+        userName.innerHTML = c.username;
 
-    //     let comment_line = document.createElement('div');
-    //     comment_line.classList.add('comment');
-    //     comment_line.innerHTML = c.comment + '<br>';
+        let comment_line = document.createElement('div');
+        comment_line.classList.add('comment');
+        comment_line.innerHTML = c.comment + '<br>';
 
-    //     comment_box.appendChild(userName);
-    //     comment_box.appendChild(comment_line);
+        comment_box.appendChild(userName);
+        comment_box.appendChild(comment_line);
         
-    // });
+    });
 
-    // document.body.appendChild(comment_box);
+    document.body.appendChild(comment_box);
 
     
     details.addEventListener('submit', (e) => {
@@ -145,11 +147,14 @@ let vot_docRef = doc(db2, 'Voting System', 'kanteen@gmail.com');
 onSnapshot(vot_colRef, (snapshot) => {
 
     let check = false;
+    let vote_check;
     let vendor_result = [];
     // let voteSnap = [];
     snapshot.docs.forEach((docum) => {
         if(docum.id === "kanteen@gmail.com"){
             check = true;
+            let k = 'voteyashsharma0701@outlook'
+            vote_check = docum.data()[k].vote;
             for (const key in docum.data()){
                 if(docum.data().hasOwnProperty(key)){
                     vendor_result.push(docum.data()[key].vote);
@@ -183,85 +188,120 @@ onSnapshot(vot_colRef, (snapshot) => {
     console.log(check);
 
     let upvote = document.getElementById('upvote');
-    let novote = document.getElementById('novote');
+    // let novote = document.getElementById('novote');
     let downvote = document.getElementById('downvote');
 
     upvote.addEventListener('click', (e) => {
         // e.preventDefault();
 
+
+        let user_name = 'yashsharma0701@outlook.com';
+        let vote_name = user_name.slice(0,-4);
+        let user = 'vote' + vote_name;
+        let vote_ob = {};
         
-        if(check === true){
-            let user = 'vote' + 'yoder1';
-            let vote_ob = {};
-            
-            vote_ob[user] = {
-                vote : true
-            };
-            
-            updateDoc(vot_docRef, vote_ob);
-            console.log("Upvoted & updated");
-            
-        }else{
-            let user = 'vote' + 'yoder1';
-            let vote_ob = {};
-            
-            vote_ob[user] = {
-                vote : true
-            };
+        if(vote_check != true){
+            if(check === true){
+                vote_ob[user] = {
+                    vote : true
+                };
+                
+                updateDoc(vot_docRef, vote_ob);
+                console.log("Upvoted & updated");
+                
+            }else{            
+                vote_ob[user] = {
+                    vote : true
+                };
+    
+                setDoc(vot_docRef, vote_ob);
+                console.log("Created & upvoted");
+    
+            }
+        }
+        if(vote_check === true){
+            if(check === true){
 
-            setDoc(vot_docRef, vote_ob);
-            console.log("Created & upvoted");
-
+                vote_ob[user] = {
+                    vote : deleteField()
+                };
+                
+                updateDoc(vot_docRef, {
+                    [`${user}.vote`] : deleteField()
+                });
+                console.log("Deleted & updated");
+                
+            }
         }
 
-    })
-    novote.addEventListener('click', (e) => {
-        // e.preventDefault();
-
         
-        if(check === true){
-            let user = 'vote' + 'yoder1';
-            let vote_ob = {};
-
-            vote_ob[user] = {
-                vote : deleteField()
-            };
-            
-            updateDoc(vot_docRef, {
-                [`${user}.vote`] : deleteField()
-            });
-            console.log("Deleted & updated");
-            
-        }
 
     })
+    // novote.addEventListener('click', (e) => {
+    //     // e.preventDefault();
+
+    //     let user_name = 'yashsharma0701@outlook.com';
+    //     let vote_name = user_name.slice(0,-4);
+    //     let user = 'vote' + vote_name;
+    //     let vote_ob = {};
+        
+    //     // if(check === true){
+
+    //     //     vote_ob[user] = {
+    //     //         vote : deleteField()
+    //     //     };
+            
+    //     //     updateDoc(vot_docRef, {
+    //     //         [`${user}.vote`] : deleteField()
+    //     //     });
+    //     //     console.log("Deleted & updated");
+            
+    //     // }
+
+    // })
     downvote.addEventListener('click', (e) => {
         // e.preventDefault();
 
+        let user_name = 'yashsharma0701@outlook.com';
+        let vote_name = user_name.slice(0,-4);
+        let user = 'vote' + vote_name;
+        let vote_ob = {};
         
-        if(check){
-            
-            let user = 'vote' + 'yoder1';
-            let vote_ob = {};
-            
-            vote_ob[user] = {
-                vote : false
-            };
-            updateDoc(vot_docRef, vote_ob);
-            console.log("Downvoted & updated");
-            
-        }else{
-            let user = 'vote' + 'yoder1';
-            let vote_ob = {};
-            
-            vote_ob[user] = {
-                vote : false
-            };
 
-            setDoc(vot_docRef, vote_ob);
-            console.log("Created & downvoted");
-
+        if(vote_check != false){
+            if(check){
+                vote_ob[user] = {
+                    vote : false
+                };
+                updateDoc(vot_docRef, vote_ob);
+                console.log("Downvoted & updated");
+                
+            }else{            
+                vote_ob[user] = {
+                    vote : false
+                };
+    
+                setDoc(vot_docRef, vote_ob);
+                console.log("Created & downvoted");
+    
+            }
         }
+        if(vote_check == false){
+            if(check === true){
+
+                vote_ob[user] = {
+                    vote : deleteField()
+                };
+                
+                updateDoc(vot_docRef, {
+                    [`${user}.vote`] : deleteField()
+                });
+                console.log("Deleted & updated");
+                
+            }
+        }
+
+        
 
     })
 

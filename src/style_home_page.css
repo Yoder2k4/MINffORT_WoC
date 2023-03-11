@@ -83,7 +83,6 @@
 .card-item {
     width: 382.4px;
     height: 244.517px;
-    border: 1px solid black;
     margin-bottom: 30px;
     height: 35vh;
     display: flex;
@@ -255,6 +254,7 @@
     filter: blur(20px);
     pointer-events: none;
     user-select: none;
+    overflow: hidden;
 }
 
 .card_select {
@@ -479,13 +479,18 @@
 }
 .addComment i {
     height: 69%;
-    width: 6%;
+    width: 6.5%;
+    color: white;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 2%;
     margin-top: 1%;
+    cursor: none;
+}
+#send_btn {
+    cursor: pointer;
 }
 .comment_scrollbox {
     width: 90%;
