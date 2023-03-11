@@ -243,3 +243,257 @@
     transform: scale(1.1);
     
 }
+
+
+/*----------------------------------------------------------------------*/
+
+/* MODAL DESIGN */
+
+
+/* Modal Activate */
+#card-container.active {
+    filter: blur(20px);
+    pointer-events: none;
+    user-select: none;
+}
+
+.card_select {
+    width: 80vw;
+    height: 90vh;
+    margin: 5vh 10vw;
+    background-color: white;
+    border: 2px solid black;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.536);
+    display: flex;
+    /* transition */
+    position: fixed;
+    top: 30%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.card_select.active{
+    top: 45%;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.4s;
+}
+
+/* Image Container  */
+.image_container {
+    width: 35%;
+    height: 100%;
+    border-right: 1px solid black;
+}
+
+.image_container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+
+/* Popup Container */
+.card_select_content {
+    width: 65%;
+    height: 100%;
+}
+
+
+/* Cross Button */
+.cross_btn {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+}
+.cross_btn i {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* Shop Name Box */
+.shopName_box{
+    width: 100%;
+    height: 15%;
+    padding-bottom: 1vh;
+    border-bottom: 1px solid grey;
+    display: flex;
+}
+
+.shopName_title {
+    font-size: 4rem;
+    font-weight: bold;
+    padding-left: 4%;
+    width: 81%;
+}
+
+.side {
+    width: 19%;
+}
+
+.phone_side {
+    font-size: 1.2rem;
+    width: 88%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    color: grey;
+}
+.phone_side i {
+    font-size: 1.4rem;
+}
+
+.ownerName_side {
+    font-size: 1rem;
+    display: flex;
+    width: 100%;
+    height: 50%;
+}
+.ownerName {
+    align-self: flex-end;
+}
+
+/* Info Box */
+.info_box {
+    margin-top: 1vh;
+    width: 100%;
+    height: 15%;
+    display: flex;
+
+}
+
+
+
+.address_about_box {
+    width: 50%;
+    height: 100%;
+}
+
+.address_box {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.address_title {
+    padding-left: 2vw;
+}
+.address_title i {
+    font-size: 1.8vw;
+}
+.address_inbox {
+    padding-left: 1.5vw;
+}
+
+
+.about_box {
+    height: 60%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.about_title {
+    padding-left: 2vw;
+}
+.about_title i {
+    font-size: 1.8rem;
+}
+.about_inbox {
+    padding-left: 1.5vw;
+}
+
+
+
+.status_container {
+    height: 100%;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.status_inbox {
+    font-size: 1.4rem;
+}
+.status_line {
+    font-weight: bold;
+    color: chartreuse;
+}
+
+
+
+
+
+.vote_box {
+    height: 100%;
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.vote_item {
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+}
+.voteCount {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+#arrow_up , #arrow_down {
+    font-size: 3rem;
+    line-height: 0.5;
+    cursor: pointer;
+}
+
+
+
+
+/* Comment Container */
+
+.comment_box {
+    width: 100%;
+    height: 50%;
+    margin-top: 3%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.comment_box .comment_heading {
+    align-self: flex-start;
+    padding-left: 5%;
+}
+.addComment {
+    height: 20%;
+    width: 90%;
+    display: flex;
+}
+.addComment input {
+    width: 80%;
+}
+.addComment i {
+    height: 69%;
+    width: 6%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2%;
+    margin-top: 1%;
+}
+.comment_scrollbox {
+    width: 90%;
+    height: 70%;
+    border: 1px solid grey;
+    border-radius: 5px;
+    overflow: auto;
+}
+.comment_userName {
+    font-weight: bold;
+}
