@@ -1,5 +1,18 @@
 import { initializeApp } from "firebase/app";
 
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    updateDoc
+} from 'firebase/firestore'
+
+import { 
+    getAuth,
+    onAuthStateChanged,
+    signOut 
+} from 'firebase/auth'
+
 const firebaseConfig2 = {
     apiKey: "AIzaSyCySlvJttSd0wWiKuZ83CP_lRaUNQXTcdM",
     authDomain: "minffort-woc-vendor.firebaseapp.com",
@@ -11,26 +24,9 @@ const firebaseConfig2 = {
 
 let app = initializeApp(firebaseConfig2, "vendor");
 
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
-
-let auth = getAuth(app);
-
-import {
-    getFirestore,
-    onSnapshot,
-    doc,
-    getDoc,
-    query,
-    where,
-    updateDoc
-} from 'firebase/firestore'
-
 let db = getFirestore(app);
 
-
-
-let email;
-let st;
+let auth = getAuth(app);
 
 
 let shopName = document.querySelector('#shopName');
@@ -41,38 +37,27 @@ let about = document.querySelector('#about');
 let s = document.getElementsByName('s');
 let pfp = document.getElementById('pfp');
 
-let log_out = document.getElementById('logout');
-
-log_out.addEventListener('click', () => {
-    signOut(auth)
-        .then(() => {
-            console.log("User logged out");
-            
-            window.location.replace("index.html");
-        })
-        .catch((err) => {
-            console.log(err.message);
-            console.log(err.code);
-        })
-})
 
 onAuthStateChanged(auth , (user) => {
     if (user){
         
-        email = user.email;
-
-        let update_form = document.querySelector('#details');
+        let email = user.email;
+        let st;
 
         let docRef = doc(db, 'Canteen', email);
 
         getDoc(docRef)
             .then((doc) => {
+
                 let ob = doc.data().data;
+                
+                pfp.src = doc.data().ImgURL;
+
                 shopName.value = ob.shopName;
                 ownerName.value = ob.ownerName;
                 phoneNo.value = ob.phoneNo;
                 address.value = ob.address;
-                about.value = ob.about
+                about.value = ob.about;
 
                 if(ob.status === false){
                     s[0].checked = true;
@@ -80,17 +65,18 @@ onAuthStateChanged(auth , (user) => {
                 else{
                     s[1].checked = true;
                 }
-                pfp.src = doc.data().ImgURL;
             })
+
+        let update_form = document.querySelector('#details');
 
         update_form.addEventListener('submit', (e) => {
             e.preventDefault();
 
             if(s[0].checked){
-                st = (s[0].value != 'false');
+                st = false;
             }
             if(s[1].checked){
-                st = (s[1].value === 'true');
+                st = true;
             }
             let data = {
                 shopName: update_form.shopName.value,
@@ -105,11 +91,22 @@ onAuthStateChanged(auth , (user) => {
                 .then(() => {
                     console.log("Changes saved");
                 })
-
-        });
-
-        
+        }); 
     }
 });
 
+// Log Out
+let log_out = document.getElementById('logout');
 
+log_out.addEventListener('click', () => {
+    signOut(auth)
+        .then(() => {
+            console.log("User logged out");
+            
+            window.location.replace("index.html");
+        })
+        .catch((err) => {
+            console.log(err.message);
+            console.log(err.code);
+        })
+});

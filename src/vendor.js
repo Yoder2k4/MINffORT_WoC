@@ -5,11 +5,14 @@ import {
     collection,
     onSnapshot,
     setDoc,
-    updateDoc,
     doc
 } from 'firebase/firestore'
 
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
+import { 
+    getAuth,
+    onAuthStateChanged,
+    signOut 
+} from 'firebase/auth'
 
 const firebaseConfig2 = {
     apiKey: "AIzaSyCySlvJttSd0wWiKuZ83CP_lRaUNQXTcdM",
@@ -36,24 +39,28 @@ onSnapshot(colRef, (snapshot) => {
     console.log(canteens);
 })
 
-let img_url;
 let email;
+let img_url;
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
         let add = document.querySelector('#details');
-        
-        add.addEventListener('submit', (e) => {
+        let submitForm = document.querySelector('#submitForm');
+
+        submitForm.addEventListener('click', (e) => {
             e.preventDefault();
-            
             email = user.email;
+
+            let docRef = doc(db, "Canteen", email);
+
+            // Fetching input values from Form
             let s = document.getElementsByName('s');
             let st;
             if(s[0].checked){
-                st = (s[0].value != 'false');
+                st = false;
             }
             if(s[1].checked){
-                st = (s[1].value === 'true');
+                st = true;
             }
             let data = {
                 shopName: add.shopName.value,
@@ -64,28 +71,10 @@ onAuthStateChanged(auth, (user) => {
                 status: st
             };
             
-            setDoc(doc(db, "Canteen", email), { ImgURL: img_url, data });
+            setDoc(docRef, { ImgURL: img_url, data });
         })
     }
     
-})
-
-
-//Sign Out
-
-let sign_out = document.getElementById('signout');
-
-sign_out.addEventListener('click', () => {
-    signOut(auth)
-        .then(() => {
-            // console.log("User logged out");
-            
-            window.location.replace("index.html");
-        })
-        .catch((err) => {
-            console.log(err.message);
-            console.log(err.code);
-        })
 })
 
 
@@ -93,36 +82,41 @@ sign_out.addEventListener('click', () => {
 
 import {
     getStorage,
-    ref as sRef,
+    ref,
     uploadBytesResumable,
     getDownloadURL
 } from 'firebase/storage'
 
 
-let files = [];
 let reader = new FileReader();
+// Lets users asynchronously read contents of file stored on user' pc 
+
+let files = [];
 
 let fileName;
 let pfp = document.getElementById('pfp');
 let selbtn = document.getElementById('selbtn');
-let upbtn = document.getElementById('upbtn');
 
 let ip = document.createElement('input');
 ip.type = 'file';
 
-selbtn.addEventListener('click', () => {
+selbtn.addEventListener('click', (e) => {
+    e.preventDefault();
     ip.click();
 });
 
 ip.addEventListener('change', (e) => {
     files = e.target.files;
+    // e.target.files returns a FileList, files[0] returns an object containing data about image
     fileName = files[0].name;
-    // console.log(fileName);
 
     reader.readAsDataURL(files[0]);
 });
 
-
+reader.onload = async function(){
+    pfp.src = reader.result;
+    await UploadProcess();
+}
 
 async function UploadProcess(){
     let ImgToUpload = files[0];
@@ -131,41 +125,35 @@ async function UploadProcess(){
         contentType: ImgToUpload.type
     };
     
-    console.log("Working...");
     let storage = getStorage(app);
     
-    let storageRef = sRef(storage, "pfp/"+fileName);
+    let storageRef = ref(storage, "pfp/"+fileName);
     
-    let UploadTask = uploadBytesResumable(storageRef, ImgToUpload, metaData);
-    
-    UploadTask.on('state_changed', (snapshot) => {
-        console.log("Uploading... ");
-        console.log((snapshot.bytesTransferred/snapshot.totalBytes)*100, "%" );
-    },
-    (error) => {
-        console.log("Error: Image not uploaded!!! ", error.message);
-    },
-    () => {
-        getDownloadURL(UploadTask.snapshot.ref).then((downloadURL) => {
-            img_url = downloadURL;
-            console.log(downloadURL);
-            // SaveURLtoFirestore(img_url);
+    await uploadBytesResumable(storageRef, ImgToUpload, metaData)
+        .then(async (snapshot) => {
+            console.log("Uploading... ");
+            console.log((snapshot.bytesTransferred/snapshot.totalBytes)*100, "%" );
+            await getDownloadURL(snapshot.ref).then((downloadURL) => {
+                img_url = downloadURL;
+                console.log(downloadURL);
+            })
         })
-    }   
-    )
+        .catch((err) => {
+            console.log(err.code);
+        })
+
 };
 
-reader.onload = function(){
-    pfp.src = reader.result;
-}
+//Sign Out
+let sign_out = document.getElementById('signout');
 
-upbtn.onclick = UploadProcess;
-
-// async function SaveURLtoFirestore(url){
-    
-//     let ref = doc(db, "Canteen/" , email);
-
-//     await updateDoc(ref,{
-//         ImgURL: url
-//     })
-// }
+sign_out.addEventListener('click', () => {
+    signOut(auth)
+        .then(() => {
+            window.location.replace("index.html");
+        })
+        .catch((err) => {
+            console.log(err.message);
+            console.log(err.code);
+        })
+})

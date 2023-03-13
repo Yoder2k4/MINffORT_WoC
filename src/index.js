@@ -3,8 +3,7 @@ import { initializeApp } from 'firebase/app'
 import {
     getAuth,
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    onAuthStateChanged
+    signInWithEmailAndPassword
 } from 'firebase/auth'
 
 const firebaseConfig1 = {
@@ -36,12 +35,12 @@ let auth2 = getAuth(app2);
 
 
 // Sign Up
-
 let cSignUpForm = document.getElementById('customer_signup');
 let c_signup_error = document.getElementById('c_signup_error');
 
 cSignUpForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    // browser default behaviour is to submit the form directly to the URL provided(and if not provided, submits it to the same page only), without letting any other processing part been processed
 
     let email = document.getElementById('customer_signup_email').value;
     let password = document.getElementById('customer_signup_password').value;
@@ -50,8 +49,8 @@ cSignUpForm.addEventListener('submit', (e) => {
     if (password == confirm_password) {
         createUserWithEmailAndPassword(auth1, email, password)
             .then((cred) => {
+                window.location.replace('home_page.html');
                 console.log("User Created: ", cred.user);
-                // cSignUpForm.reset();
             })
             .catch((err) => {
                 console.log(err.code);
@@ -70,11 +69,10 @@ cSignUpForm.addEventListener('submit', (e) => {
     else {
         c_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Passwords do not match.</span>";
     }
-
 })
 
-// Sign In
 
+// Sign In
 let cLogInForm = document.getElementById('customer_logInForm');
 let c_login_error = document.getElementById('c_login_error');
 
@@ -86,8 +84,8 @@ cLogInForm.addEventListener('submit', (e) => {
 
     signInWithEmailAndPassword(auth1, c_signin_email, c_signin_password)
         .then((cred) => {
-            console.log('User logged in: ', cred.user);
             window.location.replace('home_page.html');
+            console.log('User logged in: ', cred.user);
         })
         .catch((err) => {
             console.log(err.code);
@@ -105,13 +103,14 @@ cLogInForm.addEventListener('submit', (e) => {
                 c_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; Too many failed attempts. Please try again later.";
             }
         })
-
 })
 
 
 
 //FOR VENDORS
 
+
+// Sign Up
 let vSignUpForm = document.getElementById('vendor_signup');
 let v_signup_error = document.getElementById('v_signup_error');
 
@@ -145,11 +144,9 @@ vSignUpForm.addEventListener('submit', (e) => {
     else {
         v_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Passwords do not match.</span>";
     }
-
 })
 
 // Sign In
-
 let vLogInForm = document.getElementById('vendor_logInForm');
 let v_login_error = document.getElementById('v_login_error');
 
@@ -163,7 +160,6 @@ vLogInForm.addEventListener('submit', (e) => {
         .then((cred) => {
             console.log('User logged in: ', cred.user);
             window.location.replace("vendor-login-form.html");
-
         })
         .catch((err) => {
             console.log(err.code);
@@ -182,17 +178,4 @@ vLogInForm.addEventListener('submit', (e) => {
             }
         })
 
-})
-
-
-
-// Redirecting to different page
-
-onAuthStateChanged(auth2, (user) => {
-    if(user){
-        window.location.replace("vendor-signup-form.html");
-    }
-    else{
-        console.log("Vendor-login to index");
-    }
 })

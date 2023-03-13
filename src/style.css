@@ -43,34 +43,29 @@ h3,h4,h5 {
     align-items: center;
 }
 
-.hedor{
-    font-weight: 900;
-    text-shadow: 4px 4px rgba(195, 222, 255, 0.26);
-}
-
-
 
 /* Brand Title */
 
 #logo{
     font-size: 5rem;
 }
-
-
-#brand_name_p1, #brand_name_p2, #brand_name_p3{
+.hedor{
+    font-weight: 900;
+    text-shadow: 4px 4px rgba(195, 222, 255, 0.26);
+}
+#brand_name_p1, #brand_name_p3{
     color: white;
     font-size: 6.4rem;
     margin: 0 0;
-    width: 20px;
 }
 #brand_name_p2{
     color: #F85A3E;
     font-size: 5rem;
+    margin: 0 0;
     text-shadow: 4px 4px #f43210ac ;
 }
 #brand_name_p4{
     color: #fe2600;
-    
 }
 
 
@@ -97,6 +92,7 @@ h3,h4,h5 {
 }
 
 
+
 /* Auth Column */
 
 #signin_box{
@@ -107,14 +103,12 @@ h3,h4,h5 {
 #customer_login {
     width: 100%;
     padding: 0;
-    height: 84.6vh;
-    
+    height: 84.6vh;   
 }
 #vendor_login {
     width: 100%;
     padding: 0;
     height: 84.6vh;
-    
 }
 
 
@@ -124,7 +118,6 @@ h3,h4,h5 {
     width: 100%;
     height: 5.4vh;
 }
-
 #tab .col.s12 {
     margin: 0;
     padding: 0;
@@ -138,6 +131,9 @@ h3,h4,h5 {
 
 /* Input Boxes */
 
+.one-1 {
+    height: 77vh;
+}
 .one-1 h3{
     font-weight: bold; 
     padding-top: 10vh; 
@@ -162,10 +158,6 @@ h3,h4,h5 {
 .title {
     text-align: center;
 }
-
-.one-1 {
-    height: 77vh;
-}
 .type1{
     padding: 0 15px;
     border: 1px solid black;
@@ -173,8 +165,6 @@ h3,h4,h5 {
     width: 22vw;
     background-color: rgba(234, 230, 230, 0.69);
 }
-
-
 
 input:not([type]), input[type="text"]:not(.browser-default), input[type="password"]:not(.browser-default), input[type="email"]:not(.browser-default), input[type="url"]:not(.browser-default), input[type="time"]:not(.browser-default), input[type="date"]:not(.browser-default), input[type="datetime"]:not(.browser-default), input[type="datetime-local"]:not(.browser-default), input[type="tel"]:not(.browser-default), input[type="number"]:not(.browser-default), input[type="search"]:not(.browser-default), textarea.materialize-textarea{
     border-bottom: 0;
@@ -211,7 +201,6 @@ input:not([type]), input[type="text"]:not(.browser-default), input[type="passwor
     display: flex;
     justify-content: center;
     align-items: center;
-    align-content: center;
 }
 #v_login_error {
     height: 5vh;
@@ -222,7 +211,6 @@ input:not([type]), input[type="text"]:not(.browser-default), input[type="passwor
     display: flex;
     justify-content: center;
     align-items: center;
-    align-content: center;
 }
 #c_signup_error {
     height: 4vh;
@@ -233,7 +221,6 @@ input:not([type]), input[type="text"]:not(.browser-default), input[type="passwor
     display: flex;
     justify-content: center;
     align-items: center;
-    align-content: center;
 }
 #v_signup_error {
     height: 4vh;
@@ -244,10 +231,7 @@ input:not([type]), input[type="text"]:not(.browser-default), input[type="passwor
     display: flex;
     justify-content: center;
     align-items: center;
-    align-content: center;
 }
-
-
 
 
 

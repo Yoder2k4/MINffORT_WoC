@@ -14,7 +14,6 @@ import {
     updateDoc,
     serverTimestamp,
     onSnapshot,
-    query,
     deleteField
 } from 'firebase/firestore'
 
@@ -41,41 +40,41 @@ let app2 = initializeApp(firebaseConfig2, "vendor");
 
 let auth1 = getAuth(app1);
 
-
-// let db1 = getFirestore(app1);
 let db2 = getFirestore(app2);
 
 
 onAuthStateChanged(auth1, (user) => {
 
-    // if user is authenticated
+    // If user is authenticated
     if (user) {
         let customer_email = user.email;
         let colRef = collection(db2, 'Canteen');
         let canteens = [];
 
-        // whenever any data chages
+        // Whenever any data changes
         onSnapshot(colRef, (snapshot) => {
+
             snapshot.docs.forEach((doc) => {
                 canteens.push({ ...doc.data(), id: doc.id })
             })
 
-            // remove the container
-            let container_remove = document.getElementById('card-container');
-            container_remove.remove();
+            // Remove the container ( to refresh page after each snapshot )
+            let card_container_remove = document.getElementById('card-container');
+           card_container_remove.remove();
 
-            // draw new container
+            // Draw new container
             let card_container = document.createElement('div');
             card_container.setAttribute('id', 'card-container');
             card_container.setAttribute('class', 'blur');
             document.body.appendChild(card_container);
 
-            // draw card for each canteen
+
+            // Draw card for each canteen
             canteens.forEach((canteen) => {
+                
                 // Fetching data from firestore
                 let card_id = canteen.id;
                 let v_name = canteen.data.shopName;
-                let o_name = canteen.data.ownerName;
                 let v_address = canteen.data.address;
                 let v_about = canteen.data.about;
                 let v_phone = canteen.data.phoneNo;
@@ -87,7 +86,6 @@ onAuthStateChanged(auth1, (user) => {
                     v_status = "CLOSE";
                 }
                 let img_src = canteen.ImgURL;
-
 
 
                 // Card Overall
@@ -117,7 +115,7 @@ onAuthStateChanged(auth1, (user) => {
                 vendor_name_box.classList.add('vendor_name_box');
                 let vendor_name = document.createElement('span');
                 vendor_name.classList.add('vendor_name');
-                vendor_name.innerHTML = v_name;
+                vendor_name.innerText = v_name;
                 vendor_name_box.appendChild(vendor_name);
 
                 content.appendChild(vendor_name_box);
@@ -131,13 +129,13 @@ onAuthStateChanged(auth1, (user) => {
                 box_title_a.classList.add('box_title_a');
                 let i_home = document.createElement('i');
                 i_home.classList.add('material-icons');
-                i_home.innerHTML = "home";
+                i_home.innerText = "home";
                 box_title_a.appendChild(i_home);
                 let address = document.createElement('span');
                 address.classList.add('address');
-                let address_innerTEXT = document.createElement('span');
-                address_innerTEXT.innerHTML = v_address;
-                address.appendChild(address_innerTEXT);
+                let address_inside_text = document.createElement('span');
+                address_inside_text.innerText = v_address;
+                address.appendChild(address_inside_text);
                 vendor_address_box.appendChild(box_title_a);
                 vendor_address_box.appendChild(address);
 
@@ -153,29 +151,29 @@ onAuthStateChanged(auth1, (user) => {
                 box_title_d.classList.add('box_title_d');
                 let i_description = document.createElement('i');
                 i_description.classList.add('material-icons');
-                i_description.innerHTML = "description";
+                i_description.innerText = "description";
                 box_title_d.appendChild(i_description);
                 let description = document.createElement('span');
                 description.classList.add('description');
-                let description_innerTEXT = document.createElement('span');
-                description_innerTEXT.innerHTML = v_about;
-                description.appendChild(description_innerTEXT);
+                let description_inside_text = document.createElement('span');
+                description_inside_text.innerText = v_about;
+                description.appendChild(description_inside_text);
                 vendor_description_box.appendChild(box_title_d);
                 vendor_description_box.appendChild(description);
 
                 content.appendChild(vendor_description_box);
 
 
-                // Status Box
+                // Status_side_text
 
                 let status_box = document.createElement('div');
                 status_box.classList.add('status_box');
                 let status = document.createElement('span');
                 status.classList.add('status');
-                status.innerHTML = "Status: ";
+                status.innerText = "Status: ";
                 let open_close = document.createElement('span');
                 open_close.classList.add('open-close');
-                open_close.innerHTML = v_status;
+                open_close.innerText = v_status;
                 if (v_status === "OPEN") {
                     open_close.style.color = "chartreuse";
                 }
@@ -194,33 +192,39 @@ onAuthStateChanged(auth1, (user) => {
                 phoneNo_box.classList.add('phoneNo_box');
                 let phone_label = document.createElement('span');
                 phone_label.classList.add('phone_label');
-                phone_label.innerHTML = "Phone No.";
+                phone_label.innerText = "Phone No.";
                 let phoneNo = document.createElement('span');
                 phoneNo.classList.add('phoneNo');
                 let i_phone = document.createElement('i');
                 i_phone.classList.add('material-icons');
-                i_phone.innerHTML = "call";
+                i_phone.innerText = "call";
                 phoneNo.appendChild(i_phone);
-                let phone_innerTEXT = document.createElement('span');
-                phone_innerTEXT.innerHTML = ' ' + v_phone;
+                let phone_inside_text = document.createElement('span');
+                phone_inside_text.innerText = ' ' + v_phone;
 
-                phoneNo.appendChild(phone_innerTEXT);
+                phoneNo.appendChild(phone_inside_text);
                 phoneNo_box.appendChild(phone_label);
                 phoneNo_box.appendChild(phoneNo);
                 content.appendChild(phoneNo_box);
                 card_item.appendChild(content);
                 card_item.appendChild(image);
 
+
+                // Appending every value to Card Container
                 card_container.appendChild(card_item);
             });
 
             let card_item = document.getElementsByClassName('card-item');
+
+            // Initializing card close button as null 
             let closeBTN = null;
 
             Array.from(card_item).forEach((item) => {
 
-                // to toggle canteen modal
+                // to make modal structure and toggle canteen info
                 item.addEventListener('click', () => {
+
+                    // To refresh modal after selecting another card
                     let card_select_remove = document.querySelector('.card_select');
                     if (card_select_remove != null) {
                         card_select_remove.remove();
@@ -241,13 +245,14 @@ onAuthStateChanged(auth1, (user) => {
                     card_select_content.classList.add('card_select_content');
                     card_select.appendChild(card_select_content);
 
+                    // Close Button 
                     let cross_btn = document.createElement('span');
                     cross_btn.classList.add('cross_btn');
 
                     let close_icon = document.createElement('i');
                     close_icon.classList.add('material-icons');
                     close_icon.setAttribute('id', 'closeBTN');
-                    close_icon.innerHTML = "close";
+                    close_icon.innerText = "close";
                     cross_btn.appendChild(close_icon);
                     card_select_content.appendChild(cross_btn);
 
@@ -268,11 +273,11 @@ onAuthStateChanged(auth1, (user) => {
 
                     let call_icon = document.createElement('i');
                     call_icon.classList.add('material-icons');
-                    call_icon.innerHTML = "call";
+                    call_icon.innerText = "call";
 
-                    let phoneNo_innerTEXT = document.createElement('span');
+                    let phoneNo_inside_text = document.createElement('span');
                     phone_side.appendChild(call_icon);
-                    phone_side.appendChild(phoneNo_innerTEXT);
+                    phone_side.appendChild(phoneNo_inside_text);
                     side.appendChild(phone_side);
         
                     let ownerName_side = document.createElement('span');
@@ -298,7 +303,7 @@ onAuthStateChanged(auth1, (user) => {
                     let arrow_up = document.createElement('i');
                     arrow_up.classList.add('material-icons');
                     arrow_up.setAttribute('id', 'arrow_up');
-                    arrow_up.innerHTML = "arrow_drop_up";
+                    arrow_up.innerText = "arrow_drop_up";
                     vote_item.appendChild(arrow_up);
         
                     let voteCount = document.createElement('span');
@@ -308,7 +313,7 @@ onAuthStateChanged(auth1, (user) => {
                     let arrow_down = document.createElement('i');
                     arrow_down.classList.add('material-icons');
                     arrow_down.setAttribute('id', 'arrow_down');
-                    arrow_down.innerHTML = "arrow_drop_down";
+                    arrow_down.innerText = "arrow_drop_down";
                     vote_item.appendChild(arrow_down);
         
         
@@ -318,7 +323,7 @@ onAuthStateChanged(auth1, (user) => {
         
                     let status_inbox = document.createElement('span');
                     status_inbox.classList.add('status_inbox');
-                    status_inbox.innerHTML = "Status: ";
+                    status_inbox.innerText = "Status: ";
 
                     let status_line = document.createElement('span');
                     status_line.classList.add('status_line');
@@ -339,7 +344,7 @@ onAuthStateChanged(auth1, (user) => {
         
                     let home_icon = document.createElement('i');
                     home_icon.classList.add('material-icons');
-                    home_icon.innerHTML = "home";
+                    home_icon.innerText = "home";
                     address_title.appendChild(home_icon);
         
                     let address_inbox = document.createElement('span');
@@ -360,7 +365,7 @@ onAuthStateChanged(auth1, (user) => {
 
                     let description_icon = document.createElement('i');
                     description_icon.classList.add('material-icons');
-                    description_icon.innerHTML = "description";
+                    description_icon.innerText = "description";
                     about_title.appendChild(description_icon);
 
                     let about_inbox = document.createElement('span');
@@ -380,7 +385,7 @@ onAuthStateChanged(auth1, (user) => {
                     comment_box.appendChild(comment_heading);
 
                     let h5 = document.createElement('h5');
-                    h5.innerHTML = "Comments: ";
+                    h5.innerText = "Comments: ";
                     comment_heading.appendChild(h5);
 
                     let comment_scrollbox = document.createElement('span');
@@ -400,12 +405,13 @@ onAuthStateChanged(auth1, (user) => {
                     person_icon.classList.add('material-icons');
                     person_icon.classList.add('circle');
                     person_icon.classList.add('indigo');
-                    person_icon.innerHTML = "person";
+                    person_icon.innerText = "person";
                     addComment.appendChild(person_icon);
 
                     let input = document.createElement('input');
                     input.setAttribute('type', 'text');
                     input.setAttribute('placeholder', 'Add a comment...');
+                    input.setAttribute('id', 'comment_value');
                     addComment.appendChild(input);
 
                     let send_btn = document.createElement('i');
@@ -413,15 +419,15 @@ onAuthStateChanged(auth1, (user) => {
                     send_btn.classList.add('circle');
                     send_btn.classList.add('cyan');
                     send_btn.setAttribute('id', 'send_btn');
-                    send_btn.innerHTML = "send";
+                    send_btn.innerText = "send";
                     addComment.appendChild(send_btn);
 
                     canteens.forEach((canteen) => {
                         if (canteen.id === item.id) {
                             image.src = canteen.ImgURL;
-                            shopName_title.innerHTML = canteen.data.shopName;
-                            phoneNo_innerTEXT.innerHTML = canteen.data.phoneNo;
-                            ownerName.innerHTML = canteen.data.ownerName;
+                            shopName_title.innerText = canteen.data.shopName;
+                            phoneNo_inside_text.innerText = canteen.data.phoneNo;
+                            ownerName.innerText = canteen.data.ownerName;
 
                             let s = canteen.data.status;
                             let v_status;
@@ -432,7 +438,7 @@ onAuthStateChanged(auth1, (user) => {
                                 v_status = "CLOSE";
                             }
 
-                            status_line.innerHTML = v_status;
+                            status_line.innerText = v_status;
 
                             if (v_status === "OPEN") {
                                 status_line.style.color = "chartreuse";
@@ -442,8 +448,9 @@ onAuthStateChanged(auth1, (user) => {
                                 status_line.style.color = "red";
                             }
 
-                            address_line.innerHTML = canteen.data.address;
-                            about_line.innerHTML = canteen.data.about;
+                            address_line.innerText = canteen.data.address;
+                            about_line.innerText = canteen.data.about;
+
 
                             // Voting System
 
@@ -458,6 +465,7 @@ onAuthStateChanged(auth1, (user) => {
 
                                 let voter = 'vote' + customer_email.slice(0, -4);
 
+                                // Checking if the voter exists in the database or 1st time voter + fetching vote data
                                 snapshot.docs.forEach((docum) => {
                                     if (docum.id === item.id) {
                                         check = true;
@@ -470,9 +478,9 @@ onAuthStateChanged(auth1, (user) => {
                                     }
                                 })
 
+                                // Calculating Net Vote
                                 let result = 0;
-                                let i = 0;
-                                for (i = 0; i < vendor_result.length; i++) {
+                                for (let i = 0; i < vendor_result.length; i++) {
                                     if (vendor_result[i] === true) {
                                         result += 1;
                                     }
@@ -480,9 +488,8 @@ onAuthStateChanged(auth1, (user) => {
                                         result -= 1;
                                     }
                                 }
-
                                 let voteCount = document.querySelector('.voteCount');
-                                voteCount.innerHTML = result;
+                                voteCount.innerText = result;
 
 
                                 let arrow_up = document.getElementById('arrow_up');
@@ -490,12 +497,14 @@ onAuthStateChanged(auth1, (user) => {
 
                                 if (vote_check === true) {
                                     arrow_up.style.color = "orange";
+                                    arrow_down.style.color = "black";
                                 }
                                 if (vote_check == undefined) {
-                                    arrow_down.style.color = "black";
                                     arrow_up.style.color = "black";
+                                    arrow_down.style.color = "black";
                                 }
                                 if (vote_check === false) {
+                                    arrow_up.style.color = "black";
                                     arrow_down.style.color = "orange";
                                 }
 
@@ -604,23 +613,51 @@ onAuthStateChanged(auth1, (user) => {
                                     i_person.classList.add('material-icons');
                                     i_person.classList.add('circle');
                                     i_person.classList.add('cyan');
-                                    i_person.innerHTML = "person";
+                                    i_person.innerText = "person";
                                     collection_item.appendChild(i_person);
 
                                     let comment_username = document.createElement('span');
                                     comment_username.classList.add('title');
                                     comment_username.classList.add('comment_username');
                                     comment_username.setAttribute('style', 'font-weight: bold;')
-                                    comment_username.innerHTML = c.username;
+                                    comment_username.innerText = c.username;
                                     collection_item.appendChild(comment_username);
 
                                     let comment_line = document.createElement('p');
                                     comment_line.classList.add('comment_line');
-                                    comment_line.innerHTML = c.comment;
+                                    comment_line.innerText = c.comment;
                                     collection_item.appendChild(comment_line);
 
 
                                 })
+
+
+
+                                // Commenting
+                                let comment_btn = document.getElementById('send_btn');
+                                
+                                if(comment_btn != null){
+                                    comment_btn.addEventListener('click', () => {
+                                        let comment_value = document.getElementById('comment_value').value;
+                                        let map_name = 'comment' + customer_email.slice(0,5) + comment_value;
+                                        console.log(map_name);
+                                        let comment_ob = {};
+                                        comment_ob[map_name] = {
+                                            username: customer_email,
+                                            comment: comment_value,
+                                            createdAt: serverTimestamp()
+                                        };
+                                        if(check){
+                                            updateDoc(com_docRef, comment_ob);
+                                            console.log('Updated comments');
+                                        }
+                                        else{
+                                            setDoc(com_docRef, comment_ob);
+                                            console.log("Created comments");
+                                        }
+                                    });
+                                }
+
 
                             });
 
@@ -651,6 +688,7 @@ onAuthStateChanged(auth1, (user) => {
                             }
                         });
                     }
+
                 });
             });
         })
