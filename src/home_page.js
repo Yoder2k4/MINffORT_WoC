@@ -12,9 +12,11 @@ import {
     doc,
     setDoc,
     updateDoc,
-    serverTimestamp,
     onSnapshot,
-    deleteField
+    deleteField,
+    getDoc,
+    getDocs,
+    serverTimestamp
 } from 'firebase/firestore'
 
 const firebaseConfig1 = {
@@ -60,7 +62,7 @@ onAuthStateChanged(auth1, (user) => {
 
             // Remove the container ( to refresh page after each snapshot )
             let card_container_remove = document.getElementById('card-container');
-           card_container_remove.remove();
+            card_container_remove.remove();
 
             // Draw new container
             let card_container = document.createElement('div');
@@ -71,7 +73,7 @@ onAuthStateChanged(auth1, (user) => {
 
             // Draw card for each canteen
             canteens.forEach((canteen) => {
-                
+
                 // Fetching data from firestore
                 let card_id = canteen.id;
                 let v_name = canteen.data.shopName;
@@ -216,9 +218,6 @@ onAuthStateChanged(auth1, (user) => {
 
             let card_item = document.getElementsByClassName('card-item');
 
-            // Initializing card close button as null 
-            let closeBTN = null;
-
             Array.from(card_item).forEach((item) => {
 
                 // to make modal structure and toggle canteen info
@@ -229,7 +228,7 @@ onAuthStateChanged(auth1, (user) => {
                     if (card_select_remove != null) {
                         card_select_remove.remove();
                     }
-        
+
                     let card_select = document.createElement('div');
                     card_select.classList.add('card_select');
                     card_select.setAttribute('id', 'popup');
@@ -267,7 +266,7 @@ onAuthStateChanged(auth1, (user) => {
                     let side = document.createElement('span');
                     side.classList.add('side');
                     shopName_box.appendChild(side);
-        
+
                     let phone_side = document.createElement('span');
                     phone_side.classList.add('phone_side');
 
@@ -279,7 +278,7 @@ onAuthStateChanged(auth1, (user) => {
                     phone_side.appendChild(call_icon);
                     phone_side.appendChild(phoneNo_inside_text);
                     side.appendChild(phone_side);
-        
+
                     let ownerName_side = document.createElement('span');
                     ownerName_side.classList.add('ownerName_side');
 
@@ -299,28 +298,28 @@ onAuthStateChanged(auth1, (user) => {
                     let vote_item = document.createElement('span');
                     vote_item.classList.add('vote_item');
                     vote_box.appendChild(vote_item);
-        
+
                     let arrow_up = document.createElement('i');
                     arrow_up.classList.add('material-icons');
                     arrow_up.setAttribute('id', 'arrow_up');
                     arrow_up.innerText = "arrow_drop_up";
                     vote_item.appendChild(arrow_up);
-        
+
                     let voteCount = document.createElement('span');
                     voteCount.classList.add('voteCount');
                     vote_item.appendChild(voteCount);
-        
+
                     let arrow_down = document.createElement('i');
                     arrow_down.classList.add('material-icons');
                     arrow_down.setAttribute('id', 'arrow_down');
                     arrow_down.innerText = "arrow_drop_down";
                     vote_item.appendChild(arrow_down);
-        
-        
+
+
                     let status_container = document.createElement('div');
                     status_container.classList.add('status_container');
                     info_box.appendChild(status_container);
-        
+
                     let status_inbox = document.createElement('span');
                     status_inbox.classList.add('status_inbox');
                     status_inbox.innerText = "Status: ";
@@ -333,24 +332,24 @@ onAuthStateChanged(auth1, (user) => {
                     let address_about_box = document.createElement('div');
                     address_about_box.classList.add('address_about_box');
                     info_box.appendChild(address_about_box);
-        
+
                     let address_box = document.createElement('div');
                     address_box.classList.add('address_box');
                     address_about_box.appendChild(address_box);
-        
+
                     let address_title = document.createElement('span');
                     address_title.classList.add('address_title');
                     address_box.appendChild(address_title);
-        
+
                     let home_icon = document.createElement('i');
                     home_icon.classList.add('material-icons');
                     home_icon.innerText = "home";
                     address_title.appendChild(home_icon);
-        
+
                     let address_inbox = document.createElement('span');
                     address_inbox.classList.add('address_inbox');
                     address_box.appendChild(address_inbox);
-        
+
                     let address_line = document.createElement('span');
                     address_line.classList.add('address_line');
                     address_inbox.appendChild(address_line);
@@ -422,7 +421,7 @@ onAuthStateChanged(auth1, (user) => {
                     send_btn.innerText = "send";
                     addComment.appendChild(send_btn);
 
-                    canteens.forEach((canteen) => {
+                    canteens.forEach(async (canteen) => {
                         if (canteen.id === item.id) {
                             image.src = canteen.ImgURL;
                             shopName_title.innerText = canteen.data.shopName;
@@ -467,9 +466,14 @@ onAuthStateChanged(auth1, (user) => {
 
                                 // Checking if the voter exists in the database or 1st time voter + fetching vote data
                                 snapshot.docs.forEach((docum) => {
+                                    // taking the chosen canteen
                                     if (docum.id === item.id) {
                                         check = true;
-                                        vote_check = docum.data()[voter].vote;
+                                        if(docum.data()[voter] != undefined){
+                                            // voter exists
+                                            vote_check = docum.data()[voter].vote;
+                                        }
+
                                         for (const key in docum.data()) {
                                             if (docum.data().hasOwnProperty(key)) {
                                                 vendor_result.push(docum.data()[key].vote);
@@ -510,64 +514,50 @@ onAuthStateChanged(auth1, (user) => {
 
                                 arrow_up.addEventListener('click', () => {
                                     let vote_ob = {};
+                                    vote_ob[voter] = {
+                                        vote: true
+                                    };
 
                                     if (vote_check != true) {
                                         if (check === true) {
-                                            vote_ob[voter] = {
-                                                vote: true
-                                            };
                                             updateDoc(vot_docRef, vote_ob);
                                         }
                                         else {
-                                            vote_ob[voter] = {
-                                                vote: true
-                                            };
                                             setDoc(vot_docRef, vote_ob);
                                         }
                                     }
 
                                     if (vote_check === true) {
                                         if (check === true) {
-                                            vote_ob[voter] = {
-                                                vote: deleteField()
-                                            };
                                             updateDoc(vot_docRef, {
                                                 [`${voter}.vote`]: deleteField()
                                             });
                                         }
                                     }
-
                                 });
 
                                 arrow_down.addEventListener('click', () => {
                                     let vote_ob = {};
+                                    vote_ob[voter] = {
+                                        vote: false
+                                    };
 
                                     if (vote_check != false) {
                                         if (check === true) {
-                                            vote_ob[voter] = {
-                                                vote: false
-                                            };
                                             updateDoc(vot_docRef, vote_ob);
                                         }
                                         else {
-                                            vote_ob[voter] = {
-                                                vote: false
-                                            };
                                             setDoc(vot_docRef, vote_ob);
                                         }
                                     }
 
                                     if (vote_check === false) {
                                         if (check === true) {
-                                            vote_ob[voter] = {
-                                                vote: deleteField()
-                                            };
                                             updateDoc(vot_docRef, {
                                                 [`${voter}.vote`]: deleteField()
                                             });
                                         }
                                     }
-
                                 });
 
                             })
@@ -577,118 +567,210 @@ onAuthStateChanged(auth1, (user) => {
                             let com_colRef = collection(db2, 'Comment System');
                             let com_docRef = doc(db2, 'Comment System', item.id);
 
+                            // Fetching comments 
                             let vendor_comments = [];
-                            onSnapshot(com_colRef, (snapshot) => {
-                                let check = false;
-                                snapshot.docs.forEach((docum) => {
-                                    if (docum.id === item.id) {
-                                        check = true;
-
-                                        for (const key in docum.data()) {
-                                            if (docum.data().hasOwnProperty(key)) {
-                                                vendor_comments.push(docum.data()[key]);
+                            let check = false;
+                            await getDocs(com_colRef)
+                                .then((snapshot) => {
+                                    snapshot.docs.forEach((docum) => {
+                                        if (docum.id === item.id) {
+                                            check = true;
+                                            for (const key in docum.data()) {
+                                                if (docum.data().hasOwnProperty(key)) {
+                                                    vendor_comments.push(docum.data()[key]);
+                                                }
                                             }
                                         }
-
-                                    }
+                                    })
                                 })
-                                console.log(vendor_comments);
 
+                            // Commenting
+                            let comment_btn = document.getElementById('send_btn');
+                            if (comment_btn != null) {
+                                comment_btn.addEventListener('click', (e) => {
+                                    e.preventDefault();
 
+                                    let comment_value = document.getElementById('comment_value').value;
+                                    let map_name = 'comment' + customer_email.slice(0, -4) + comment_value;
+                                    let comment_ob = {};
+                                    comment_ob[map_name] = {
+                                        username: customer_email,
+                                        comment: comment_value,
+                                        createdAt: serverTimestamp()
+                                    };
+                                    if (check) {
+                                        updateDoc(com_docRef, comment_ob);
+                                        console.log('Updated comments');
+                                    }
+                                    else {
+                                        setDoc(com_docRef, comment_ob);
+                                        console.log("Created comments");
+                                    }
 
-                                vendor_comments.forEach((c) => {
-
-                                    let collection_box = document.createElement('ul');
-                                    collection_box.classList.add('collection');
-                                    collection_box.setAttribute('id', 'comment_collection');
-                                    comment_scrollbox.appendChild(collection_box);
-
-
+                                    // Appending to Local List
                                     let collection_item = document.createElement('li');
                                     collection_item.classList.add('collection-item');
                                     collection_item.classList.add('avatar');
                                     collection_box.appendChild(collection_item);
-
+                                    
                                     let i_person = document.createElement('i');
                                     i_person.classList.add('material-icons');
                                     i_person.classList.add('circle');
                                     i_person.classList.add('cyan');
                                     i_person.innerText = "person";
                                     collection_item.appendChild(i_person);
-
+                                    
                                     let comment_username = document.createElement('span');
                                     comment_username.classList.add('title');
                                     comment_username.classList.add('comment_username');
                                     comment_username.setAttribute('style', 'font-weight: bold;')
-                                    comment_username.innerText = c.username;
+                                    comment_username.innerText = customer_email;
                                     collection_item.appendChild(comment_username);
-
+                                    
                                     let comment_line = document.createElement('p');
                                     comment_line.classList.add('comment_line');
-                                    comment_line.innerText = c.comment;
+                                    comment_line.innerText = comment_value;
                                     collection_item.appendChild(comment_line);
+                                });
+                            }
 
+                            // Appending each comment to ul
+                            vendor_comments.forEach((c) => {
 
-                                })
+                                let collection_item = document.createElement('li');
+                                collection_item.classList.add('collection-item');
+                                collection_item.classList.add('avatar');
+                                collection_box.appendChild(collection_item);
 
+                                let i_person = document.createElement('i');
+                                i_person.classList.add('material-icons');
+                                i_person.classList.add('circle');
+                                i_person.classList.add('cyan');
+                                i_person.innerText = "person";
+                                collection_item.appendChild(i_person);
 
+                                let comment_username = document.createElement('span');
+                                comment_username.classList.add('title');
+                                comment_username.classList.add('comment_username');
+                                comment_username.setAttribute('style', 'font-weight: bold;')
+                                comment_username.innerText = c.username;
+                                collection_item.appendChild(comment_username);
 
-                                // Commenting
-                                let comment_btn = document.getElementById('send_btn');
-                                
-                                if(comment_btn != null){
-                                    comment_btn.addEventListener('click', () => {
-                                        let comment_value = document.getElementById('comment_value').value;
-                                        let map_name = 'comment' + customer_email.slice(0,5) + comment_value;
-                                        console.log(map_name);
-                                        let comment_ob = {};
-                                        comment_ob[map_name] = {
-                                            username: customer_email,
-                                            comment: comment_value,
-                                            createdAt: serverTimestamp()
-                                        };
-                                        if(check){
-                                            updateDoc(com_docRef, comment_ob);
-                                            console.log('Updated comments');
-                                        }
-                                        else{
-                                            setDoc(com_docRef, comment_ob);
-                                            console.log("Created comments");
-                                        }
-                                    });
-                                }
+                                let comment_line = document.createElement('p');
+                                comment_line.classList.add('comment_line');
+                                comment_line.innerText = c.comment;
+                                collection_item.appendChild(comment_line);
 
+                            })
 
-                            });
+                            // onSnapshot(com_colRef, (snapshot) => {
+                            //     let vendor_comments = [];
+                            //     let check = false;
+                            //     snapshot.docs.forEach((docum) => {
+                            //         if (docum.id === item.id) {
+                            //             check = true;
 
+                            //             for (const key in docum.data()) {
+                            //                 if (docum.data().hasOwnProperty(key)) {
+                            //                     vendor_comments.push(docum.data()[key]);
+                            //                 }
+                            //             } 
+                            //         }
+                            //     })
 
+                            //     // Commenting
+                            //     let comment_btn = document.getElementById('send_btn');
+                            //     if(comment_btn != null){
+                            //         comment_btn.addEventListener('click', (e) => {
+                            //             e.preventDefault();
+
+                            //             let collection_box_remove = document.getElementById("comment_collection");
+                            //             collection_box_remove.remove();
+
+                            //             let collection_box = document.createElement('ul');
+                            //             collection_box.classList.add('collection');
+                            //             collection_box.setAttribute('id', 'comment_collection');
+                            //             comment_scrollbox.appendChild(collection_box);
+
+                            //             let comment_value = document.getElementById('comment_value').value;
+                            //             let map_name = 'comment' + customer_email.slice(0,5) + comment_value;
+                            //             let comment_ob = {};
+                            //             comment_ob[map_name] = {
+                            //                 username: customer_email,
+                            //                 comment: comment_value
+                            //             };
+                            //             if(check){
+                            //                 updateDoc(com_docRef, comment_ob);
+                            //                 console.log('Updated comments');
+                            //             }
+                            //             else{
+                            //                 setDoc(com_docRef, comment_ob);
+                            //                 console.log("Created comments");
+                            //             }
+                            //         });
+                            //     }
+
+                            //     // Appending each comment to ul
+                            //     vendor_comments.forEach((c) => {
+
+                            //         console.log("ul in the making");
+
+                            //         let collection_item = document.createElement('li');
+                            //         collection_item.classList.add('collection-item');
+                            //         collection_item.classList.add('avatar');
+                            //         collection_box.appendChild(collection_item);
+
+                            //         let i_person = document.createElement('i');
+                            //         i_person.classList.add('material-icons');
+                            //         i_person.classList.add('circle');
+                            //         i_person.classList.add('cyan');
+                            //         i_person.innerText = "person";
+                            //         collection_item.appendChild(i_person);
+
+                            //         let comment_username = document.createElement('span');
+                            //         comment_username.classList.add('title');
+                            //         comment_username.classList.add('comment_username');
+                            //         comment_username.setAttribute('style', 'font-weight: bold;')
+                            //         comment_username.innerText = c.username;
+                            //         collection_item.appendChild(comment_username);
+
+                            //         let comment_line = document.createElement('p');
+                            //         comment_line.classList.add('comment_line');
+                            //         comment_line.innerText = c.comment;
+                            //         collection_item.appendChild(comment_line);
+
+                            //     })
+                            // });
 
                         }
                     })
 
+                    // To make background blur
                     let card_container = document.getElementById('card-container');
                     card_container.classList.toggle('active');
 
-                    // draw the canteen modal
+                    // Draw the canteen modal
                     document.body.appendChild(card_select);
 
                     let popup = document.getElementById('popup');
                     popup.classList.toggle('active');
 
-                    closeBTN = document.getElementById('closeBTN');
+                    // Initializing card close button as null 
+                    let closeBTN = document.getElementById('closeBTN');
 
                     if (closeBTN != null) {
                         closeBTN.addEventListener('click', () => {
+                            // To unblur background
                             let card_container = document.getElementById('card-container');
                             card_container.classList.toggle('active');
-            
+
+                            // To refresh Modal for another selection of card
                             let card_select_remove = document.querySelector('.card_select');
                             if (card_select_remove != null) {
                                 card_select_remove.remove();
                             }
                         });
                     }
-
                 });
             });
         })

@@ -6,11 +6,8 @@
 
 .navbar{
     height: 12vh;
-    position: sticky
-    ;
+    position: sticky;
     background-image: linear-gradient(to bottom, #84f4d2, white,#84f4d2);
-
-
 }
 
 
@@ -28,26 +25,13 @@
 
 
 #brand_title1, #brand_title2, #brand_title3{
-    /* position: absolute; */
     font-weight: bold;
 }
-
-/* #brand_title1{
-    left: 18%;
-}
-#brand_title2{
-    left: 45%;
-    margin-top: 17px;
-}
-#brand_title3{
-    left: 54%;
-} */
 
 #brand_title1, #brand_title3{
     font-size: 4rem;
     color: black;
     text-shadow: 3px 3px rgba(0, 0, 0, 0.51);
-    /* margin-top: 10px; */
 }
 
 #brand_title2{
@@ -366,8 +350,6 @@
 
 }
 
-
-
 .address_about_box {
     width: 50%;
     height: 100%;
@@ -468,6 +450,9 @@
 .comment_box .comment_heading {
     align-self: flex-start;
     padding-left: 5%;
+}
+.collection {
+    margin: .1rem 0 0.1rem 0;
 }
 .addComment {
     height: 20%;
