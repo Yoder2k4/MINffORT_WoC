@@ -15,7 +15,10 @@
 
     <nav class="navbar">
 
-        <a href="#" class="brand-logo"><span class="material-icons" id="logo" style="color: rgb(247, 250, 183); --darkreader-inline-color: #eee8a5;" data-darkreader-inline-color="">shopping_cart</span><span><span id="brand_title1">MIN</span><span id="brand_title2">ff</span><span id="brand_title3">ORT</span></span></a>
+        <a href="#" class="brand-logo"><span class="material-icons" id="logo"
+                style="color: rgb(247, 250, 183); --darkreader-inline-color: #eee8a5;"
+                data-darkreader-inline-color="">shopping_cart</span><span><span id="brand_title1">MIN</span><span
+                    id="brand_title2">ff</span><span id="brand_title3">ORT</span></span></a>
 
         <button class="btn" id="signOut">Sign Out</button>
 
@@ -121,11 +124,18 @@
 
             </div>
 
-            <div class="comment_box">
+            ye sab ko .tabs_box ke andar daalo *****
+            <ul class="tabs">
+                <li class="tab">
+                    <a href="#comment_container">Comments</a>
+                </li>
+                <li class="tab">
+                    <a href="#menu_container">Menu</a>
+                </li>
+            </ul>
 
-                <span class="comment_heading">
-                    <h5>Comments: </h5>
-                </span>
+            isko #comment_container ke andar daalo *****
+            <div class="comment_box">
 
                 <span class="comment_scrollbox">
                     <ul class="collection">
@@ -146,8 +156,41 @@
                     <i class="material-icons circle cyan" id="send_btn">send</i>
                 </div>
 
-
             </div>
+
+            <div id="menu_container">
+                    <div class="menu_system">
+
+                        <table class="striped">
+                            <thead>
+                                <tr>
+                                    <th>Commodity</th>
+                                    <th>Item Price</th>
+                                    <th>Availability</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>Maggi</td>
+                                    <td>₹25</td>
+                                    <td>Available</td>
+                                </tr>
+                                <tr>
+                                    <td>Cheese Sandwich</td>
+                                    <td>₹60</td>
+                                    <td>Available</td>
+                                </tr>
+                                <tr>
+                                    <td>Chole Bhature</td>
+                                    <td>₹50</td>
+                                    <td>Not Available</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
 
         </div>
 
@@ -157,6 +200,38 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="customer.bundle.js"></script>
+    <script>
+        function c_tab_toggle() {
+            let comment_display = document.getElementById('comment_container');
+            let menu_display = document.getElementById("menu_container");
+
+            comment_display.style.display = "block";
+            menu_display.style.display = "none";
+
+            let tab_c = document.getElementById('tab_c');
+            let tab_m = document.getElementById('tab_m');
+
+            tab_c.style.backgroundColor = "#633af4";
+            tab_c.style.color = "white";
+            tab_m.style.backgroundColor = "white";
+            tab_m.style.color = "#633af4";
+        }
+        function m_tab_toggle() {
+            let comment_display = document.getElementById('comment_container');
+            let menu_display = document.getElementById("menu_container");
+
+            comment_display.style.display = "none";
+            menu_display.style.display = "block";
+
+            let tab_c = document.getElementById('tab_c');
+            let tab_m = document.getElementById('tab_m');
+
+            tab_m.style.backgroundColor = "#633af4";
+            tab_m.style.color = "white";
+            tab_c.style.backgroundColor = "white";
+            tab_c.style.color = "#633af4";
+        }
+    </script>
 </body>
 
 </html>

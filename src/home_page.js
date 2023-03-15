@@ -14,7 +14,6 @@ import {
     updateDoc,
     onSnapshot,
     deleteField,
-    getDoc,
     getDocs,
     serverTimestamp
 } from 'firebase/firestore'
@@ -45,16 +44,18 @@ let auth1 = getAuth(app1);
 let db2 = getFirestore(app2);
 
 
+
 onAuthStateChanged(auth1, (user) => {
 
     // If user is authenticated
     if (user) {
+
         let customer_email = user.email;
         let colRef = collection(db2, 'Canteen');
         let canteens = [];
 
         // Whenever any data changes
-        onSnapshot(colRef, (snapshot) => {
+         onSnapshot(colRef, (snapshot) => {
 
             snapshot.docs.forEach((doc) => {
                 canteens.push({ ...doc.data(), id: doc.id })
@@ -375,17 +376,43 @@ onAuthStateChanged(auth1, (user) => {
                     about_line.classList.add('about_line');
                     about_inbox.appendChild(about_line);
 
+                    // Adding Tabs + Menu System
+
+                    let tabs_box = document.createElement('div');
+                    tabs_box.classList.add('tabs_box');
+                    card_select_content.appendChild(tabs_box);
+
+                    let tabs = document.createElement('ul');
+                    tabs.classList.add('tabs');
+                    tabs_box.appendChild(tabs);
+
+                    let comment_tab = document.createElement('li');
+                    comment_tab.classList.add('tab');
+                    tabs.appendChild(comment_tab);
+                    let comment_a = document.createElement('a');
+                    comment_a.setAttribute('onclick', 'c_tab_toggle()');
+                    comment_a.setAttribute('id', 'tab_c');
+                    comment_a.innerText = "Comments";
+                    comment_tab.appendChild(comment_a);
+                    
+                    let menu_tab = document.createElement('li');
+                    menu_tab.classList.add('tab');
+                    tabs.appendChild(menu_tab);
+                    let menu_a = document.createElement('a');
+                    menu_a.setAttribute('onclick', 'm_tab_toggle()');
+                    menu_a.setAttribute('id', 'tab_m');
+                    menu_a.innerText = "Menu";
+                    menu_tab.appendChild(menu_a);
+
+
+                    let comment_container = document.createElement('div');
+                    comment_container.setAttribute('id', 'comment_container');
+                    tabs_box.appendChild(comment_container);
+
+
                     let comment_box = document.createElement('div');
                     comment_box.classList.add('comment_box');
-                    card_select_content.appendChild(comment_box);
-
-                    let comment_heading = document.createElement('span');
-                    comment_heading.classList.add('comment_heading');
-                    comment_box.appendChild(comment_heading);
-
-                    let h5 = document.createElement('h5');
-                    h5.innerText = "Comments: ";
-                    comment_heading.appendChild(h5);
+                    comment_container.appendChild(comment_box);
 
                     let comment_scrollbox = document.createElement('span');
                     comment_scrollbox.classList.add('comment_scrollbox');
@@ -420,6 +447,39 @@ onAuthStateChanged(auth1, (user) => {
                     send_btn.setAttribute('id', 'send_btn');
                     send_btn.innerText = "send";
                     addComment.appendChild(send_btn);
+
+                    let menu_container = document.createElement('menu_container');
+                    menu_container.setAttribute("id", "menu_container");
+                    tabs_box.appendChild(menu_container);
+
+                    let menu_system = document.createElement('div');
+                    menu_system.classList.add('menu_system');
+                    menu_container.appendChild(menu_system);
+
+                    let table = document.createElement('table');
+                    table.classList.add('striped');
+                    menu_system.appendChild(table);
+
+                    let thead = document.createElement('thead');
+                    table.appendChild(thead);
+
+                    let tr_head = document.createElement('tr');
+                    thead.appendChild(tr_head);
+
+                    let th1 = document.createElement('th');
+                    th1.innerText = "Commodity";
+                    tr_head.appendChild(th1);
+                    let th2 = document.createElement('th');
+                    th2.innerText = "Price";
+                    tr_head.appendChild(th2);
+                    let th3 = document.createElement('th');
+                    th3.innerText = "Availablity";
+                    tr_head.appendChild(th3);
+                    
+
+                    let tbody = document.createElement('tbody');
+                    table.appendChild(tbody);
+
 
                     canteens.forEach(async (canteen) => {
                         if (canteen.id === item.id) {
@@ -661,87 +721,59 @@ onAuthStateChanged(auth1, (user) => {
                                 comment_line.innerText = c.comment;
                                 collection_item.appendChild(comment_line);
 
+                            }) 
+
+                            // Menu System
+
+                            let menu_colRef = collection(db2, 'Menu System');
+
+                            let menu_check = false;
+                            let menu_array = [];
+                            await getDocs(menu_colRef)
+                                .then((snapshot) => {
+                                    snapshot.docs.forEach((docum) => {
+                                        if(docum.id == item.id){
+                                            // checking if the menu table for canteen exists (for updateDocs/setdocs) 
+                                            menu_check = true;
+                                            // appending all the menu items
+                                            for (const key in docum.data()) {
+                                                if (docum.data().hasOwnProperty(key)) {
+                                                    menu_array.push(docum.data()[key]);
+                                                }
+                                            }
+                                            console.log(menu_array);
+                                        }
+                                    })
+                                })
+                                .catch((err) => {
+                                    console.log(err.code);
+                                })
+
+                            // appending all menu inside table
+                            menu_array.forEach((menu_item) => {
+
+                                let tr_body = document.createElement('tr');
+                                
+                                let td_comm = document.createElement('td');
+                                td_comm.innerText = menu_item.commodity;
+                                tr_body.appendChild(td_comm);
+
+                                let td_price = document.createElement('td');
+                                td_price.innerText = "₹" + menu_item.price;
+                                tr_body.appendChild(td_price);
+
+                                let td_ava = document.createElement('td');
+                                let ava = menu_item.availability;
+                                if(ava == true){
+                                    td_ava.innerText = "Available";
+                                }
+                                else{
+                                    td_ava.innerText = "Not Available";
+                                }
+                                tr_body.appendChild(td_ava);
+
+                                tbody.appendChild(tr_body);
                             })
-
-                            // onSnapshot(com_colRef, (snapshot) => {
-                            //     let vendor_comments = [];
-                            //     let check = false;
-                            //     snapshot.docs.forEach((docum) => {
-                            //         if (docum.id === item.id) {
-                            //             check = true;
-
-                            //             for (const key in docum.data()) {
-                            //                 if (docum.data().hasOwnProperty(key)) {
-                            //                     vendor_comments.push(docum.data()[key]);
-                            //                 }
-                            //             } 
-                            //         }
-                            //     })
-
-                            //     // Commenting
-                            //     let comment_btn = document.getElementById('send_btn');
-                            //     if(comment_btn != null){
-                            //         comment_btn.addEventListener('click', (e) => {
-                            //             e.preventDefault();
-
-                            //             let collection_box_remove = document.getElementById("comment_collection");
-                            //             collection_box_remove.remove();
-
-                            //             let collection_box = document.createElement('ul');
-                            //             collection_box.classList.add('collection');
-                            //             collection_box.setAttribute('id', 'comment_collection');
-                            //             comment_scrollbox.appendChild(collection_box);
-
-                            //             let comment_value = document.getElementById('comment_value').value;
-                            //             let map_name = 'comment' + customer_email.slice(0,5) + comment_value;
-                            //             let comment_ob = {};
-                            //             comment_ob[map_name] = {
-                            //                 username: customer_email,
-                            //                 comment: comment_value
-                            //             };
-                            //             if(check){
-                            //                 updateDoc(com_docRef, comment_ob);
-                            //                 console.log('Updated comments');
-                            //             }
-                            //             else{
-                            //                 setDoc(com_docRef, comment_ob);
-                            //                 console.log("Created comments");
-                            //             }
-                            //         });
-                            //     }
-
-                            //     // Appending each comment to ul
-                            //     vendor_comments.forEach((c) => {
-
-                            //         console.log("ul in the making");
-
-                            //         let collection_item = document.createElement('li');
-                            //         collection_item.classList.add('collection-item');
-                            //         collection_item.classList.add('avatar');
-                            //         collection_box.appendChild(collection_item);
-
-                            //         let i_person = document.createElement('i');
-                            //         i_person.classList.add('material-icons');
-                            //         i_person.classList.add('circle');
-                            //         i_person.classList.add('cyan');
-                            //         i_person.innerText = "person";
-                            //         collection_item.appendChild(i_person);
-
-                            //         let comment_username = document.createElement('span');
-                            //         comment_username.classList.add('title');
-                            //         comment_username.classList.add('comment_username');
-                            //         comment_username.setAttribute('style', 'font-weight: bold;')
-                            //         comment_username.innerText = c.username;
-                            //         collection_item.appendChild(comment_username);
-
-                            //         let comment_line = document.createElement('p');
-                            //         comment_line.classList.add('comment_line');
-                            //         comment_line.innerText = c.comment;
-                            //         collection_item.appendChild(comment_line);
-
-                            //     })
-                            // });
-
                         }
                     })
 
