@@ -691,6 +691,10 @@ onAuthStateChanged(auth1, (user) => {
                                     comment_line.classList.add('comment_line');
                                     comment_line.innerText = comment_value;
                                     collection_item.appendChild(comment_line);
+
+                                    // to reset comment input
+                                    let comment_input = document.getElementById('comment_value');
+                                    comment_input.value = "";
                                 });
                             }
 
@@ -738,7 +742,9 @@ onAuthStateChanged(auth1, (user) => {
                                             // appending all the menu items
                                             for (const key in docum.data()) {
                                                 if (docum.data().hasOwnProperty(key)) {
-                                                    menu_array.push(docum.data()[key]);
+                                                    if(key != "sample"){
+                                                        menu_array.push(docum.data()[key]);
+                                                    }
                                                 }
                                             }
                                             console.log(menu_array);

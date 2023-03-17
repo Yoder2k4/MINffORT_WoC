@@ -2,8 +2,7 @@ import { initializeApp } from 'firebase/app'
 
 import {
     getFirestore,
-    collection,
-    onSnapshot,
+    updateDoc,
     setDoc,
     doc
 } from 'firebase/firestore'
@@ -29,16 +28,6 @@ let db = getFirestore(app);
 
 
 
-let colRef = collection(db, 'Canteen');
-
-onSnapshot(colRef, (snapshot) => {
-    let canteens = [];
-    snapshot.docs.forEach((doc) => {
-        canteens.push({ ...doc.data(), id: doc.id });
-    })
-    console.log(canteens);
-})
-
 let email;
 let img_url;
 
@@ -47,6 +36,7 @@ onAuthStateChanged(auth, (user) => {
         let add = document.querySelector('#details');
         let submitForm = document.querySelector('#submitForm');
 
+        // Adding info
         submitForm.addEventListener('click', (e) => {
             e.preventDefault();
             email = user.email;
@@ -72,7 +62,70 @@ onAuthStateChanged(auth, (user) => {
             };
             
             setDoc(docRef, { ImgURL: img_url, data });
+
+
+            // Adding Menu
+            
+            let menu_docRef = doc(db, 'Menu System', email);
+    
+            let item_names = document.getElementsByClassName('item_name');
+            let item_name_list = [];
+
+            Array.from(item_names).forEach((item) => {
+                item_name_list.push(item.value);
+            })
+            
+            let item_prices = document.getElementsByClassName('item_price');
+            let item_price_list = [];
+
+            Array.from(item_prices).forEach((item) => {
+                item_price_list.push(item.value);
+            })
+
+            let availability_list = [];
+            let l = item_price_list.length;
+
+            for (let index = 0; index < l; index++) {
+                let availability_item = document.getElementsByName(index);
+                if(availability_item[1].checked){
+                    availability_list[index] = true;
+                }
+                if(availability_item[0].checked){
+                    availability_list[index] =false;
+                }
+            }
+
+            let ob_array = [];
+            for (let index = 0; index < l; index++) {
+                let object = {
+                    commodity: item_name_list[index],
+                    price: item_price_list[index],
+                    availability: availability_list[index]
+                }
+                ob_array.push(object);
+            }
+
+            setDoc(menu_docRef, {
+                sample: {
+                    empty: "empty"
+                }
+            })
+
+            ob_array.forEach((ob) => {
+                let push_ob = {};
+                push_ob[ob.commodity] = ob;
+
+                updateDoc(menu_docRef, push_ob);
+            })
+
         })
+        
+
+
+         
+
+
+
     }
     
 })
@@ -144,6 +197,54 @@ async function UploadProcess(){
 
 };
 
+
+//----------------------Menu System ( Temporary )--------------------------
+
+// adding item fields
+let add_item = document.getElementById('add_item')
+let menu_system = document.getElementById('menu_system');
+let i = 0;
+add_item.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    let input_row = document.createElement('div');
+    input_row.setAttribute('class', 'input_row');
+    menu_system.appendChild(input_row);
+
+    let item_name = document.createElement('input');
+    item_name.setAttribute('type', 'text');
+    item_name.setAttribute('placeholder', 'Enter item name');
+    item_name.setAttribute('class', 'item_name');
+    input_row.appendChild(item_name);
+
+    let item_price = document.createElement('input');
+    item_price.setAttribute('type', 'text');
+    item_price.setAttribute('placeholder', 'Enter price');
+    item_price.setAttribute('class','item_price');
+    input_row.appendChild(item_price);
+
+    let p = document.createElement('p');
+    input_row.appendChild(p);
+
+    let check_ava = `Availability:
+    <label>
+        <input type="radio" name="${i}" class="not_available" value="false" required >
+        <span>Not Available</span>
+    </label>
+    <label>
+        <input type="radio" name="${i}" class="available" value="true" required >
+        <span>Available</span>
+    </label>`;
+    p.innerHTML += check_ava;
+    i++;
+})
+
+
+
+
+
+
+// --------------------------------------------------------------------
 //Sign Out
 let sign_out = document.getElementById('signout');
 

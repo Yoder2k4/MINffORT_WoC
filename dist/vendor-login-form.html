@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/img/MINffORT.png" type="image/x-icon">
-    <title>Change you Canteen's Status</title>
+    <title>Change your Canteen's Status</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/src/style_vendor_login.css">
@@ -39,19 +39,36 @@
 
                 <img id="pfp">
 
-                
-
-
             </div>
 
             <button class="btn" type="submit">Save Changes</button>
-
-            <button class="btn"
-            id="logout">Log Out</button>
-
-
-
+    
         </form>
+
+        <br><br>
+        
+        <button class="btn" id="logout">Log Out</button>
+
+        <a href="#delModal" class="modal-trigger"><button class="btn">Delete Account</button></a>
+
+        <div class="modal" id="delModal">
+            <div class="modal-content">
+                <h4 class="center-align">Are you sure?</h4>
+            <p class="center-align">Deleting your account will also delete all the data linked to it</p>
+            </div>   
+            <div class="modal-footer">
+                <button class="btn" id="delBTN">Yes</button>
+                <button class="modal-close btn">No</button>
+            </div>         
+        </div>
+
+        <br><br><br>
+        <button class="btn" id="add_item">Add Item</button>
+        <br><br><br>
+
+        <div id="menu_system">
+
+        </div>
 
     </div>
     
@@ -60,5 +77,11 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="vendor_login.bundle.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            let elems = document.querySelectorAll('.modal');
+            let instances = M.Modal.init(elems, {});
+        })
+    </script>
 </body>
 </html>

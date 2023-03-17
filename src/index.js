@@ -3,7 +3,8 @@ import { initializeApp } from 'firebase/app'
 import {
     getAuth,
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail
 } from 'firebase/auth'
 
 const firebaseConfig1 = {
@@ -105,7 +106,23 @@ cLogInForm.addEventListener('submit', (e) => {
         })
 })
 
+// Forgot Password
+let c_reset_button = document.getElementById('c_reset_button');
+c_reset_button.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log("Reset Button Working");
+    let customer_forgot_email = document.getElementById('customer_forgot_email').value;
 
+    sendPasswordResetEmail(auth1, customer_forgot_email)
+        .then(() => {
+            let c_message = document.getElementById('c_message');
+            c_message.innerText = "Password Reset Link sent to your Email";
+            console.log("Password Reset Link sent to your Email");
+        })
+        .catch((err) => {
+            console.log(err.code);
+        })
+})
 
 //FOR VENDORS
 
@@ -177,5 +194,22 @@ vLogInForm.addEventListener('submit', (e) => {
                 v_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; Too many failed attempts. Please try again later.";
             }
         })
+})
 
+// Forgot Password
+let v_reset_button = document.getElementById('v_reset_button');
+v_reset_button.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log("Reset Button Working");
+    let vendor_forgot_email = document.getElementById('vendor_forgot_email').value;
+
+    sendPasswordResetEmail(auth2, vendor_forgot_email)
+        .then(() => {
+            let v_message = document.getElementById('v_message');
+            v_message.innerText = "Password Reset Link sent to your Email";
+            console.log("Password Reset Link sent to your Email");
+        })
+        .catch((err) => {
+            console.log(err.code);
+        })
 })

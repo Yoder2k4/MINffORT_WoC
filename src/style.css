@@ -180,7 +180,7 @@ input:not([type]), input[type="text"]:not(.browser-default), input[type="passwor
 }
 
 
-#button {
+.button {
     text-align: center;
 }
 
@@ -268,11 +268,28 @@ input:not([type]), input[type="text"]:not(.browser-default), input[type="passwor
     background-color: rgba(234, 230, 230, 0.69);
 }
 
-.modal-content #button {
+.modal-content .button {
     position: absolute;
     bottom: 26px;
     width: 95%;
     margin: 0 auto;
+}
+
+.forgot-modal {
+    height: 40vh;
+}
+.forgot-modal h4{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.forgot-modal .sent_message {
+    height: 15%;
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: red;
 }
 
 

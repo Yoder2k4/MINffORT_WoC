@@ -88,7 +88,7 @@
                                 </div>
                                 <br>
 
-                                <div id="button">
+                                <div class="button">
                                     <button class="btn indigo white-text z-depth-2 waves-effect waves-light" style="font-weight: bold; margin: 0.5px auto; padding: 0 5vw; text-align: center; text-shadow: 2px 2px rgba(0, 0, 0, 0.068);" type="submit">Login</button>
                                 </div>
 
@@ -98,7 +98,7 @@
 
                         <div class="one-2">
 
-                            <div class="right"><a href=""><u style=>Forgot Password?</u></a></div>
+                            <div class="right"><a href="#customer_forgot_modal" class="modal-trigger"><u style=>Forgot Password?</u></a></div>
                             <br>
                             <div class="right">Don't have an account yet? &nbsp;&nbsp;&nbsp;<a href="#customer_signup_popup" class="modal-trigger"><u>Create New Account</u></a></div>
 
@@ -132,7 +132,7 @@
 
                                     </div>
 
-                                    <div id="button">
+                                    <div class="button">
                                         <button class="btn indigo white-text z-depth-2 waves-effect waves-light" style="font-weight: bold; margin: 0.5px auto; padding: 0 5vw; text-align: center; text-shadow: 2px 2px rgba(0, 0, 0, 0.068);" type="submit">Sign Up</button>
                                     </div>
 
@@ -143,7 +143,22 @@
 
                         </div>
 
-                        
+                        <div class="modal forgot-modal" id="customer_forgot_modal">
+                            <h4 style="font-weight: bold; text-align: center;">Make a new account</h4>
+                            <div class="input-field type2">
+                                <i class="material-icons prefix">email</i>
+                                <input type="text" id="customer_forgot_email" placeholder="Email ID" required \>
+                            </div>
+
+                            <div class="button">
+                                <button class="btn indigo white-text z-depth-2 waves-effect waves-light" style="font-weight: bold; margin: 0.5px auto; padding: 0 5vw; text-align: center; text-shadow: 2px 2px rgba(0, 0, 0, 0.068);" id="c_reset_button">Reset</button>
+                            </div>
+
+                            <div class="sent_message">
+                                <span id="c_message"></span>
+                            </div>
+                        </div>
+
                     </div>
                     
                     <div id="vendor_login" class="col s12 l11 ">
@@ -174,7 +189,7 @@
                                 </div>
                                 <br>
                                 
-                                <div id="button">
+                                <div class="button">
                                     <button class="btn indigo white-text z-depth-2 waves-effect waves-light" style="font-weight: bold; margin: 0 auto; padding: 0 5vw; text-align: center; text-shadow: 2px 2px rgba(0, 0, 0, 0.068);" type="submit">Login</button>
                                 </div>
                                 
@@ -184,7 +199,7 @@
 
                         <div class="one-2">
 
-                            <div class="right"><a href="" ><u style="font-weight: bold;">Forgot Password?</u></a></div>
+                            <div class="right"><a href="#vendor_forgot_modal" class="modal-trigger"><u style="font-weight: bold;">Forgot Password?</u></a></div>
                             <br>
                             <div class="right">Don't have an account yet? &nbsp;&nbsp;&nbsp;<a href="#vendor_signup_popup" class="modal-trigger" ><u style="font-weight: bold;">Create New Account</u></a></div>
 
@@ -218,7 +233,7 @@
 
                                     </div>
 
-                                    <div id="button">
+                                    <div class="button">
                                         <button class="btn indigo white-text z-depth-2 waves-effect waves-light" style="font-weight: bold; margin: 0.5px auto; padding: 0 5vw; text-align: center; text-shadow: 2px 2px rgba(0, 0, 0, 0.068);" type="submit">Sign Up</button>
                                     </div>
 
@@ -227,6 +242,22 @@
 
                             </div>
 
+                        </div>
+
+                        <div class="modal forgot-modal" id="vendor_forgot_modal">
+                            <h4 style="font-weight: bold; text-align: center;">Make a new account</h4>
+                            <div class="input-field type2">
+                                <i class="material-icons prefix">email</i>
+                                <input type="text" id="vendor_forgot_email" placeholder="Email ID" required \>
+                            </div>
+
+                            <div class="button">
+                                <button class="btn indigo white-text z-depth-2 waves-effect waves-light" style="font-weight: bold; margin: 0.5px auto; padding: 0 5vw; text-align: center; text-shadow: 2px 2px rgba(0, 0, 0, 0.068);" id="v_reset_button">Reset</button>
+                            </div>
+
+                            <div class="sent_message">
+                                <span id="v_message"></span>
+                            </div>
                         </div>
 
                     </div>
