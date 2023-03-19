@@ -2,6 +2,7 @@
     font-family: Ubuntu;
 }
 
+
 /* Navigation Bar */
 
 .navbar{
@@ -54,10 +55,12 @@
 #card-container {
     width: 90vw;
     margin: 10vh auto;
-    height: 100vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    transition: 0.4s;
+    min-width: none;
+    max-width: none;
 }
 
 
@@ -70,9 +73,15 @@
     margin-bottom: 30px;
     height: 35vh;
     display: flex;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
+/* Card Hover */
+
+.card-item:hover {
+    transform: scale(1.1);
+    
+}
 
 /* Image Box */
 
@@ -220,14 +229,6 @@
 
 
 
-/* Card Hover */
-
-.card-item:hover {
-    transform: scale(1.1);
-    
-}
-
-
 /*----------------------------------------------------------------------*/
 
 /* MODAL DESIGN */
@@ -236,6 +237,7 @@
 /* Modal Activate */
 #card-container.active {
     filter: blur(20px);
+    transition: 0.4s;
     pointer-events: none;
     user-select: none;
     overflow: hidden;
@@ -251,19 +253,26 @@
     display: flex;
     /* transition */
     position: fixed;
-    top: 30%;
-    left: 40%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
     visibility: hidden;
+    transform: scale(1.2);
     opacity: 0;
-    transition: 0.4s;
-}
+    transition: opacity 0.2s 0.2s ease-in-out,
+                transform 0.2s 0.2s ease-in-out,
+                visibility 0.2s 0.2s ease-in-out;
+    transition-delay: 0.01s;
+}           
 
 .card_select.active{
-    top: 45%;
+    top: 0;
+    left: 0;
+    transform: scale(1);
+    /* transition: opacity 0.2s 0.2s ease-in-out,
+                transform 0.2s 0.2s ease-in-out; */
     visibility: visible;
     opacity: 1;
-    transition: 0.4s;
+    transition-delay: 0.01s;
 }
 
 /* Image Container  */

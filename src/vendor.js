@@ -28,13 +28,70 @@ let db = getFirestore(app);
 
 
 
+// Form Traversal
+let general_form = document.getElementById('general_form');
+let upload_pfp_form = document.getElementById('upload_pfp_form');
+let add_menu = document.getElementById('add_menu');
+
+let general_form_btn = document.getElementById('general_form_btn');
+let upload_pfp_form_btn = document.getElementById('upload_pfp_form_btn');
+let add_menu_form_btn = document.getElementById('add_menu_form_btn');
+
+let _1 = document.getElementById('_1');
+let _2 = document.getElementById('_2');
+let _3 = document.getElementById('_3');
+
+general_form_btn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    general_form.style.display = "block";
+    _1.style.display = "block";
+
+    upload_pfp_form.style.display = "none";
+    _2.style.display = "none";
+
+    add_menu.style.display = "none";
+    _3.style.display = "none";
+})
+upload_pfp_form_btn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    general_form.style.display = "none";
+    _1.style.display = "none";
+
+    upload_pfp_form.style.display = "block";
+    _2.style.display = "block";
+
+    add_menu.style.display = "none";
+    _3.style.display = "none";
+})
+add_menu_form_btn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    general_form.style.display = "none";
+    _1.style.display = "none";
+
+    upload_pfp_form.style.display = "none";
+    _2.style.display = "none";
+
+    add_menu.style.display = "block";
+    _3.style.display = "block";
+})
+
+
+
+
 let email;
 let img_url;
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        let add = document.querySelector('#details');
         let submitForm = document.querySelector('#submitForm');
+        let shopName = document.getElementById('shopName');
+        let ownerName = document.getElementById('ownerName');
+        let phoneNo = document.getElementById('phoneNo');
+        let address = document.getElementById('address');
+        let about = document.getElementById('about');
 
         // Adding info
         submitForm.addEventListener('click', (e) => {
@@ -53,11 +110,11 @@ onAuthStateChanged(auth, (user) => {
                 st = true;
             }
             let data = {
-                shopName: add.shopName.value,
-                ownerName: add.ownerName.value,
-                phoneNo: add.phoneNo.value,
-                address: add.address.value,
-                about: add.about.value,
+                shopName: shopName.value,
+                ownerName: ownerName.value,
+                phoneNo: phoneNo.value,
+                address: address.value,
+                about: about.value,
                 status: st
             };
             
@@ -70,7 +127,7 @@ onAuthStateChanged(auth, (user) => {
     
             let item_names = document.getElementsByClassName('item_name');
             let item_name_list = [];
-
+            
             Array.from(item_names).forEach((item) => {
                 item_name_list.push(item.value);
             })
@@ -117,14 +174,7 @@ onAuthStateChanged(auth, (user) => {
 
                 updateDoc(menu_docRef, push_ob);
             })
-
         })
-        
-
-
-         
-
-
 
     }
     
@@ -155,6 +205,8 @@ ip.type = 'file';
 
 selbtn.addEventListener('click', (e) => {
     e.preventDefault();
+    let cloud = document.getElementById('cloud');
+    cloud.style.display = "none";
     ip.click();
 });
 
@@ -198,44 +250,62 @@ async function UploadProcess(){
 };
 
 
-//----------------------Menu System ( Temporary )--------------------------
-
-// adding item fields
-let add_item = document.getElementById('add_item')
+// Menu System
+let add_item = document.getElementById('add_item');
 let menu_system = document.getElementById('menu_system');
 let i = 0;
 add_item.addEventListener('click', (e) => {
     e.preventDefault();
 
-    let input_row = document.createElement('div');
-    input_row.setAttribute('class', 'input_row');
+    let input_row = document.createElement('input_row');
+    input_row.classList.add('input_row');
     menu_system.appendChild(input_row);
 
-    let item_name = document.createElement('input');
-    item_name.setAttribute('type', 'text');
-    item_name.setAttribute('placeholder', 'Enter item name');
-    item_name.setAttribute('class', 'item_name');
-    input_row.appendChild(item_name);
+    let commoditySpan = document.createElement('span');
+    commoditySpan.classList.add('commoditySpan');
+    input_row.appendChild(commoditySpan);
 
-    let item_price = document.createElement('input');
-    item_price.setAttribute('type', 'text');
-    item_price.setAttribute('placeholder', 'Enter price');
-    item_price.setAttribute('class','item_price');
-    input_row.appendChild(item_price);
+    let label_name = document.createElement('label');
+    label_name.setAttribute('for', 'item_name');
+    label_name.innerHTML = "Commodity <br>";
+    commoditySpan.appendChild(label_name);
 
-    let p = document.createElement('p');
-    input_row.appendChild(p);
+    let item_name_input = document.createElement('input');
+    item_name_input.setAttribute('type', 'text');
+    item_name_input.setAttribute('placeholder', '   Input');
+    item_name_input.classList.add('item_name');
+    commoditySpan.appendChild(item_name_input);
 
-    let check_ava = `Availability:
-    <label>
-        <input type="radio" name="${i}" class="not_available" value="false" required >
-        <span>Not Available</span>
-    </label>
-    <label>
-        <input type="radio" name="${i}" class="available" value="true" required >
-        <span>Available</span>
-    </label>`;
-    p.innerHTML += check_ava;
+    let priceSpan = document.createElement('span');
+    priceSpan.classList.add('priceSpan');
+    input_row.appendChild(priceSpan);
+
+    let label_price = document.createElement('label');
+    label_price.setAttribute('for', 'item_name');
+    label_price.innerHTML = "Price <br>";
+    priceSpan.appendChild(label_price);
+
+    let item_price_input = document.createElement('input');
+    item_price_input.setAttribute('type', 'text');
+    item_price_input.setAttribute('placeholder', '  Input');
+    item_price_input.classList.add('item_price');
+    priceSpan.appendChild(item_price_input);
+
+    let new_availabiltySpan = `<span class="availabilitySpan">
+            Availability
+            <label>
+                <input type="radio" name="${i}" class="ava" value=false>
+                <div class="ava_design"></div> 
+                <div class="ava_text">Not Available</div>
+            </label>
+            <label>
+                <input type="radio" name="${i}" class="ava" value=true>
+                <div class="ava_design"></div> 
+                <div class="ava_text">Available</div>
+            </label>
+        </span>`;
+
+    input_row.innerHTML += new_availabiltySpan;
     i++;
 })
 

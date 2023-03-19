@@ -234,6 +234,7 @@ onAuthStateChanged(auth1, (user) => {
                     card_select.classList.add('card_select');
                     card_select.setAttribute('id', 'popup');
 
+
                     let image_container = document.createElement('div');
                     image_container.classList.add('image_container');
 
@@ -731,14 +732,11 @@ onAuthStateChanged(auth1, (user) => {
 
                             let menu_colRef = collection(db2, 'Menu System');
 
-                            let menu_check = false;
                             let menu_array = [];
                             await getDocs(menu_colRef)
                                 .then((snapshot) => {
                                     snapshot.docs.forEach((docum) => {
                                         if(docum.id == item.id){
-                                            // checking if the menu table for canteen exists (for updateDocs/setdocs) 
-                                            menu_check = true;
                                             // appending all the menu items
                                             for (const key in docum.data()) {
                                                 if (docum.data().hasOwnProperty(key)) {
@@ -791,22 +789,28 @@ onAuthStateChanged(auth1, (user) => {
                     document.body.appendChild(card_select);
 
                     let popup = document.getElementById('popup');
-                    popup.classList.toggle('active');
+                    setTimeout(() => {
+                        popup.classList.toggle('active');
+                    }, 10);
 
                     // Initializing card close button as null 
                     let closeBTN = document.getElementById('closeBTN');
 
                     if (closeBTN != null) {
                         closeBTN.addEventListener('click', () => {
+                            setTimeout(() => {
+                                popup.classList.toggle('active');
+                            }, 10);
                             // To unblur background
                             let card_container = document.getElementById('card-container');
                             card_container.classList.toggle('active');
-
-                            // To refresh Modal for another selection of card
-                            let card_select_remove = document.querySelector('.card_select');
-                            if (card_select_remove != null) {
-                                card_select_remove.remove();
-                            }
+                            setTimeout(() => {
+                                // To refresh Modal for another selection of card
+                                let card_select_remove = document.querySelector('.card_select');
+                                if (card_select_remove != null) {
+                                    card_select_remove.remove();
+                                }
+                            }, 200);
                         });
                     }
                 });
