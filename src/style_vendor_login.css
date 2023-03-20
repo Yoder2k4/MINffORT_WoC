@@ -1,8 +1,534 @@
-#pfp{
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+#page {
+    height: 90vh;
+    width: 94vw;
+    margin: 5vh 3vw;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 20px;
+    display: flex;
+}
+
+
+/* Side Nav Bar */
+
+#side_nav {
+    width: 30%;
+    height: 100%;
+    background-color: rgb(40, 76, 194);
+    border-radius: 20px 0 0 20px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+#brand_title {
+    width: 100%;
+    height: 20%;
+    margin-top: 5%;
+    margin-bottom: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#brand_title>span {
+    display: flex;
+    align-items: center;
+}
+#logo {
+    font-size: 3.5rem;
+    text-shadow: 4px 4px rgba(255, 254, 195, 0.39);
+}
+.title_1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 4px 4px rgba(195, 222, 255, 0.26);
+}
+.title_2 {
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: #F85A3E;
+    text-shadow: 4px 4px #f43210ac ;
+}
+
+/* Form List */
+.form_list {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.flex {
+    width: 90%;
+    display: flex;
+    cursor: pointer;
+}
+.number {
+    width: 8.5%;
+    margin-left: 10%;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+    color: white;
+    background-color: rgb(3, 58, 238);
+}
+.form_title {
+    font-size: 1.4rem;
+    width: 66%;
+    margin-left: 10%;
+}
+.material-symbols-outlined {
+    font-size: 3rem;
+    margin-right: -10%;
+    z-index: 3;
+    color: rgb(40, 76, 194);
+}
+#_2,#_3 {
+    display: none;
+}
+#buttonDiv {
     position: absolute;
-    top: 40vh;
+    width: 28.2%;
+    height: 30%;
+    bottom: 5%;
+    left: 3%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+}
+.side_btn {
+    border: none;
+    border-radius: 20px;
+    background-color: rgb(4, 4, 158);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transform: scale(1);
+    transition: all 0.1s ease-in-out;    
+}
+#submitForm{
+    padding: 8px 25px;
+}
+#delbtn_modal {
+    padding: 8px 22px;
+}
+#logout{
+    padding: 8px 52px;
+}
+.side_btn:hover {
+    background-color: rgb(8, 8, 82);
+    transform: scale(1.1);
+    transition: all 0.1s ease-in-out;
+}
+
+
+
+/* Form Box */
+
+#form_box {
+    height: 100%;
+    width: 70%;
+}
+
+input[type=text] {
+    background-color: rgba(128, 128, 128, 0.068);
+}
+input[type=text]:focus {
+    background-color: rgba(120, 177, 250, 0.158);
+    transition: background-color 300ms ease-in-out;
+}
+
+.form_section {
+    height: 100%;
+    width: 100%;
+}
+.form_header {
+    height: 24%;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+    display: flex;
+    align-items: center;
+}
+.header_title {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-left: 8%;
+}
+.input_body {
+    height: 76%;
+    width: 100%;
+    font-weight: 700;
+    display: flex;
+}
+#content_box {
+    height: 100%;
+    width: 68%;
+}
+#image_box{
+    height: 80%;
+    margin: 5% 2%;
+    width: 32%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* General Info */
+#shopDiv {
+    width: 100%;
+    height: 20%;
+    margin-top: 1%;
+    display: flex;
+    align-items: center;
+}
+#shopSpan {
+    margin-left: 8%;
+}
+#shopSpan input {
+    width: 207%;
+    padding: 0.3vw;
+    margin-top: 1vh;
+    margin-left: 0.3vw;
+    border-radius: 5px;
+    border: 0.5px solid gray;
+}
+
+#ownerPhoneDiv {
+    width: 90%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+}
+#ownerSpan {
+    margin-left: 8%;
+}
+#ownerSpan input {
+    width: 90%;
+    padding: 0.3vw;
+    margin-top: 1vh;
+    margin-left: 0.3vw;
+    border-radius: 5px;
+    border: 0.5px solid gray;
+}
+#phoneSpan {
+    margin-left: 11.8%;
+}
+#phoneSpan input {
+    width: 100%;
+    padding: 0.3vw;
+    margin-top: 1vh;
+    margin-left: 0.3vw;
+    border-radius: 5px;
+    border: 0.5px solid gray;
+}
+
+#addressDiv {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+}
+#addressSpan {
+    margin-left: 8%;
+}
+#addressSpan input {
+    width: 207%;
+    padding: 0.3vw;
+    margin-top: 1vh;
+    margin-left: 0.3vw;
+    border-radius: 5px;
+    border: 0.5px solid gray;
+}
+
+#aboutDiv {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+}
+#aboutSpan {
+    margin-left: 8%;
+}
+#aboutSpan input {
+    width: 207%;
+    padding: 0.3vw;
+    margin-top: 1vh;
+    margin-left: 0.3vw;
+    border-radius: 5px;
+    border: 0.5px solid gray;
+}
+
+#statusDiv {
+    width: 100%;
+    height: 18%;
+    display: flex;
+    align-items: center;
+}
+#statusDiv>div {
+    margin-left: 8%;
+    width: 92%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+#statusDiv div label {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    width: 90px;
+    border-radius: 40px;
+    padding: 14px 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+#statusDiv div label:hover,
+#statusDiv div label:focus-within {
+    background-color: rgb(223, 220, 220);
+}
+.status_btn {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    z-index: -1;
+}
+.status_design {
+    width: 22px;
+    height: 22px;
+    border-radius: 100px;
+    background: linear-gradient(to right bottom, hsl(175, 97%, 62%), hsl(216, 100%, 63%));
+}
+.status_design::before {
+    content: '';
+    display: inline-block;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    background-color: rgb(187, 187, 187);
+    transition: 0.3s;
+    transform: scale(1.1);
+}
+.status_btn:checked+.status_design::before {
+    transform: scale(0);
+}
+.status_text {
+    color: rgb(100, 99, 99);
+    margin-left: 12px;
+    transition: 0.3s;
+}
+.status_btn:checked~.status_text {
+    color: rgb(36, 36, 36);
+}
+#statusDiv div label span {
+    font-weight: 100;
+}
+#pfp{
+    height: 100%;
+}
+
+
+
+/* Add Menu */
+#edit_menu .form_header {
+    position: static;
+}
+#edit_menu .input_body {
+    display: block;
+    overflow: auto;
+    max-height: none;
+}
+#add_item {
+    position: fixed;
     right: 5vw;
-    width: 400px;
-    height: 300px;
-    border: 2px black solid;
+    top: 24vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(43, 91, 247);
+    padding: 2px 5px;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+}
+#add_item span {
+    font-size: 2.2rem;
+    color: white;
+    border-radius: 50%;
+}
+
+.input_row {
+    width: 90%;
+    height: 20%;
+    margin: 2% 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.input_row input[type=text]{
+    margin-top: 1vh;
+    padding: 5px 14px;
+    border: none;
+    border-radius: 5px;
+}
+.availabilitySpan {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.availabilitySpan label {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    width: 157px;
+    border-radius: 40px;
+    padding: 5px 6px;
+    margin: 3px 0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.availabilitySpan label:hover,
+.availabilitySpan label:focus-within {
+    background-color: rgb(223, 220, 220);
+}
+.ava {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    z-index: -1;
+}
+.ava_design {
+    width: 18px;
+    height: 18px;
+    border-radius: 100px;
+    background: linear-gradient(to right bottom, hsl(175, 97%, 62%), hsl(216, 100%, 63%));
+}
+.ava_design::before {
+    content: '';
+    display: inline-block;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    background-color: rgb(187, 187, 187);
+    transition: 0.3s;
+    transform: scale(1.1);
+}
+.ava:checked+.ava_design::before {
+    transform: scale(0);
+}
+.ava_text {
+    color: rgb(100, 99, 99);
+    font-weight: 600;
+    margin-left: 12px;
+    transition: 0.3s;
+}
+.ava:checked~.ava_text {
+    color: rgb(36, 36, 36);
+}
+
+
+
+/* Delete Account Modal */
+#delModal {
+    /* display: none; */
+    height: 40vh;
+    width: 35vw;
+    background-color: white;
+    position: fixed;
+    top: 25%;
+    left: 30%;
+    border-radius: 12px;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    padding: 2vh 5vw;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 154px 155px, rgba(0, 0, 0, 0.12) 0px -112px 130px, rgba(0, 0, 0, 0.12) 0px 114px 116px, rgba(0, 0, 0, 0.17) 0px 112px 113px, rgba(0, 0, 0, 0.09) 0px -113px 115px;
+    transform: scale(1.1);
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.2s 0.2s ease-in-out, opacity 0.2s 0.2s ease-in-out, transform 0.2s 0.2s ease-in-out;
+    
+}
+#delModal.active {
+    top: 25%;
+    left: 30%;
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    
+}
+.modal-content {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+}
+.modal-content h4 {
+    text-align: center;
+    margin-top: 3%;
+    font-size: 2.4rem;
+}
+.modal-content p{
+    margin-top: 4%;
+    text-align: center;
+    font-size: 1.5rem;
+}
+.modal-footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#delBTN,#closeBTN{
+    padding: 5px 24px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 18px;
+    border: none;
+    color: white;
+    transform: scale(1);
+    transition: all 0.1s ease-in-out;
+}
+#delBTN {
+    margin-right: 4%;
+    background-color: rgb(53, 107, 253);
+}
+#delBTN:hover {
+    background-color: rgb(37, 73, 170);
+    transform: scale(1.1);
+    transition: all 0.1s ease-in-out;
+}
+#closeBTN {
+    background-color: grey;
+}
+#closeBTN:hover {
+    background-color: rgb(85, 85, 85);
+    transform: scale(1.1);
+    transition: all 0.1s ease-in-out;
+}
+
+
+
+#edit_menu{
+    display: none;
 }

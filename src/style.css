@@ -276,7 +276,7 @@ input:not([type]), input[type="text"]:not(.browser-default), input[type="passwor
 }
 
 .forgot-modal {
-    height: 40vh;
+    height: 41vh;
 }
 .forgot-modal h4{
     margin-top: 5%;

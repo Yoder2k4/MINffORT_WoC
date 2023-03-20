@@ -1,87 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/img/MINffORT.png" type="image/x-icon">
     <title>Change your Canteen's Status</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,200" />
     <link rel="stylesheet" href="/src/style_vendor_login.css">
 </head>
+
 <body>
 
-    <div class="container">
+    <div id="page">
 
-        <form action="" id="details">
+        <div id="side_nav">
+            <div id="brand_title">
+                <span>
+                    <i class="material-icons" style="color: rgb(247, 250, 183);" id="logo">shopping_cart</i>
+                    <span><span class="title_1">MIN</span><span class="title_2">ff</span><span
+                            class="title_1">ORT</span></span>
+                </span>
+            </div>
 
-            <div class="input-field">
+            <div class="form_list">
+                <span id="edit_canteen_form_btn" class="flex">
+                    <span class="number">1</span>
+                    <span class="form_title">Edit Canteen</span>
+                </span>
+                <span class="material-symbols-outlined" id="_1">
+                    arrow_circle_right
+                </span>
+            </div>
 
-                <input type="text" id="shopName" placeholder="Shop Name">
-                <input type="text" id="ownerName" placeholder="Owner's Name">
-                <input type="text" id="phoneNo" placeholder="Phone No.">
-                <input type="text" id="address" placeholder="Address">
-                <input type="text" class="text-area" id="about" placeholder="About Shop">
-                <p>
-                    Status: 
-                    <label>
-                        <input type="radio" class="with-gap" name="s" value=false>
-                        <span>CLOSE</span>  
-                    </label>
-                    <label>
-                        <input type="radio" class="with-gap" name="s" value=true>
-                        <span>OPEN</span>
-                    </label>
-                </p>
+            <div class="form_list">
+                <span id="edit_menu_form_btn" class="flex">
+                    <span class="number">2</span>
+                    <span class="form_title">Edit Menu</span>
+                </span>
+                <span class="material-symbols-outlined" id="_2">
+                    arrow_circle_right
+                </span>
+            </div>
 
-                <br><br>
+            <div id="buttonDiv">
+                <button id="submitForm" class="side_btn">Save Changes</button>
+                <button id="delbtn_modal" class="side_btn">Delete Canteen</button>
+                <button id="logout" class="side_btn">Log Out</button>
+            </div>
 
-                <img id="pfp">
+            <div id="delModal">
+                <div class="modal-content">
+                    <h4>Are you sure?</h4>
+                    <p>Deleting your account will also delete all the data linked to it</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="delBTN">Yes</button>
+                    <button id="closeBTN">No</button>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div id="form_box">
+
+            <div class="form_section" id="edit_canteen_form">
+                <div class="form_header">
+                    <span class="header_title">
+                        1. &nbsp; EDIT CANTEEN
+                    </span>
+                </div>
+
+                <div class="input_body">
+
+                    <div id="content_box">
+                        <div id="shopDiv">
+                            <span id="shopSpan">
+                                <label for="shopName">Shop Name</label>
+                                <br>
+                                <input type="text" id="shopName" placeholder="  Input" required \>
+                            </span>
+                        </div>
+
+                        <div id="ownerPhoneDiv">
+                            <span id="ownerSpan">
+                                <label for="ownerName">Owner Name</label>
+                                <br>
+                                <input type="text" id="ownerName" placeholder="  Input" required \>
+                            </span>
+                            <span id="phoneSpan">
+                                <label for="phoneNo">Contact No.</label>
+                                <br>
+                                <input type="text" placeholder="  Input" id="phoneNo">
+                            </span>
+                        </div>
+
+                        <div id="addressDiv">
+                            <span id="addressSpan">
+                                <label for="address">Address</label>
+                                <br>
+                                <input type="text" placeholder="  Input" id="address">
+                            </span>
+                        </div>
+
+                        <div id="aboutDiv">
+                            <span id="aboutSpan">
+                                <label for="about">About Shop</label>
+                                <br>
+                                <input type="text" placeholder="  Input" id="about">
+                            </span>
+                        </div>
+
+                        <div id="statusDiv">
+                            <div>
+                                Status: &nbsp;&nbsp;&nbsp;&nbsp;
+                                <label>
+                                    <input type="radio" name="s" class="status_btn" value=false required \>
+                                    <div class="status_design"></div>
+                                    <div class="status_text">CLOSE</div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="s" class="status_btn" value=true required \>
+                                    <div class="status_design"></div>
+                                    <div class="status_text">OPEN</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="image_box">
+                        <img id="pfp">
+                    </div>
+
+                </div>
 
             </div>
 
-            <button class="btn" type="submit">Save Changes</button>
-    
-        </form>
 
-        <br><br>
-        
-        <button class="btn" id="logout">Log Out</button>
+            <div class="form_section" id="edit_menu">
+                <div class="form_header">
+                    <span class="header_title">
+                        2. &nbsp; EDIT MENU
+                    </span>
+                    <button id="add_item">Add Item &nbsp;<span
+                            class="material-symbols-outlined">add_circle</span></button>
+                </div>
 
-        <a href="#delModal" class="modal-trigger"><button class="btn">Delete Account</button></a>
+                <div class="input_body" id="menu_system">
 
-        <div class="modal" id="delModal">
-            <div class="modal-content">
-                <h4 class="center-align">Are you sure?</h4>
-            <p class="center-align">Deleting your account will also delete all the data linked to it</p>
-            </div>   
-            <div class="modal-footer">
-                <button class="btn" id="delBTN">Yes</button>
-                <button class="modal-close btn">No</button>
-            </div>         
-        </div>
-
-        <br><br><br>
-        <button class="btn" id="add_item">Add Item</button>
-        <br><br><br>
-
-        <div id="menu_system">
+                    
+                </div>
+            </div>
 
         </div>
+
 
     </div>
-    
 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="vendor_login.bundle.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function(){
-            let elems = document.querySelectorAll('.modal');
-            let instances = M.Modal.init(elems, {});
-        })
-    </script>
 </body>
+
 </html>

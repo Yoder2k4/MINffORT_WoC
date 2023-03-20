@@ -268,8 +268,6 @@
     top: 0;
     left: 0;
     transform: scale(1);
-    /* transition: opacity 0.2s 0.2s ease-in-out,
-                transform 0.2s 0.2s ease-in-out; */
     visibility: visible;
     opacity: 1;
     transition-delay: 0.01s;

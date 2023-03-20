@@ -30,6 +30,37 @@ let db = getFirestore(app);
 
 let auth = getAuth(app);
 
+// Form Traversal
+let edit_canteen_form = document.getElementById('edit_canteen_form');
+let edit_menu = document.getElementById('edit_menu');
+
+let edit_canteen_form_btn = document.getElementById('edit_canteen_form_btn');
+let edit_menu_form_btn = document.getElementById('edit_menu_form_btn');
+
+let _1 = document.getElementById('_1');
+let _2 = document.getElementById('_2');
+
+edit_canteen_form_btn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    edit_canteen_form.style.display = "block";
+    _1.style.display = "block";
+
+    edit_menu.style.display = "none";
+    _2.style.display = "none";
+})
+edit_menu_form_btn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    edit_canteen_form.style.display = "none";
+    _1.style.display = "none";
+
+
+    edit_menu.style.display = "block";
+    _2.style.display = "block";
+})
+
+
 
 let shopName = document.querySelector('#shopName');
 let ownerName = document.querySelector('#ownerName');
@@ -70,9 +101,9 @@ onAuthStateChanged(auth, async (user) => {
             })
             .catch((err) => {
                 console.log(err.message);
-                if(err.message == "doc.data() is undefined"){
+                if (err.message == "doc.data() is undefined") {
                     console.log("Canteen for this account does not exists");
-                }  
+                }
             })
 
         // retriving menu items
@@ -95,8 +126,6 @@ onAuthStateChanged(auth, async (user) => {
                 console.log("No menu item");
             })
 
-        // console.log(menu_list_retrive);
-
 
         let menu_system = document.getElementById('menu_system');
 
@@ -105,36 +134,68 @@ onAuthStateChanged(auth, async (user) => {
         menu_list_retrive.forEach((menu_item) => {
 
             let input_row = document.createElement('div');
-            input_row.setAttribute('class', 'input_row');
+            input_row.classList.add('input_row');
             menu_system.appendChild(input_row);
 
-            let item_name = document.createElement('input');
-            item_name.setAttribute('type', 'text');
-            item_name.setAttribute('placeholder', 'Enter item name');
-            item_name.setAttribute('class', 'item_name');
-            item_name.value = menu_item.commodity;
-            input_row.appendChild(item_name);
+            let commoditySpan = document.createElement('span');
+            commoditySpan.classList.add('commoditySpan');
+            input_row.appendChild(commoditySpan);
 
-            let item_price = document.createElement('input');
-            item_price.setAttribute('type', 'text');
-            item_price.setAttribute('placeholder', 'Enter price');
-            item_price.setAttribute('class', 'item_price');
-            item_price.value = menu_item.price;
-            input_row.appendChild(item_price);
+            let label_name = document.createElement('label');
+            label_name.setAttribute('for', 'item_name');
+            label_name.innerHTML = "Commodity <br>";
+            commoditySpan.appendChild(label_name);
 
-            let p = document.createElement('p');
-            input_row.appendChild(p);
+            let item_name_input = document.createElement('input');
+            item_name_input.setAttribute('type', 'text');
+            item_name_input.setAttribute('placeholder', '   Input');
+            item_name_input.classList.add('item_name');
+            commoditySpan.appendChild(item_name_input);
 
-            let check_ava = `Availability:
+
+            let priceSpan = document.createElement('span');
+            priceSpan.classList.add('priceSpan');
+            input_row.appendChild(priceSpan);
+
+            let label_price = document.createElement('label');
+            label_price.setAttribute('for', 'item_name');
+            label_price.innerHTML = "Price <br>";
+            priceSpan.appendChild(label_price);
+
+            let item_price_input = document.createElement('input');
+            item_price_input.setAttribute('type', 'text');
+            item_price_input.setAttribute('placeholder', '  Input');
+            item_price_input.classList.add('item_price');
+            priceSpan.appendChild(item_price_input);
+
+            let new_availabiltySpan = `<span class="availabilitySpan">
+            Availability
             <label>
-                <input type="radio" name="${i}" class="not_available" value="false" required >
-                <span>Not Available</span>
+                <input type="radio" name="${i}" class="ava" value=false>
+                <div class="ava_design"></div> 
+                <div class="ava_text">Not Available</div>
             </label>
             <label>
-                <input type="radio" name="${i}" class="available" value="true" required >
-                <span>Available</span>
-            </label>`;
-            p.innerHTML += check_ava;
+                <input type="radio" name="${i}" class="ava" value=true>
+                <div class="ava_design"></div> 
+                <div class="ava_text">Available</div>
+            </label>
+        </span>`;
+
+            input_row.innerHTML += new_availabiltySpan;
+
+
+            // Putting values of items inside Input
+            let item_names = Array.from(document.getElementsByClassName('item_name'));
+            let item_prices = Array.from(document.getElementsByClassName('item_price'));
+
+            for(let j = 0; j<item_names.length; j++){
+                if(j == i){
+                    item_names[j].value = menu_item.commodity;
+                    item_prices[j].value = menu_item.price;
+                }
+            }
+
 
             let item_availability = menu_item.availability;
             let radio_check = document.getElementsByName(i);
@@ -149,47 +210,67 @@ onAuthStateChanged(auth, async (user) => {
         })
 
         //--------------------------Menu System ( Temporary )-------------------------------------------
-        // adding item fields
-        let add_item = document.getElementById('add_item')
+        // adding new item fields
+        let add_item = document.getElementById('add_item');
         add_item.addEventListener('click', (e) => {
             e.preventDefault();
 
             let input_row = document.createElement('div');
-            input_row.setAttribute('class', 'input_row');
+            input_row.classList.add('input_row');
             menu_system.appendChild(input_row);
 
-            let item_name = document.createElement('input');
-            item_name.setAttribute('type', 'text');
-            item_name.setAttribute('placeholder', 'Enter item name');
-            item_name.setAttribute('class', 'item_name');
-            input_row.appendChild(item_name);
+            let commoditySpan = document.createElement('span');
+            commoditySpan.classList.add('commoditySpan');
+            input_row.appendChild(commoditySpan);
 
-            let item_price = document.createElement('input');
-            item_price.setAttribute('type', 'text');
-            item_price.setAttribute('placeholder', 'Enter price');
-            item_price.setAttribute('class', 'item_price');
-            input_row.appendChild(item_price);
+            let label_name = document.createElement('label');
+            label_name.setAttribute('for', 'item_name');
+            label_name.innerHTML = "Commodity <br>";
+            commoditySpan.appendChild(label_name);
 
-            let p = document.createElement('p');
-            input_row.appendChild(p);
+            let item_name_input = document.createElement('input');
+            item_name_input.setAttribute('type', 'text');
+            item_name_input.setAttribute('placeholder', '   Input');
+            item_name_input.classList.add('item_name');
+            commoditySpan.appendChild(item_name_input);
 
-            let check_ava = `Availability:
-            <label>
-                <input type="radio" name="${i}" class="not_available" value="false" required >
-                <span>Not Available</span>
-            </label>
-            <label>
-                <input type="radio" name="${i}" class="available" value="true" required >
-                <span>Available</span>
-            </label>`;
-            p.innerHTML += check_ava;
+            let priceSpan = document.createElement('span');
+            priceSpan.classList.add('priceSpan');
+            input_row.appendChild(priceSpan);
+
+            let label_price = document.createElement('label');
+            label_price.setAttribute('for', 'item_name');
+            label_price.innerHTML = "Price <br>";
+            priceSpan.appendChild(label_price);
+
+            let item_price_input = document.createElement('input');
+            item_price_input.setAttribute('type', 'text');
+            item_price_input.setAttribute('placeholder', '  Input');
+            item_price_input.classList.add('item_price');
+            priceSpan.appendChild(item_price_input);
+
+            let new_availabiltySpan = `<span class="availabilitySpan">
+                    Availability
+                    <label>
+                        <input type="radio" name="${i}" class="ava" value=false>
+                        <div class="ava_design"></div> 
+                        <div class="ava_text">Not Available</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="${i}" class="ava" value=true>
+                        <div class="ava_design"></div> 
+                        <div class="ava_text">Available</div>
+                    </label>
+                </span>`;
+
+            input_row.innerHTML += new_availabiltySpan;
             i++;
         })
 
 
-        let update_form = document.querySelector('#details');
+        let submitForm = document.querySelector('#submitForm');
 
-        update_form.addEventListener('submit', (e) => {
+        submitForm.addEventListener('click', (e) => {
             e.preventDefault();
 
             if (s[0].checked) {
@@ -199,11 +280,11 @@ onAuthStateChanged(auth, async (user) => {
                 st = true;
             }
             let data = {
-                shopName: update_form.shopName.value,
-                ownerName: update_form.ownerName.value,
-                phoneNo: update_form.phoneNo.value,
-                address: update_form.address.value,
-                about: update_form.about.value,
+                shopName: shopName.value,
+                ownerName: ownerName.value,
+                phoneNo: phoneNo.value,
+                address: address.value,
+                about: about.value,
                 status: st
             };
 
@@ -212,7 +293,7 @@ onAuthStateChanged(auth, async (user) => {
                     console.log("Changes saved");
                 })
 
-            // appending changes in status
+            // appending changes in menu
             let item_names = document.getElementsByClassName('item_name');
             let item_name_list = [];
 
@@ -260,6 +341,23 @@ onAuthStateChanged(auth, async (user) => {
         });
 
         // Deleting Account
+
+        let delbtn_modal = document.getElementById('delbtn_modal');
+
+        delbtn_modal.addEventListener('click', (e) => {
+
+            let delModal = document.getElementById('delModal');
+            delModal.classList.toggle('active');
+
+        })
+
+        let closeBTN = document.getElementById('closeBTN');
+
+        closeBTN.addEventListener('click', (e) => {
+            e.preventDefault();
+            delModal.classList.toggle('active');
+        })
+
 
         let delBTN = document.getElementById("delBTN");
         delBTN.addEventListener('click', () => {
