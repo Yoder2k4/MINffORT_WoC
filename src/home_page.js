@@ -54,13 +54,17 @@ onAuthStateChanged(auth1, (user) => {
         let colRef = collection(db2, 'Canteen');
         let canteens = [];
 
-        // Whenever any data changes
-         onSnapshot(colRef, (snapshot) => {
+        let signed_in_msg = document.getElementById('signed_in_msg');
+        signed_in_msg.innerText = "Signed In as " + customer_email;
 
+        // Whenever any data changes
+        onSnapshot(colRef, (snapshot) => {
+
+             
             snapshot.docs.forEach((doc) => {
                 canteens.push({ ...doc.data(), id: doc.id })
             })
-
+                
             // Remove the container ( to refresh page after each snapshot )
             let card_container_remove = document.getElementById('card-container');
             card_container_remove.remove();
@@ -69,7 +73,9 @@ onAuthStateChanged(auth1, (user) => {
             let card_container = document.createElement('div');
             card_container.setAttribute('id', 'card-container');
             card_container.setAttribute('class', 'blur');
-            document.body.appendChild(card_container);
+
+            let content_body = document.getElementById('content_body');
+            content_body.appendChild(card_container);
 
 
             // Draw card for each canteen
@@ -209,13 +215,19 @@ onAuthStateChanged(auth1, (user) => {
                 phoneNo_box.appendChild(phone_label);
                 phoneNo_box.appendChild(phoneNo);
                 content.appendChild(phoneNo_box);
-                card_item.appendChild(content);
+
                 card_item.appendChild(image);
+                card_item.appendChild(content);
 
 
                 // Appending every value to Card Container
                 card_container.appendChild(card_item);
             });
+
+            let s = Array.from(document.getElementsByClassName('status_input'));
+            for(let i = 0; i < s.length; i++){
+                s[i].checked = false;
+            }
 
             let card_item = document.getElementsByClassName('card-item');
 
@@ -224,11 +236,6 @@ onAuthStateChanged(auth1, (user) => {
                 // to make modal structure and toggle canteen info
                 item.addEventListener('click', () => {
 
-                    // To refresh modal after selecting another card
-                    let card_select_remove = document.querySelector('.card_select');
-                    if (card_select_remove != null) {
-                        card_select_remove.remove();
-                    }
 
                     let card_select = document.createElement('div');
                     card_select.classList.add('card_select');
@@ -628,7 +635,7 @@ onAuthStateChanged(auth1, (user) => {
                             let com_colRef = collection(db2, 'Comment System');
                             let com_docRef = doc(db2, 'Comment System', item.id);
 
-                            // Fetching comments 
+                            // Fetching comments
                             let vendor_comments = [];
                             let check = false;
                             await getDocs(com_colRef)
@@ -782,8 +789,10 @@ onAuthStateChanged(auth1, (user) => {
                     })
 
                     // To make background blur
-                    let card_container = document.getElementById('card-container');
-                    card_container.classList.toggle('active');
+                    setTimeout(() => {
+                        let blur = document.getElementById('blur');
+                        blur.classList.toggle('active');
+                    },100)
 
                     // Draw the canteen modal
                     document.body.appendChild(card_select);
@@ -791,7 +800,7 @@ onAuthStateChanged(auth1, (user) => {
                     let popup = document.getElementById('popup');
                     setTimeout(() => {
                         popup.classList.toggle('active');
-                    }, 10);
+                    }, 1);
 
                     // Initializing card close button as null 
                     let closeBTN = document.getElementById('closeBTN');
@@ -802,15 +811,17 @@ onAuthStateChanged(auth1, (user) => {
                                 popup.classList.toggle('active');
                             }, 10);
                             // To unblur background
-                            let card_container = document.getElementById('card-container');
-                            card_container.classList.toggle('active');
+                            setTimeout(() => {
+                                let blur = document.getElementById('blur');
+                                blur.classList.toggle('active');
+                            },200)
                             setTimeout(() => {
                                 // To refresh Modal for another selection of card
                                 let card_select_remove = document.querySelector('.card_select');
                                 if (card_select_remove != null) {
                                     card_select_remove.remove();
                                 }
-                            }, 200);
+                            }, 159);
                         });
                     }
                 });
@@ -819,6 +830,147 @@ onAuthStateChanged(auth1, (user) => {
     }
 });
 
+// Filter Box
+let shopName_btn = document.getElementById('shopName_btn');
+let address_btn = document.getElementById('address_btn');
+let phone_btn = document.getElementById('phone_btn');
+let status_btn = document.getElementById('status_btn');
+
+let shopName_filter = document.getElementById('shopName_filter');
+let address_filter = document.getElementById('address_filter');
+let phone_filter = document.getElementById('phone_filter');
+let status_filter = document.getElementById('status_filter');
+
+shopName_btn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    if(!shopName_filter.classList.contains('hide')){
+        setTimeout(() => {
+            shopName_filter.classList.remove('active');
+        }, 20);
+        setTimeout(() => {
+            shopName_filter.classList.add('hide');
+        }, 190);
+    }
+    if(shopName_filter.classList.contains('hide')){
+        shopName_filter.classList.remove('hide');
+    }    
+    
+    setTimeout(() => {
+        shopName_filter.classList.add('active');
+    }, 0.0001);
+
+
+    let shopIcon = document.getElementById('shopIcon');
+    if(!shopIcon.classList.contains('active')){
+        shopIcon.classList.add('active');
+    }
+    else{
+        shopIcon.classList.remove('active');
+    }
+})
+address_btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    if(!address_filter.classList.contains('hide')){
+        setTimeout(() => {
+            address_filter.classList.remove('active');
+        }, 20);
+        setTimeout(() => {
+            address_filter.classList.add('hide');
+        }, 190);
+    }
+    if(address_filter.classList.contains('hide')){
+        address_filter.classList.remove('hide');
+    }
+
+    setTimeout(() => {
+        address_filter.classList.add('active');
+    }, 0.0001);
+
+    let addressIcon = document.getElementById('addressIcon');
+    if(!addressIcon.classList.contains('active')){
+        addressIcon.classList.add('active');
+    }
+    else{
+        addressIcon.classList.remove('active');
+    }
+})
+phone_btn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    if(!phone_filter.classList.contains('hide')){
+        setTimeout(() => {
+            phone_filter.classList.remove('active');
+        }, 20);
+        setTimeout(() => {
+            phone_filter.classList.add('hide');
+        }, 190);
+    }
+    if(phone_filter.classList.contains('hide')){
+        phone_filter.classList.remove('hide');
+    }
+
+    setTimeout(() => {
+        phone_filter.classList.add('active');
+    }, 0.0001);
+
+    let phoneIcon = document.getElementById('phoneIcon');
+    if(!phoneIcon.classList.contains('active')){
+        phoneIcon.classList.add('active');
+    }
+    else{
+        phoneIcon.classList.remove('active');
+    }
+})
+status_btn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    if(!status_filter.classList.contains('hide')){
+        setTimeout(() => {
+            status_filter.classList.remove('active');
+        }, 20);
+        setTimeout(() => {
+            status_filter.classList.add('hide');
+        }, 190);
+    }
+    if(status_filter.classList.contains('hide')){
+        status_filter.classList.remove('hide');
+    }
+
+    setTimeout(() => {
+        status_filter.classList.add('active');
+    }, 0.0001);
+
+    let statusIcon = document.getElementById('statusIcon');
+    if(!statusIcon.classList.contains('active')){
+        statusIcon.classList.add('active');
+    }
+    else{
+        statusIcon.classList.remove('active');
+    }
+})
+
+
+// Profile Button
+
+let profile = document.getElementById('profile');
+let profile_drop_down = document.getElementById('profile_drop_down');
+profile.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    if(profile_drop_down.style.display == "none"){
+        profile_drop_down.style.display = "flex";
+    }
+    else{
+        setTimeout(() => {
+            profile_drop_down.style.display = "none";
+        }, 200)
+    }
+    setTimeout(() => {
+        profile_drop_down.classList.toggle('active');
+    }, 2);
+})
 
 document.getElementById('signOut').addEventListener('click', () => {
     signOut(auth1)
