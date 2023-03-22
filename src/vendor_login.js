@@ -5,7 +5,8 @@ import {
     doc,
     getDoc,
     updateDoc,
-    deleteDoc
+    deleteDoc,
+    deleteField
 } from 'firebase/firestore'
 
 import {
@@ -130,7 +131,6 @@ onAuthStateChanged(auth, async (user) => {
         let menu_system = document.getElementById('menu_system');
 
         //making form for each menu item and appending in menu_system
-        let i = 0;
         menu_list_retrive.forEach((menu_item) => {
 
             let input_row = document.createElement('div');
@@ -168,6 +168,8 @@ onAuthStateChanged(auth, async (user) => {
             item_price_input.classList.add('item_price');
             priceSpan.appendChild(item_price_input);
 
+            let i = Math.random();
+
             let new_availabiltySpan = `<span class="availabilitySpan">
             Availability
             <label>
@@ -181,21 +183,43 @@ onAuthStateChanged(auth, async (user) => {
                 <div class="ava_text">Available</div>
             </label>
         </span>`;
-
             input_row.innerHTML += new_availabiltySpan;
 
+            let new_deleteSpan = `<span class="deleteSpan">
+            <i class="material-icons del_menu_btns">delete</i>
+            </span>`;
+            input_row.innerHTML += new_deleteSpan;
+
+            let del_menu_btns = Array.from(document.getElementsByClassName('del_menu_btns'));
+            del_menu_btns.forEach((del_menu) => {
+                del_menu.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    let del_menu_db = doc(db, 'Menu System', email);
+
+                    let del_input_row = del_menu.parentElement.parentElement;
+
+                    let commodity_name = del_input_row.children[0].children[1].value;
+
+                    updateDoc(del_menu_db, {
+                        [`${commodity_name}`]: deleteField()
+                    })
+                        .then(() => {
+                            console.log("Delete menu item");
+                        })
+                        .catch((e) => {
+                            console.log(e.code);
+                        })
+
+                    del_input_row.remove();
+                })
+            })
 
             // Putting values of items inside Input
-            let item_names = Array.from(document.getElementsByClassName('item_name'));
-            let item_prices = Array.from(document.getElementsByClassName('item_price'));
-
-            for(let j = 0; j<item_names.length; j++){
-                if(j == i){
-                    item_names[j].value = menu_item.commodity;
-                    item_prices[j].value = menu_item.price;
-                }
-            }
-
+            let item_name = input_row.children[0].children[1];
+            let item_price = input_row.children[1].children[1];
+            item_name.value = menu_item.commodity;
+            item_price.value = menu_item.price;
 
             let item_availability = menu_item.availability;
             let radio_check = document.getElementsByName(i);
@@ -206,7 +230,6 @@ onAuthStateChanged(auth, async (user) => {
             if (item_availability == false) {
                 radio_check[0].checked = true;
             }
-            i++;
         })
 
         //--------------------------Menu System ( Temporary )-------------------------------------------
@@ -249,6 +272,8 @@ onAuthStateChanged(auth, async (user) => {
             item_price_input.classList.add('item_price');
             priceSpan.appendChild(item_price_input);
 
+            let i = Math.random();
+
             let new_availabiltySpan = `<span class="availabilitySpan">
                     Availability
                     <label>
@@ -264,7 +289,38 @@ onAuthStateChanged(auth, async (user) => {
                 </span>`;
 
             input_row.innerHTML += new_availabiltySpan;
-            i++;
+
+            let new_deleteSpan = `<span class="deleteSpan">
+            <i class="material-icons del_menu_btns">delete</i>
+            </span>`;
+            input_row.innerHTML += new_deleteSpan;
+
+            let del_menu_btns = Array.from(document.getElementsByClassName('del_menu_btns'));
+            del_menu_btns.forEach((del_menu) => {
+                del_menu.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    let del_menu_db = doc(db, 'Menu System', email);
+
+                    let del_input_row = del_menu.parentElement.parentElement;
+
+                    let commodity_name = del_input_row.children[0].children[1].value;
+
+                    updateDoc(del_menu_db, {
+                        [`${commodity_name}`]: deleteField()
+                    })
+                        .then(() => {
+                            console.log("Delete menu item");
+                        })
+                        .catch((e) => {
+                            console.log(e.code);
+                        })
+
+                    console.log("Done");
+
+                    del_input_row.remove();
+                })
+            })
         })
 
 
@@ -294,43 +350,33 @@ onAuthStateChanged(auth, async (user) => {
                 })
 
             // appending changes in menu
-            let item_names = document.getElementsByClassName('item_name');
-            let item_name_list = [];
+            let input_row_list = Array.from(document.getElementsByClassName('input_row'));
 
-            Array.from(item_names).forEach((item) => {
-                item_name_list.push(item.value);
-            })
-
-            let item_prices = document.getElementsByClassName('item_price');
-            let item_price_list = [];
-
-            Array.from(item_prices).forEach((item) => {
-                item_price_list.push(item.value);
-            })
-
-            let availability_list = [];
-            let l = item_price_list.length;
-
-
-            for (let index = 0; index < l; index++) {
-                let availability_item = document.getElementsByName(index);
-                if (availability_item[1].checked) {
-                    availability_list[index] = true;
-                }
-                if (availability_item[0].checked) {
-                    availability_list[index] = false;
-                }
-            }
-
+            let commodity_value;
+            let price_value;
+            let availability_value;
             let ob_array = [];
-            for (let index = 0; index < l; index++) {
+
+            input_row_list.forEach((input_row_item) => {
+                commodity_value = input_row_item.children[0].children[1].value;
+                price_value = input_row_item.children[1].children[1].value;
+
+                let not_available_input = input_row_item.children[2].children[0].children[0];
+
+                if (not_available_input.checked) {
+                    availability_value = false;
+                }
+                else {
+                    availability_value = true;
+                }
+
                 let object = {
-                    commodity: item_name_list[index],
-                    price: item_price_list[index],
-                    availability: availability_list[index]
+                    commodity: commodity_value,
+                    price: price_value,
+                    availability: availability_value
                 }
                 ob_array.push(object);
-            }
+            });
 
             ob_array.forEach((ob) => {
                 let push_ob = {};

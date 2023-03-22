@@ -1,5 +1,5 @@
 *{
-    font-family: Ubuntu;
+    font-family: 'Poppins', sans-serif;
 }
 body {
     height: inherit;
@@ -131,6 +131,7 @@ body {
     display: flex;
     flex-direction: column;
     transition: 0.5s;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 #filter_box>span {
     margin: 8% 4%;
@@ -270,16 +271,17 @@ body {
 .card-item {
     width: 382.4px;
     margin-bottom: 30px;
+    border-radius: 6px;
     height: 35vh;
     background-color: white;
     display: flex;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.25s ease-in-out;
 }
 
 /* Card Hover */
 
 .card-item:hover {
-    transform: scale(1.1);
+    transform: scale(1.07);
     z-index: 4;
     cursor: pointer;
 }
@@ -288,7 +290,6 @@ body {
 
 .image {
     width: calc(40%);
-    border-right: 2px solid grey;
     height: 100%;
 }
 
@@ -296,6 +297,7 @@ body {
     object-fit: cover;
     width: 100%;
     height: 100%;
+    border-radius: 6px 0 0 6px;
 }
 
 
@@ -307,6 +309,7 @@ body {
     height: 100%;
     display: flex;
     flex-wrap: wrap;
+    background-color: rgb(227, 236, 252);
 }
 
 
@@ -322,6 +325,8 @@ body {
 
 .vendor_name{
     font-size: 1.5rem;
+    margin-left: 12px;
+    font-weight: 500;
 }
 
 
@@ -333,16 +338,26 @@ body {
     height: 19%;
     display: flex;
     align-items: center;
+    margin-left: 12px;
 }
 
 .box_title_a {
     font-size: 1.2rem;
+    margin-right: 4px; 
     font-weight: bold;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    
+}
+.box_title_d {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-right: 4px; 
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .address {
@@ -357,6 +372,7 @@ body {
 .vendor_description_box {
     height: 30%;
     width: 100%;
+    margin-left: 12px;
     display: flex;
     align-items: center;
 }
@@ -406,7 +422,6 @@ body {
 .phoneNo_box {
     height: 10%;
     width: 100%;
-    border-top: 1px solid black;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -449,7 +464,6 @@ body {
     height: 90vh;
     margin: 5vh 10vw;
     background-color: white;
-    border: 2px solid black;
     box-shadow: 0 5px 30px rgba(0, 0, 0, 0.536);
     display: flex;
     z-index: 6;
@@ -479,7 +493,6 @@ body {
 .image_container {
     width: 35%;
     height: 100%;
-    border-right: 1px solid black;
 }
 
 .image_container img {
@@ -507,6 +520,11 @@ body {
 .cross_btn i {
     font-size: 1.8rem;
     font-weight: bold;
+    transition: all 0.2s ease-in-out;
+}
+.cross_btn i:hover {
+    color: rgb(247, 247, 107);
+    transition: all 0.2s ease-in-out;
 }
 
 /* Shop Name Box */
@@ -522,7 +540,7 @@ body {
 }
 
 .shopName_title {
-    font-size: 4rem;
+    font-size: 3.8rem;
     color: white;
     font-weight: bold;
     padding-left: 4%;
@@ -670,11 +688,11 @@ body {
     display: none;
 }
 #tab_c{
-    background-color: #633af4;
+    background-color: #5762f9;
     color: white;
 }
 #tab_m {
-    color: #633af4;
+    color: #5762f9;
 }
 
 
@@ -696,6 +714,10 @@ body {
 }
 .collection {
     margin: .1rem 0 0.1rem 0;
+}
+.collection-item {
+    background-color: rgb(244, 244, 244) !important;
+    border-bottom: 0.4px solid grey !important;
 }
 .addComment {
     height: 13%;

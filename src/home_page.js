@@ -52,14 +52,14 @@ onAuthStateChanged(auth1, (user) => {
 
         let customer_email = user.email;
         let colRef = collection(db2, 'Canteen');
-        let canteens = [];
-
+        
         let signed_in_msg = document.getElementById('signed_in_msg');
         signed_in_msg.innerText = "Signed In as " + customer_email;
-
+        
         // Whenever any data changes
         onSnapshot(colRef, (snapshot) => {
-
+            
+            let canteens = [];
              
             snapshot.docs.forEach((doc) => {
                 canteens.push({ ...doc.data(), id: doc.id })
@@ -72,7 +72,6 @@ onAuthStateChanged(auth1, (user) => {
             // Draw new container
             let card_container = document.createElement('div');
             card_container.setAttribute('id', 'card-container');
-            card_container.setAttribute('class', 'blur');
 
             let content_body = document.getElementById('content_body');
             content_body.appendChild(card_container);

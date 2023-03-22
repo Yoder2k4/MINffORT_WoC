@@ -7,10 +7,10 @@ import {
     doc
 } from 'firebase/firestore'
 
-import { 
+import {
     getAuth,
     onAuthStateChanged,
-    signOut 
+    signOut
 } from 'firebase/auth'
 
 const firebaseConfig2 = {
@@ -103,10 +103,10 @@ onAuthStateChanged(auth, (user) => {
             // Fetching input values from Form
             let s = document.getElementsByName('s');
             let st;
-            if(s[0].checked){
+            if (s[0].checked) {
                 st = false;
             }
-            if(s[1].checked){
+            if (s[1].checked) {
                 st = true;
             }
             let data = {
@@ -117,50 +117,41 @@ onAuthStateChanged(auth, (user) => {
                 about: about.value,
                 status: st
             };
-            
+
             setDoc(docRef, { ImgURL: img_url, data });
 
 
             // Adding Menu
-            
+
             let menu_docRef = doc(db, 'Menu System', email);
-    
-            let item_names = document.getElementsByClassName('item_name');
-            let item_name_list = [];
-            
-            Array.from(item_names).forEach((item) => {
-                item_name_list.push(item.value);
-            })
-            
-            let item_prices = document.getElementsByClassName('item_price');
-            let item_price_list = [];
 
-            Array.from(item_prices).forEach((item) => {
-                item_price_list.push(item.value);
-            })
+            let input_row_list = Array.from(document.getElementsByClassName('input_row'));
 
-            let availability_list = [];
-            let l = item_price_list.length;
-
-            for (let index = 0; index < l; index++) {
-                let availability_item = document.getElementsByName(index);
-                if(availability_item[1].checked){
-                    availability_list[index] = true;
-                }
-                if(availability_item[0].checked){
-                    availability_list[index] =false;
-                }
-            }
-
+            let commodity_value;
+            let price_value;
+            let availability_value;
             let ob_array = [];
-            for (let index = 0; index < l; index++) {
+
+            input_row_list.forEach((input_row_item) => {
+                commodity_value = input_row_item.children[0].children[1].value;
+                price_value = input_row_item.children[1].children[1].value;
+
+                let not_available_input = input_row_item.children[2].children[0].children[0];
+
+                if(not_available_input.checked){
+                    availability_value = false;
+                }
+                else{
+                    availability_value = true;
+                }
+
                 let object = {
-                    commodity: item_name_list[index],
-                    price: item_price_list[index],
-                    availability: availability_list[index]
+                    commodity: commodity_value,
+                    price: price_value,
+                    availability: availability_value
                 }
                 ob_array.push(object);
-            }
+            });
 
             setDoc(menu_docRef, {
                 sample: {
@@ -177,7 +168,7 @@ onAuthStateChanged(auth, (user) => {
         })
 
     }
-    
+
 })
 
 
@@ -218,26 +209,26 @@ ip.addEventListener('change', (e) => {
     reader.readAsDataURL(files[0]);
 });
 
-reader.onload = async function(){
+reader.onload = async function () {
     pfp.src = reader.result;
     await UploadProcess();
 }
 
-async function UploadProcess(){
+async function UploadProcess() {
     let ImgToUpload = files[0];
-    
+
     let metaData = {
         contentType: ImgToUpload.type
     };
-    
+
     let storage = getStorage(app);
-    
-    let storageRef = ref(storage, "pfp/"+fileName);
-    
+
+    let storageRef = ref(storage, "pfp/" + fileName);
+
     await uploadBytesResumable(storageRef, ImgToUpload, metaData)
         .then(async (snapshot) => {
             console.log("Uploading... ");
-            console.log((snapshot.bytesTransferred/snapshot.totalBytes)*100, "%" );
+            console.log((snapshot.bytesTransferred / snapshot.totalBytes) * 100, "%");
             await getDownloadURL(snapshot.ref).then((downloadURL) => {
                 img_url = downloadURL;
                 console.log(downloadURL);
@@ -253,7 +244,6 @@ async function UploadProcess(){
 // Menu System
 let add_item = document.getElementById('add_item');
 let menu_system = document.getElementById('menu_system');
-let i = 0;
 add_item.addEventListener('click', (e) => {
     e.preventDefault();
 
@@ -291,6 +281,8 @@ add_item.addEventListener('click', (e) => {
     item_price_input.classList.add('item_price');
     priceSpan.appendChild(item_price_input);
 
+    let i = Math.random();
+
     let new_availabiltySpan = `<span class="availabilitySpan">
             Availability
             <label>
@@ -304,11 +296,23 @@ add_item.addEventListener('click', (e) => {
                 <div class="ava_text">Available</div>
             </label>
         </span>`;
-
     input_row.innerHTML += new_availabiltySpan;
-    i++;
-})
 
+    let new_deleteSpan = `<span class="deleteSpan">
+        <i class="material-icons del_menu_btns">delete</i>
+    </span>`;
+    input_row.innerHTML += new_deleteSpan;
+
+    let del_menu_btns = Array.from(document.getElementsByClassName('del_menu_btns'));
+    del_menu_btns.forEach((del_menu) => {
+        del_menu.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            let del_input_row = del_menu.parentElement.parentElement;
+            del_input_row.remove();
+        })
+    })
+})
 
 
 

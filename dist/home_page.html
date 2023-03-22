@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Check Canteen’s Status</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/src/style_home_page.css">
 </head>
@@ -278,10 +282,10 @@
             let tab_c = document.getElementById('tab_c');
             let tab_m = document.getElementById('tab_m');
 
-            tab_c.style.backgroundColor = "#633af4";
+            tab_c.style.backgroundColor = "#5762f9";
             tab_c.style.color = "white";
             tab_m.style.backgroundColor = "white";
-            tab_m.style.color = "#633af4";
+            tab_m.style.color = "#5762f9";
         }
         function m_tab_toggle() {
             let comment_display = document.getElementById('comment_container');
@@ -293,10 +297,10 @@
             let tab_c = document.getElementById('tab_c');
             let tab_m = document.getElementById('tab_m');
 
-            tab_m.style.backgroundColor = "#633af4";
+            tab_m.style.backgroundColor = "#5762f9";
             tab_m.style.color = "white";
             tab_c.style.backgroundColor = "white";
-            tab_c.style.color = "#633af4";
+            tab_c.style.color = "#5762f9";
         }
 
 
@@ -380,7 +384,7 @@
                     let status_value = status_array[i].innerHTML;
                     if (status_value != "CLOSE") {
                         status_array[i].parentElement.parentElement.parentElement.style.display = "none";
-                    }
+                    } 
                     else {
                         status_array[i].parentElement.parentElement.parentElement.style.display = "";
                     }
