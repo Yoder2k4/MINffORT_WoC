@@ -4,6 +4,23 @@
     font-family: 'Poppins', sans-serif;
 }
 
+body{
+    background: linear-gradient(-135deg, rgb(154, 198, 252), rgb(147, 255, 210), rgb(154, 198, 252), rgb(147, 255, 210), rgb(154, 198, 252), rgb(147, 255, 210));
+    background-size: 300% 300%;
+    animation: color 6s ease-in-out infinite;
+}
+@keyframes color {
+    0%{
+        background-position: 0 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0 50%;
+    }
+}
+
 #page {
     height: 90vh;
     width: 94vw;
@@ -152,6 +169,7 @@ input[type=text]:focus {
 .form_section {
     height: 100%;
     width: 100%;
+    background-color: white;
 }
 .form_header {
     height: 24%;

@@ -1,6 +1,47 @@
 *{
     font-family: 'Poppins', sans-serif;
 }
+
+#preloader {
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.5s cubic-bezier(0,.69,.48,1.01);
+}
+#preloader.close{
+    opacity: 0;
+    visibility: hidden;
+}
+#preloader_content{
+    margin-top: 100px;
+    font-size: 2rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#gif img{
+    height: 30vh;
+}
+
+#blur {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 1s cubic-bezier(0,.69,.48,1.01);
+}
+#blur.open{
+    opacity: 1;
+    visibility: visible;
+}
+
 body {
     height: inherit;
     background: linear-gradient(to right, white, #d4f9ff8c, #d4f9ff8c, #d4f9ff8c);
@@ -268,8 +309,6 @@ body {
     justify-content: space-around;
     transition: 0.5s;
 }
-
-
 
 /* Card */
 

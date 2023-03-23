@@ -4,6 +4,23 @@
     font-family: 'Poppins', sans-serif;
 }
 
+body{
+    background: linear-gradient(-45deg, rgba(154, 198, 252, 0.726), rgba(147, 255, 210, 0.797), rgba(154, 198, 252, 0.71), rgba(147, 255, 210, 0.752), rgba(154, 198, 252, 0.774), rgba(147, 255, 210, 0.801));
+    background-size: 300% 300%;
+    animation: color 6s ease-in-out infinite;
+}
+@keyframes color {
+    0%{
+        background-position: 0 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0 50%;
+    }
+}
+
 #page {
     height: 90vh;
     width: 94vw;
@@ -141,6 +158,7 @@ input[type=text]:focus {
 .form_section {
     height: 100%;
     width: 100%;
+    background-color: white;
 }
 .form_header {
     height: 24%;
