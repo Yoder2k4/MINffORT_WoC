@@ -15,7 +15,7 @@ import {
     onSnapshot,
     deleteField,
     getDocs,
-    serverTimestamp
+    serverTimestamp,
 } from 'firebase/firestore'
 
 const firebaseConfig1 = {
@@ -99,7 +99,6 @@ onAuthStateChanged(auth1, (user) => {
                 // Card Overall
                 let card_item = document.createElement('div');
                 card_item.classList.add('card-item');
-                card_item.classList.add('z-depth-2');
                 card_item.setAttribute('id', card_id);
 
 
@@ -183,7 +182,7 @@ onAuthStateChanged(auth1, (user) => {
                 open_close.classList.add('open-close');
                 open_close.innerText = v_status;
                 if (v_status === "OPEN") {
-                    open_close.style.color = "chartreuse";
+                    open_close.style.color = "rgb(54, 195, 25)";
                 }
                 if (v_status === "CLOSE") {
                     open_close.style.color = "red";
@@ -198,9 +197,6 @@ onAuthStateChanged(auth1, (user) => {
 
                 let phoneNo_box = document.createElement('div');
                 phoneNo_box.classList.add('phoneNo_box');
-                let phone_label = document.createElement('span');
-                phone_label.classList.add('phone_label');
-                phone_label.innerText = "Phone No.";
                 let phoneNo = document.createElement('span');
                 phoneNo.classList.add('phoneNo');
                 let i_phone = document.createElement('i');
@@ -211,7 +207,6 @@ onAuthStateChanged(auth1, (user) => {
                 phone_inside_text.innerText = ' ' + v_phone;
 
                 phoneNo.appendChild(phone_inside_text);
-                phoneNo_box.appendChild(phone_label);
                 phoneNo_box.appendChild(phoneNo);
                 content.appendChild(phoneNo_box);
 
@@ -507,7 +502,7 @@ onAuthStateChanged(auth1, (user) => {
                             status_line.innerText = v_status;
 
                             if (v_status === "OPEN") {
-                                status_line.style.color = "chartreuse";
+                                status_line.style.color = "rgb(54, 195, 25)";
                             }
 
                             if (v_status === "CLOSE") {
@@ -633,7 +628,6 @@ onAuthStateChanged(auth1, (user) => {
 
                             let com_colRef = collection(db2, 'Comment System');
                             let com_docRef = doc(db2, 'Comment System', item.id);
-
                             // Fetching comments
                             let vendor_comments = [];
                             let check = false;
@@ -650,6 +644,8 @@ onAuthStateChanged(auth1, (user) => {
                                         }
                                     })
                                 })
+
+                            vendor_comments.sort(function(a,b){return b.createdAt - a.createdAt});
 
                             // Commenting
                             let comment_btn = document.getElementById('send_btn');
@@ -671,6 +667,7 @@ onAuthStateChanged(auth1, (user) => {
                                     }
                                     else {
                                         setDoc(com_docRef, comment_ob);
+                                        check = true;
                                         console.log("Created comments");
                                     }
 
@@ -678,7 +675,7 @@ onAuthStateChanged(auth1, (user) => {
                                     let collection_item = document.createElement('li');
                                     collection_item.classList.add('collection-item');
                                     collection_item.classList.add('avatar');
-                                    collection_box.appendChild(collection_item);
+                                    collection_box.prepend(collection_item);
                                     
                                     let i_person = document.createElement('i');
                                     i_person.classList.add('material-icons');
@@ -726,6 +723,12 @@ onAuthStateChanged(auth1, (user) => {
                                 comment_username.setAttribute('style', 'font-weight: bold;')
                                 comment_username.innerText = c.username;
                                 collection_item.appendChild(comment_username);
+
+                                let comment_time = document.createElement('p');
+                                comment_time.classList.add('comment_time');
+                                let createdAt = c.createdAt;
+                                comment_time.innerHTML = createdAt.toDate().toDateString() + '\t' + createdAt.toDate().toLocaleTimeString() + '<br>';
+                                collection_item.appendChild(comment_time);
 
                                 let comment_line = document.createElement('p');
                                 comment_line.classList.add('comment_line');
