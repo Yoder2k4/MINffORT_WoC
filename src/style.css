@@ -3,8 +3,8 @@ body{
     background-image: linear-gradient(45deg, #4f3df074,rgba(141, 235, 242, 0.695),#4f3df05d, #4f3df05d,rgba(141, 235, 242, 0.695),#4f3df05c, #4f3df060,rgba(141, 235, 242, 0.695),#4f3df05a);
     font-family: 'Lato', sans-serif;
     min-height: 100vh;
-    animation: color 6s ease-in-out infinite;
-    background-size: 300% 300%;
+    animation: color 3s linear infinite;
+    background-size: 800% 800%;
 }
 @keyframes color {
     0%{

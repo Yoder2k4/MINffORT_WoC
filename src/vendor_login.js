@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import {
     getFirestore,
     doc,
+    docs,
     getDoc,
     updateDoc,
     deleteDoc,
@@ -34,12 +35,15 @@ let auth = getAuth(app);
 // Form Traversal
 let edit_canteen_form = document.getElementById('edit_canteen_form');
 let edit_menu = document.getElementById('edit_menu');
+let response_box = document.getElementById('check_response');
 
 let edit_canteen_form_btn = document.getElementById('edit_canteen_form_btn');
 let edit_menu_form_btn = document.getElementById('edit_menu_form_btn');
+let check_response_btn = document.getElementById('check_response_btn');
 
 let _1 = document.getElementById('_1');
 let _2 = document.getElementById('_2');
+let _3 = document.getElementById('_3');
 
 edit_canteen_form_btn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -49,6 +53,9 @@ edit_canteen_form_btn.addEventListener('click', (e) => {
 
     edit_menu.style.display = "none";
     _2.style.display = "none";
+
+    response_box.style.display = "none";
+    _3.style.display = "none";
 })
 edit_menu_form_btn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -59,6 +66,22 @@ edit_menu_form_btn.addEventListener('click', (e) => {
 
     edit_menu.style.display = "block";
     _2.style.display = "block";
+
+    response_box.style.display = "none";
+    _3.style.display = "none";
+})
+check_response_btn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    edit_canteen_form.style.display = "none";
+    _1.style.display = "none";
+
+
+    edit_menu.style.display = "none";
+    _2.style.display = "none";
+
+    response_box.style.display = "block";
+    _3.style.display = "block";
 })
 
 
@@ -323,6 +346,95 @@ onAuthStateChanged(auth, async (user) => {
             })
         })
 
+        // Check Customer Response
+
+
+// --------------------------------------------------------------------------------------------------------
+        // VOTING SYSTEM
+
+        let vot_docRef = doc(db, 'Voting System', email);
+
+        await getDoc(vot_docRef)
+            .then((snapshot) => {
+                let vendor_result = [];
+                // Fetching vote data
+                for (const key in snapshot.data()) {
+                    if (snapshot.data().hasOwnProperty(key)) {
+                        vendor_result.push(snapshot.data()[key].vote);
+                    }
+                }
+
+                // Calculating Net Vote
+                let result = 0;
+                for (let i = 0; i < vendor_result.length; i++) {
+                    if (vendor_result[i] === true) {
+                        result += 1;
+                    }
+                    if (vendor_result[i] === false) {
+                        result -= 1;
+                    }
+                }
+                let vote_count = document.querySelector('#vote_count');
+                vote_count.innerText = result;
+            })
+
+// ------------------------------------------------------------------------------------------------------
+        // COMMENT SYSTEM
+
+        let com_docRef = doc(db, 'Comment System', email);
+        // Fetching comments
+        let vendor_comments = [];
+        await getDoc(com_docRef)
+            .then((snapshot) => {
+                console.log(snapshot.data());
+                for (const key in snapshot.data()) {
+                    if (snapshot.data().hasOwnProperty(key)) {
+                        vendor_comments.push(snapshot.data()[key]);
+                    }
+                }
+            })
+
+        vendor_comments.sort(function (a, b) { return b.createdAt - a.createdAt });
+
+        let collection_box = document.getElementsByClassName('collection')[0];
+
+        vendor_comments.forEach((c) => {
+
+            let collection_item = document.createElement('li');
+            collection_item.classList.add('collection-item');
+            collection_item.classList.add('avatar');
+            collection_box.appendChild(collection_item);
+
+            let i_person = document.createElement('i');
+            i_person.classList.add('material-icons');
+            i_person.classList.add('circle');
+            i_person.classList.add('cyan');
+            i_person.innerText = "person";
+            collection_item.appendChild(i_person);
+
+            let comment_username = document.createElement('span');
+            comment_username.classList.add('title');
+            comment_username.classList.add('comment_username');
+            comment_username.setAttribute('style', 'font-weight: bold;')
+            comment_username.innerText = c.username;
+            collection_item.appendChild(comment_username);
+
+            let comment_time = document.createElement('p');
+            comment_time.classList.add('comment_time');
+            let createdAt = c.createdAt;
+            comment_time.innerHTML = createdAt.toDate().toDateString() + '\t' + createdAt.toDate().toLocaleTimeString() + '<br>';
+            collection_item.appendChild(comment_time);
+
+            let comment_line = document.createElement('p');
+            comment_line.classList.add('comment_line');
+            comment_line.innerText = c.comment;
+            collection_item.appendChild(comment_line);
+
+        })
+
+
+// -------------------------------------------------------------------------------------------------------
+        // Submiting Form
 
         let submitForm = document.querySelector('#submitForm');
 

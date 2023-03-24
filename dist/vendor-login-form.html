@@ -6,8 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/img/MINffORT.png" type="image/x-icon">
-    <title>Change your Canteen's Status</title>
+    <title>Change Canteen's Status</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap"
@@ -46,6 +47,16 @@
                     <span class="form_title">Edit Menu</span>
                 </span>
                 <span class="material-symbols-outlined" id="_2">
+                    arrow_circle_right
+                </span>
+            </div>
+
+            <div class="form_list">
+                <span id="check_response_btn" class="flex">
+                    <span class="number">3</span>
+                    <span class="form_title">Customer Response</span>
+                </span>
+                <span class="material-symbols-outlined" id="_3">
                     arrow_circle_right
                 </span>
             </div>
@@ -123,15 +134,15 @@
                         <div id="statusDiv">
                             <div>
                                 Status: &nbsp;&nbsp;&nbsp;&nbsp;
-                                <label>
-                                    <input type="radio" name="s" class="status_btn" value=false required \>
-                                    <div class="status_design"></div>
-                                    <div class="status_text">CLOSE</div>
+                                <label class="browser-default">
+                                    <input type="radio" name="s" class="status_btn browser-default" value=false required \>
+                                    <div class="status_design browser-default"></div>
+                                    <div class="status_text browser-default">CLOSE</div>
                                 </label>
-                                <label>
-                                    <input type="radio" name="s" class="status_btn" value=true required \>
-                                    <div class="status_design"></div>
-                                    <div class="status_text">OPEN</div>
+                                <label class="browser-default">
+                                    <input type="radio" name="s" class="status_btn browser-default" value=true required \>
+                                    <div class="status_design browser-default"></div>
+                                    <div class="status_text browser-default">OPEN</div>
                                 </label>
                             </div>
                         </div>
@@ -157,7 +168,35 @@
 
                 <div class="input_body" id="menu_system">
 
-                    
+                </div>
+            </div>
+
+            <div class="form_section" id="check_response">
+                <div class="form_header">
+                    <span class="header_title">
+                        3. &nbsp; CHECK RESPONSE
+                    </span>
+                </div>
+
+                <div class="input_body" id="response_box">
+
+                    <div id="vote_count_box">
+                        <span>
+                            Total Votes: 
+                        </span>
+                        <span id="vote_count"></span>
+                    </div>
+
+                    <div id="comment_box">
+
+                        <span id="comment_scrollbox">
+                            <ul class="collection">
+                                
+                            </ul>
+                        </span>
+
+                    </div>
+
                 </div>
             </div>
 
@@ -167,7 +206,7 @@
     </div>
 
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="vendor_login.bundle.js"></script>
 </body>
 

@@ -3,11 +3,14 @@
     padding: 0;
     font-family: 'Poppins', sans-serif;
 }
-
+*, ::before, ::after {
+    -webkit-box-sizing: unset;
+    box-sizing: unset;
+}
 body{
     background: linear-gradient(-135deg, rgb(154, 198, 252), rgb(147, 255, 210), rgb(154, 198, 252), rgb(147, 255, 210), rgb(154, 198, 252), rgb(147, 255, 210));
-    background-size: 300% 300%;
-    animation: color 6s ease-in-out infinite;
+    background-size: 500% 500%;
+    animation: color 3s linear infinite;
 }
 @keyframes color {
     0%{
@@ -150,7 +153,10 @@ body{
 }
 
 
-
+label {
+    color: black;
+    font-size: 1rem;
+}
 /* Form Box */
 
 #form_box {
@@ -159,11 +165,11 @@ body{
 }
 
 input[type=text] {
-    background-color: rgba(128, 128, 128, 0.068);
+    background-color: #fcf8f8 !important;
 }
 input[type=text]:focus {
-    background-color: rgba(120, 177, 250, 0.158);
-    transition: background-color 300ms ease-in-out;
+    background-color: rgba(144, 187, 244, 0.158) !important;
+    transition: background-color 300ms ease-in-out !important;
 }
 
 .form_section {
@@ -217,11 +223,10 @@ input[type=text]:focus {
 }
 #shopSpan input {
     width: 207%;
-    padding: 0.3vw;
+    padding: 0.1vh 0.3vw;
     margin-top: 1vh;
     margin-left: 0.3vw;
     border-radius: 5px;
-    border: 0.5px solid gray;
 }
 
 #ownerPhoneDiv {
@@ -231,26 +236,24 @@ input[type=text]:focus {
     align-items: center;
 }
 #ownerSpan {
-    margin-left: 8%;
+    margin-left: 9%;
 }
 #ownerSpan input {
     width: 90%;
-    padding: 0.3vw;
+    padding: 0.1vh 0.3vw;
     margin-top: 1vh;
     margin-left: 0.3vw;
     border-radius: 5px;
-    border: 0.5px solid gray;
 }
 #phoneSpan {
     margin-left: 11.8%;
 }
 #phoneSpan input {
-    width: 100%;
-    padding: 0.3vw;
+    width: 72%;
+    padding: 0.1vh 0.3vw;
     margin-top: 1vh;
     margin-left: 0.3vw;
     border-radius: 5px;
-    border: 0.5px solid gray;
 }
 
 #addressDiv {
@@ -264,11 +267,10 @@ input[type=text]:focus {
 }
 #addressSpan input {
     width: 207%;
-    padding: 0.3vw;
+    padding: 0.1vh 0.3vw;
     margin-top: 1vh;
     margin-left: 0.3vw;
     border-radius: 5px;
-    border: 0.5px solid gray;
 }
 
 #aboutDiv {
@@ -282,11 +284,10 @@ input[type=text]:focus {
 }
 #aboutSpan input {
     width: 207%;
-    padding: 0.3vw;
+    padding: 0.1vh 0.3vw;
     margin-top: 1vh;
     margin-left: 0.3vw;
     border-radius: 5px;
-    border: 0.5px solid gray;
 }
 
 #statusDiv {
@@ -301,6 +302,7 @@ input[type=text]:focus {
     height: 100%;
     display: flex;
     align-items: center;
+    font-size: 1.1rem;
 }
 #statusDiv div label {
     display: flex;
@@ -402,7 +404,7 @@ input[type=text]:focus {
 }
 .input_row input[type=text]{
     margin-top: 1vh;
-    padding: 5px 14px;
+    padding: 0 14px;
     border: none;
     border-radius: 5px;
 }
@@ -469,6 +471,56 @@ input[type=text]:focus {
     cursor: pointer;
 }
 
+
+/* Customer Response */
+#response_box {
+    display: flex;
+    flex-direction: column;
+}
+#vote_count_box {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-left: 5%;
+}
+#vote_count {
+    margin-left: 2%;
+    font-size: 2.2rem;
+    font-weight: 900;
+}
+#comment_box {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#comment_scrollbox {
+    margin-top: -70px;
+    padding: 0 5px;
+    border: 0.5px solid grey;
+    border-radius: 12px;
+    width: 80%;
+    height: 80%;
+    overflow: auto;
+}
+.collection {
+    margin: .1rem 0 0.1rem 0;
+}
+.collection-item {
+    background-color: rgb(244, 244, 244) !important;
+    border-bottom: 0.4px solid grey !important;
+}
+.comment_time {
+    font-size: 0.9rem;
+    color: gray;
+}
+.comment_userName {
+    font-weight: bold;
+}
 
 
 /* Delete Account Modal */
@@ -551,6 +603,6 @@ input[type=text]:focus {
 
 
 
-#edit_menu{
+#edit_menu, #check_response{
     display: none;
 }

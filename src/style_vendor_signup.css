@@ -3,11 +3,15 @@
     padding: 0;
     font-family: 'Poppins', sans-serif;
 }
+*, ::before, ::after {
+    -webkit-box-sizing: unset;
+    box-sizing: unset;
+}
 
 body{
     background: linear-gradient(-45deg, rgba(154, 198, 252, 0.726), rgba(147, 255, 210, 0.797), rgba(154, 198, 252, 0.71), rgba(147, 255, 210, 0.752), rgba(154, 198, 252, 0.774), rgba(147, 255, 210, 0.801));
-    background-size: 300% 300%;
-    animation: color 6s ease-in-out infinite;
+    background-size: 500% 500%;
+    animation: color 3s linear infinite;
 }
 @keyframes color {
     0%{
@@ -140,6 +144,13 @@ body{
     transform: scale(1.1);
     transition: all 0.1s ease-in-out;
 }
+
+
+label {
+    color: black;
+    font-size: 1rem;
+}
+
 /* Form Box */
 
 #form_box {
@@ -153,6 +164,9 @@ input[type=text] {
 input[type=text]:focus {
     background-color: rgba(120, 177, 250, 0.158);
     transition: background-color 300ms ease-in-out;
+}
+input[type=text]::placeholder {
+    color: rgb(0, 0, 0);
 }
 
 .form_section {
@@ -191,11 +205,10 @@ input[type=text]:focus {
 }
 #shopSpan input {
     width: 230%;
-    padding: 0.3vw;
+    padding: 0.1vh 0.3vw;
     margin-top: 1vh;
     margin-left: 0.3vw;
     border-radius: 5px;
-    border: 0.5px solid gray;
 }
 
 #ownerPhoneDiv {
@@ -209,22 +222,20 @@ input[type=text]:focus {
 }
 #ownerSpan input {
     width: 110%;
-    padding: 0.3vw;
+    padding: 0.1vh 0.3vw;
     margin-top: 1vh;
     margin-left: 0.3vw;
     border-radius: 5px;
-    border: 0.5px solid gray;
 }
 #phoneSpan {
     margin-left: 20%;
 }
 #phoneSpan input {
     width: 110%;
-    padding: 0.3vw;
+    padding: 0.1vh 0.3vw;
     margin-top: 1vh;
     margin-left: 0.3vw;
     border-radius: 5px;
-    border: 0.5px solid gray;
 }
 
 #addressDiv {
@@ -238,11 +249,10 @@ input[type=text]:focus {
 }
 #addressSpan input {
     width: 230%;
-    padding: 0.3vw;
+    padding: 0.1vh 0.3vw;
     margin-top: 1vh;
     margin-left: 0.3vw;
     border-radius: 5px;
-    border: 0.5px solid gray;
 }
 
 #aboutDiv {
@@ -256,11 +266,10 @@ input[type=text]:focus {
 }
 #aboutSpan input {
     width: 230%;
-    padding: 0.3vw;
+    padding: 0.1vh 0.3vw;
     margin-top: 1vh;
     margin-left: 0.3vw;
     border-radius: 5px;
-    border: 0.5px solid gray;
 }
 
 #statusDiv {
@@ -275,12 +284,13 @@ input[type=text]:focus {
     height: 100%;
     display: flex;
     align-items: center;
+    font-size: 1.1rem;
 }
 #statusDiv div label {
     display: flex;
     align-items: center;
     height: 20px;
-    width: 90px;
+    width: 80px;
     border-radius: 40px;
     padding: 14px 16px;
     margin: 10px 0;
@@ -354,7 +364,6 @@ input[type=text]:focus {
     font-size: 10rem;
     margin: 0%;
     cursor: default;
-    z-index: -1;
 }
 #selbtn {
     padding: 8px 35px;
@@ -411,11 +420,13 @@ input[type=text]:focus {
 }
 .input_row input[type=text]{
     margin-top: 1vh;
-    padding: 5px 14px;
+    width: 12vw;
+    padding: 5px;
     border: none;
     border-radius: 5px;
 }
 .availabilitySpan {
+    margin-left: 2%;
     width: 25%;
     height: 100%;
     display: flex;
@@ -425,7 +436,7 @@ input[type=text]:focus {
     display: flex;
     align-items: center;
     height: 20px;
-    width: 157px;
+    width: 136px;
     border-radius: 40px;
     padding: 5px 6px;
     margin: 3px 0;
