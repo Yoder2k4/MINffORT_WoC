@@ -63,7 +63,7 @@
                     <span id="shopName_box">
                         <span id="shopName_btn">Shop Name <i class="material-icons" id="shopIcon">expand_more</i></span>
                         <span id="shopName_filter" class="hide">
-                            <input type="text" class="browser-default" id="shopName_input" onkeyup="search_shopName()">
+                            <input type="text" class="browser-default" id="shopName_input" onkeyup="filter()">
                             <i class="material-icons">search</i>
                         </span>
                     </span>
@@ -71,7 +71,7 @@
                     <span id="address_box">
                         <span id="address_btn">Address <i class="material-icons" id="addressIcon">expand_more</i></span>
                         <span id="address_filter" class="hide">
-                            <input type="text" class="browser-default" id="address_input" onkeyup="search_address()">
+                            <input type="text" class="browser-default" id="address_input" onkeyup="filter()">
                             <i class="material-icons">search</i>
                         </span>
                     </span>
@@ -79,7 +79,7 @@
                     <span id="phone_box">
                         <span id="phone_btn">Phone <i class="material-icons" id="phoneIcon">expand_more</i></span>
                         <span id="phone_filter" class="hide">
-                            <input type="text" class="browser-default" id="phone_input" onkeyup="search_phone()">
+                            <input type="text" class="browser-default" id="phone_input" onkeyup="filter()">
                             <i class="material-icons">search</i>
                         </span>
                     </span>
@@ -88,12 +88,14 @@
                         <span id="status_btn">Status <i class="material-icons" id="statusIcon">expand_more</i></span>
                         <span id="status_filter" class="hide">
                             <label>
-                                <input type="checkbox" onclick="search_status_open()" class="status_input browser-default">
+                                <input type="checkbox" onclick="search_status_open()"
+                                    class="status_input browser-default">
                                 <div class="radio_design"></div>
                                 <div class="radio_text">OPEN</div>
                             </label>
                             <label>
-                                <input type="checkbox" onclick="search_status_close()" class="status_input browser-default">
+                                <input type="checkbox" onclick="search_status_close()"
+                                    class="status_input browser-default">
                                 <div class="radio_design"></div>
                                 <div class="radio_text">CLOSE</div>
                             </label>
@@ -315,55 +317,8 @@
         }
 
 
+        // --------------------------------------------------------------------------------------------------------
         // Filter Canteen
-        function search_shopName() {
-            let shopName_input = document.getElementById('shopName_input').value.toLowerCase();
-
-            let shopName_array = Array.from(document.getElementsByClassName('vendor_name'));
-
-            for (let i = 0; i < shopName_array.length; i++) {
-                let shopName_value = shopName_array[i];
-                if (shopName_value.innerHTML.toLowerCase().indexOf(shopName_input) <= -1) {
-                    shopName_value.parentElement.parentElement.parentElement.style.display = "none";
-                }
-                else {
-                    shopName_value.parentElement.parentElement.parentElement.style.display = "";
-                }
-            }
-        }
-
-        function search_address() {
-            let address_input = document.getElementById('address_input').value.toLowerCase();
-
-            let address_array = Array.from(document.getElementsByClassName('address'));
-
-            for (let i = 0; i < address_array.length; i++) {
-                let address_value = address_array[i].firstChild.innerHTML;
-                if (address_value.toLowerCase().indexOf(address_input) <= -1) {
-                    address_array[i].parentElement.parentElement.parentElement.style.display = "none";
-                }
-                else {
-                    address_array[i].parentElement.parentElement.parentElement.style.display = "";
-                }
-            }
-        }
-
-        function search_phone() {
-            let phone_input = document.getElementById('phone_input').value.toLowerCase();
-
-            let phone_array = Array.from(document.getElementsByClassName('phoneNo'));
-
-            for (let i = 0; i < phone_array.length; i++) {
-                let phone_value = phone_array[i].children[1].innerHTML;
-                if (phone_value.toLowerCase().indexOf(phone_input) <= -1) {
-                    phone_array[i].parentElement.parentElement.parentElement.style.display = "none";
-                }
-                else {
-                    phone_array[i].parentElement.parentElement.parentElement.style.display = "";
-                }
-            }
-        }
-
         function search_status_open() {
             let s = document.getElementsByClassName('status_input');
             let status_array = Array.from(document.getElementsByClassName('open-close'));
@@ -371,17 +326,21 @@
                 s[1].checked = false;
                 for (let i = 0; i < status_array.length; i++) {
                     let status_value = status_array[i].innerHTML;
-                    if (status_value != "OPEN") {
+                    if (status_value != "OPEN" && !status_array[i].parentElement.parentElement.parentElement.classList.contains('hiddenCard')) {
                         status_array[i].parentElement.parentElement.parentElement.style.display = "none";
                     }
                     else {
-                        status_array[i].parentElement.parentElement.parentElement.style.display = "";
+                        if (!status_array[i].parentElement.parentElement.parentElement.classList.contains('hiddenCard')) {
+                            status_array[i].parentElement.parentElement.parentElement.style.display = "";
+                        }
                     }
                 }
             }
-            else{
+            else {
                 for (let i = 0; i < status_array.length; i++) {
-                    status_array[i].parentElement.parentElement.parentElement.style.display = "";
+                    if (!status_array[i].parentElement.parentElement.parentElement.classList.contains('hiddenCard')) {
+                        status_array[i].parentElement.parentElement.parentElement.style.display = "";
+                    }
                 }
             }
         }
@@ -393,20 +352,96 @@
                 s[0].checked = false;
                 for (let i = 0; i < status_array.length; i++) {
                     let status_value = status_array[i].innerHTML;
-                    if (status_value != "CLOSE") {
+                    if (status_value != "CLOSE" && !status_array[i].parentElement.parentElement.parentElement.classList.contains('hiddenCard')) {
                         status_array[i].parentElement.parentElement.parentElement.style.display = "none";
-                    } 
+                    }
                     else {
+                        if (!status_array[i].parentElement.parentElement.parentElement.classList.contains('hiddenCard')) {
+                            status_array[i].parentElement.parentElement.parentElement.style.display = "";
+                        }
+                    }
+                }
+            }
+            else {
+                for (let i = 0; i < status_array.length; i++) {
+                    if (!status_array[i].parentElement.parentElement.parentElement.classList.contains('hiddenCard')) {
                         status_array[i].parentElement.parentElement.parentElement.style.display = "";
                     }
                 }
             }
-            else{
-                for (let i = 0; i < status_array.length; i++) {
-                    status_array[i].parentElement.parentElement.parentElement.style.display = "";
+        }
+
+        function filter() {
+            let shopName_input = document.getElementById('shopName_input').value.toLowerCase();
+            let address_input = document.getElementById('address_input').value.toLowerCase();
+            let phone_input = document.getElementById('phone_input').value.toLowerCase();
+
+
+            let filter_ob = {};
+            filter_ob[1] = shopName_input;
+            filter_ob[2] = address_input;
+            filter_ob[3] = phone_input;
+
+
+            let card_items = Array.from(document.getElementsByClassName('card-item'));
+            for (let i = 0; i < card_items.length; i++) {
+                let card_item = card_items[i];
+
+                let check_input = [true, true, true];
+
+                let card_shopName;
+                let card_address;
+                let card_phone;
+
+                if (filter_ob[1] != null && filter_ob[1] != "") {
+                    card_shopName = card_item.children[1].children[0].children[0].innerText.toLowerCase();
+                    if (card_shopName.indexOf(shopName_input) <= -1) {
+                        check_input[0] = false;
+                    }
+                    else {
+                        check_input[0] = true;
+                    }
                 }
+                if (filter_ob[2] != null && filter_ob[2] != "") {
+                    card_address = card_item.children[1].children[1].children[1].children[0].innerText.toLowerCase();
+                    if (card_address.indexOf(address_input) <= -1) {
+                        check_input[1] = false;
+                    }
+                    else {
+                        check_input[1] = true;
+                    }
+                }
+                if (filter_ob[3] != null && filter_ob[3] != "") {
+                    card_phone = card_item.children[1].children[4].children[0].children[1].innerText.toLowerCase();
+                    if (card_phone.indexOf(phone_input) <= -1) {
+                        check_input[2] = false;
+                    }
+                    else {
+                        check_input[2] = true;
+                    }
+                }
+
+                if (check_input[0] == false || check_input[1] == false || check_input[2] == false) {
+                    card_item.style.display = "none";
+                    card_item.classList.add('hiddenCard');
+                }
+                else {
+                    card_item.style.display = "";
+                    card_item.classList.remove('hiddenCard');
+                }
+
+                let s = document.getElementsByClassName('status_input');
+                if (s[0].checked) {
+                    search_status_open();
+                }
+                if (s[1].checked) {
+                    search_status_close();
+                }
+
             }
         }
+
+        // --------------------------------------------------------------------------------------------------------
 
         // Adding Preloader
 
@@ -425,11 +460,11 @@
             setTimeout(() => {
                 preloader.style.display = "none";
             }, 1300);
-            
+
         })
 
 
-        
+
     </script>
 </body>
 
