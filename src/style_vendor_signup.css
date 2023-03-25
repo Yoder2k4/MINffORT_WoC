@@ -93,17 +93,19 @@ body{
     cursor: pointer;
 }
 .number {
-    width: 8.5%;
+    width: 2.1vw;
+    height: 2.1vw;
     margin-left: 10%;
     border-radius: 50%;
-    font-size: 1.4rem;
+    font-size: clamp(1.1rem, 1rem + 0.4vw, 1.6rem);
+
     font-weight: 700;
     text-align: center;
     color: white;
     background-color: rgb(3, 58, 238);
 }
 .form_title {
-    font-size: 1.4rem;
+    font-size: clamp(1.1rem, 1rem + 0.4vw, 1.6rem);
     width: 66%;
     margin-left: 10%;
 }
@@ -491,4 +493,196 @@ input[type=text]::placeholder {
 
 #add_menu, #upload_pfp_form {
     display: none;
+}
+
+
+
+/* Media Queries */
+@media screen and (max-width: 1052px) {
+    .number {
+        width: 2.6vw;
+        height: 2.6vw;
+        font-size: clamp(1.1rem, 1rem + 0.4vw, 1.6rem);
+    }
+}
+
+@media screen and (max-width: 983px) {
+    #logo {
+        font-size: clamp(2.2rem, 4.8vw, 3.5rem);
+        text-shadow: 4px 4px rgba(255, 254, 195, 0.39);
+    }
+    .title_1 {
+        font-size: clamp(2.2rem, 4.8vw, 3.5rem);
+        font-weight: 700;
+        color: white;
+        text-shadow: 4px 4px rgba(195, 222, 255, 0.26);
+    }
+    .title_2 {
+        font-size: clamp(1.1rem, 3.5vw, 2.1rem);
+        font-weight: 700;
+        color: #F85A3E;
+        text-shadow: 4px 4px #f43210ac ;
+    }
+
+    #shopSpan input {
+        width: 40vw;
+        padding: 0.1vh 0.3vw;
+        margin-top: 1vh;
+        margin-left: 0.3vw;
+        border-radius: 5px;
+        font-size: clamp(1rem, 1.6vw, 1.8rem);
+    }
+    #ownerSpan input {
+        width: 20vw;
+        padding: 0.1vh 0.3vw;
+        margin-top: 1vh;
+        margin-left: 0.3vw;
+        border-radius: 5px;
+        font-size: clamp(1rem, 1.6vw, 1.8rem);
+    }
+    #phoneSpan {
+        margin-left: 5vw;
+    }
+    #phoneSpan input {
+        width: 20vw;
+        padding: 0.1vh 0.3vw;
+        margin-top: 1vh;
+        margin-left: 0.3vw;
+        border-radius: 5px;
+        font-size: clamp(1rem, 1.6vw, 1.8rem);
+    }
+    #addressSpan input {
+        width: 50vw;
+        padding: 0.1vh 0.3vw;
+        margin-top: 1vh;
+        margin-left: 0.3vw;
+        border-radius: 5px;
+        font-size: clamp(1rem, 1.6vw, 1.8rem);
+    }
+    #aboutSpan input {
+        width: 50vw;
+        padding: 0.1vh 0.3vw;
+        margin-top: 1vh;
+        margin-left: 0.3vw;
+        border-radius: 5px;
+        font-size: clamp(1rem, 1.6vw, 1.8rem);
+    }
+
+    .input_row input[type="text"] {
+        padding: 0 5px;
+    }
+}
+
+@media screen and (max-width: 865px) {
+    .header_title {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        font-weight: bold;
+        margin-left: 8%;
+    }
+    .input_row {
+        width: 97%;
+        height: 20%;
+        margin: 5% auto;
+    }
+    .ava_design {
+        width: 13px;
+        height: 13px;
+    }
+    .input_row input[type=text]::placeholder {
+        font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+    }
+    .availabilitySpan {
+        width: 35%;
+    }
+    .availabilitySpan label {
+        width: 80%;
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 648px) {
+    .availabilitySpan{
+        font-size: clamp(0.4rem, 2vw, 1rem);
+    }
+    label {
+        font-size: clamp(0.4rem, 2vw, 1rem);
+    }
+    #add_item {
+        padding: 1px 0px;
+        font-size: 0.9rem;
+    }
+    #add_circle {
+        margin-left: -6%;
+        font-size: 2.1rem;
+    }
+}
+
+@media screen and (max-width: 788px) {
+    #_1, #_2, #_3 {
+        font-size: 3rem;
+        margin-right: -2.8vw;
+        z-index: 3;
+        color: rgb(40, 76, 194);
+    }
+    .flex {
+        width: 98%;
+    }
+    .number {
+        width: 3.5vw;
+        height: 3.5vw;
+        font-size: clamp(0.84rem, 1.2rem + 0.4vw, 1.6rem);
+        margin-left: 5%;
+    }
+    .form_title {
+        font-size: clamp(0.08rem, 0.5rem + 1.2vw, 1.6rem);
+        width: 70%;
+        margin-left: 6%;
+    }
+    .availabilitySpan {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 595px) {
+    #side_nav {
+        width: 15%;
+    }
+    #form_box {
+        width: 85%;
+    }
+    #logo {
+        font-size: clamp(1.2rem, 10vw, 5.5rem);
+    }
+    .title_1,.title_2 {
+        display: none;
+    }
+    .form_title {
+        display: none;
+    }
+    .flex {
+        justify-content: center;
+    }
+    .number {
+        width: 5vw;
+        height: 5vw;
+        font-size: clamp(0.84rem, 1.2rem + 0.4vw, 1.6rem);
+        margin-left: 5%;
+    }
+    #_1, #_2, #_3 {
+        font-size: 2.5rem;
+        margin-right: -3vw;
+        z-index: 3;
+        color: rgb(40, 76, 194);
+    }
+    #buttonDiv {
+        flex-direction: column;
+        width: 14.2%;
+        height: 15%;
+    }
+    .side_btn {
+        font-size: 0.9rem;
+        padding: 5px;
+        border-radius: 8px;
+    }
+
 }

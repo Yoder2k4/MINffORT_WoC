@@ -198,7 +198,7 @@ onAuthStateChanged(auth, async (user) => {
             <label>
                 <input type="radio" name="${i}" class="ava" value=false>
                 <div class="ava_design"></div> 
-                <div class="ava_text">Not Available</div>
+                <div class="ava_text">Unavailable</div>
             </label>
             <label>
                 <input type="radio" name="${i}" class="ava" value=true>
@@ -302,7 +302,7 @@ onAuthStateChanged(auth, async (user) => {
                     <label>
                         <input type="radio" name="${i}" class="ava" value=false>
                         <div class="ava_design"></div> 
-                        <div class="ava_text">Not Available</div>
+                        <div class="ava_text">Unavailable</div>
                     </label>
                     <label>
                         <input type="radio" name="${i}" class="ava" value=true>
