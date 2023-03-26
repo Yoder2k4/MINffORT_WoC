@@ -110,7 +110,6 @@ onAuthStateChanged(auth1, (user) => {
                 image.appendChild(img);
 
 
-
                 // Content Container
                 let content = document.createElement('div');
                 content.classList.add('content');

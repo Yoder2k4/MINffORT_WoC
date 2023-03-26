@@ -18,6 +18,15 @@
 
 <body>
 
+    <div id="alertBox">
+        <span id="alertMSG">
+            <i class="material-icons">check_circle</i>
+            &nbsp;
+            Submitted Successfully
+        </span>
+    </div>
+        
+
     <div id="page">
 
         <div id="side_nav">
@@ -33,9 +42,9 @@
                 <span id="general_form_btn" class="flex">
                     <span class="number">1</span>
                     <span class="form_title">General Info</span>
-                </span>
-                <span class="material-symbols-outlined" id="_1">
-                    arrow_circle_right
+                    <span class="material-symbols-outlined" id="_1">
+                        arrow_circle_right
+                    </span>
                 </span>
             </div>
 
@@ -43,9 +52,9 @@
                 <span id="upload_pfp_form_btn" class="flex">
                     <span class="number">2</span>
                     <span class="form_title">Upload Photo</span>
-                </span>
-                <span class="material-symbols-outlined" id="_2">
-                    arrow_circle_right
+                    <span class="material-symbols-outlined" id="_2">
+                        arrow_circle_right
+                    </span>
                 </span>
             </div>
 
@@ -53,9 +62,9 @@
                 <span id="add_menu_form_btn" class="flex">
                     <span class="number">3</span>
                     <span class="form_title">Add Menu</span>
-                </span>
-                <span class="material-symbols-outlined" id="_3">
-                    arrow_circle_right
+                    <span class="material-symbols-outlined" id="_3">
+                        arrow_circle_right
+                    </span>
                 </span>
             </div>
 
@@ -118,13 +127,13 @@
                     <div id="statusDiv">
                         <div>
                             Status: &nbsp;&nbsp;&nbsp;&nbsp;
-                            <label>
-                                <input type="radio" name="s" class="status_btn" value=false required \>
+                            <label id="status_btn_1">
+                                <input type="radio"  name="s" href="#statusDiv" class="status_btn" value=false required \>
                                 <div class="status_design"></div>
                                 <div class="status_text">CLOSE</div>
                             </label>
-                            <label>
-                                <input type="radio" name="s" class="status_btn" value=true required \>
+                            <label id="status_btn_2">
+                                <input type="radio" name="s" href="#statusDiv" class="status_btn" value=true required \>
                                 <div class="status_design"></div>
                                 <div class="status_text">OPEN</div>
                             </label>
@@ -198,11 +207,16 @@
         </div>
     </div>
 
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="vendor.bundle.js"></script>
-
+    <script>
+        let s = Array.from(document.getElementsByName('s'));
+        s.forEach((a) => {
+            a.addEventListener('change', (e) => {
+                e.preventDefault();
+            })
+        })
+    </script>
 </body>
 
 </html>

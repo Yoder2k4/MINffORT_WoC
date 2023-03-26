@@ -44,7 +44,7 @@
 
 body {
     height: inherit;
-    background: linear-gradient(to right, white, #d4f9ff8c, #d4f9ff8c, #d4f9ff8c);
+    background: linear-gradient(to right, white, #aeedf7, #aeedf7, #aeedf7, #aeedf7);
 }
 
 #signed_in_msg {
@@ -61,17 +61,20 @@ body {
 
 /* Navbar */
 #navbox {
-    width: 100vw;
+    width: 99.2vw;
+    margin: 0 auto;
     height: 16vh;
     position: sticky;
     top: 0;
     display: flex;
+    background: linear-gradient(to right, white, #aeedf7, #aeedf7, #aeedf7, #aeedf7);
     z-index: 6;
+    border-radius: 20px 0 20px 20px;
     justify-content: center;
     align-items: flex-end;
 }
 #navbar {
-    width: 95%;
+    width: 100%;
     height: 90%;
     position: sticky;
     background-color: #3A54AA;
@@ -332,9 +335,14 @@ body {
 }
 
 .card-item:hover .content{
-    background-color: #3A54AA;
+    /* background-color: #3A54AA; */
     transition: all 0.25s ease-in-out;
-    color: white;
+    /* color: white; */
+    border-radius: 0;
+}
+.card-item:hover .image img + .image{
+    border-radius: 0;
+    transition: all 0.25s ease-in-out;
 }
 
 
@@ -364,9 +372,10 @@ body {
     transition: all 0.25s ease-in-out;
     width: 60%;
     height: 100%;
+    border-radius: 11px;
     display: flex;
     flex-wrap: wrap;
-    background-color: #a6ecf78c;
+    background-color: white;
 }
 
 
@@ -823,6 +832,7 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    overflow: auto;
 }
 
 table {

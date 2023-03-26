@@ -94,7 +94,7 @@ onAuthStateChanged(auth, (user) => {
         let about = document.getElementById('about');
 
         // Adding info
-        submitForm.addEventListener('click', (e) => {
+        submitForm.addEventListener('click', async (e) => {
             e.preventDefault();
             email = user.email;
 
@@ -118,7 +118,8 @@ onAuthStateChanged(auth, (user) => {
                 status: st
             };
 
-            setDoc(docRef, { ImgURL: img_url, data });
+            await setDoc(docRef, { ImgURL: img_url, data });
+                
 
 
             // Adding Menu
@@ -138,10 +139,10 @@ onAuthStateChanged(auth, (user) => {
 
                 let not_available_input = input_row_item.children[2].children[0].children[0];
 
-                if(not_available_input.checked){
+                if (not_available_input.checked) {
                     availability_value = false;
                 }
-                else{
+                else {
                     availability_value = true;
                 }
 
@@ -153,17 +154,25 @@ onAuthStateChanged(auth, (user) => {
                 ob_array.push(object);
             });
 
-            setDoc(menu_docRef, {
+            await setDoc(menu_docRef, {
                 sample: {
                     empty: "empty"
                 }
             })
+                .then(() => {
+                    let alertMSG = document.getElementById('alertMSG');
+                    alertMSG.classList.add('show');
 
-            ob_array.forEach((ob) => {
+                    setTimeout(() => {
+                        alertMSG.classList.remove('show');
+                    }, 3000);
+                })
+
+            ob_array.forEach(async (ob) => {
                 let push_ob = {};
                 push_ob[ob.commodity] = ob;
 
-                updateDoc(menu_docRef, push_ob);
+                await updateDoc(menu_docRef, push_ob);
             })
         })
 

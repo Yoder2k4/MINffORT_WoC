@@ -20,6 +20,14 @@
 
 <body>
 
+    <div id="alertBox">
+        <span id="alertMSG">
+            <i class="material-icons">check_circle</i>
+            &nbsp;
+            Changes Saved Successfully
+        </span>
+    </div>
+
     <div id="page">
 
         <div id="side_nav">
@@ -35,9 +43,9 @@
                 <span id="edit_canteen_form_btn" class="flex">
                     <span class="number">1</span>
                     <span class="form_title">Edit Canteen</span>
-                </span>
-                <span class="material-symbols-outlined" id="_1">
-                    arrow_circle_right
+                    <span class="material-symbols-outlined" id="_1">
+                        arrow_circle_right
+                    </span>
                 </span>
             </div>
 
@@ -45,9 +53,9 @@
                 <span id="edit_menu_form_btn" class="flex">
                     <span class="number">2</span>
                     <span class="form_title">Edit Menu</span>
-                </span>
-                <span class="material-symbols-outlined" id="_2">
-                    arrow_circle_right
+                    <span class="material-symbols-outlined" id="_2">
+                        arrow_circle_right
+                    </span>
                 </span>
             </div>
 
@@ -134,12 +142,12 @@
                         <div id="statusDiv">
                             <div>
                                 Status: &nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="browser-default">
+                                <label class="browser-default" id="status_btn_1">
                                     <input type="radio" name="s" class="status_btn browser-default" value=false required \>
                                     <div class="status_design browser-default"></div>
                                     <div class="status_text browser-default">CLOSE</div>
                                 </label>
-                                <label class="browser-default">
+                                <label class="browser-default" id="status_btn_2">
                                     <input type="radio" name="s" class="status_btn browser-default" value=true required \>
                                     <div class="status_design browser-default"></div>
                                     <div class="status_text browser-default">OPEN</div>

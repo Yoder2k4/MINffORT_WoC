@@ -172,6 +172,7 @@ onAuthStateChanged(auth, async (user) => {
             let item_name_input = document.createElement('input');
             item_name_input.setAttribute('type', 'text');
             item_name_input.setAttribute('placeholder', '   Input');
+            item_name_input.setAttribute('readonly', 'readonly');
             item_name_input.classList.add('item_name');
             commoditySpan.appendChild(item_name_input);
 
@@ -393,8 +394,10 @@ onAuthStateChanged(auth, async (user) => {
                     }
                 }
             })
-
+        
+            
         vendor_comments.sort(function (a, b) { return b.createdAt - a.createdAt });
+        console.log(vendor_comments);
 
         let collection_box = document.getElementsByClassName('collection')[0];
 
@@ -419,6 +422,8 @@ onAuthStateChanged(auth, async (user) => {
             comment_username.innerText = c.username;
             collection_item.appendChild(comment_username);
 
+            console.log(c.comment);
+
             let comment_time = document.createElement('p');
             comment_time.classList.add('comment_time');
             let createdAt = c.createdAt;
@@ -438,7 +443,7 @@ onAuthStateChanged(auth, async (user) => {
 
         let submitForm = document.querySelector('#submitForm');
 
-        submitForm.addEventListener('click', (e) => {
+        submitForm.addEventListener('click', async (e) => {
             e.preventDefault();
 
             if (s[0].checked) {
@@ -456,9 +461,15 @@ onAuthStateChanged(auth, async (user) => {
                 status: st
             };
 
-            updateDoc(docRef, { data })
+            await updateDoc(docRef, { data })
                 .then(() => {
                     console.log("Changes saved");
+                    let alertMSG = document.getElementById('alertMSG');
+                    alertMSG.classList.add('show');
+
+                    setTimeout(() => {
+                        alertMSG.classList.remove('show');
+                    }, 3000);
                 })
 
             // appending changes in menu

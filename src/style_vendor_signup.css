@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    max-height: 100vh;
     font-family: 'Poppins', sans-serif;
 }
 *, ::before, ::after {
@@ -34,6 +35,38 @@ body{
     display: flex;
 }
 
+/* Alert Message */
+#alertBox {
+    width: 95vw;
+    margin: 0 2.5vw;
+    z-index: 10;
+    position: fixed;
+    top: 10%;
+    display: flex;
+    justify-content: flex-end;
+}
+#alertMSG {
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px, inset rgba(255, 255, 255, 0.815) 2px 2px 5px, inset rgb(255, 255, 255, 0.815) -2px -2px 5px;
+    border: green solid 3px;
+    width: 300px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: rgb(205, 250, 204);
+    color: rgb(9, 81, 9);
+    font-weight: 600;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease-out;
+}
+#alertMSG.show {
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.5s ease-in;
+}
 
 /* Side Nav Bar */
 
@@ -51,7 +84,7 @@ body{
     width: 100%;
     height: 20%;
     margin-top: 5%;
-    margin-bottom: 10%;
+    margin-bottom: 12vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -111,9 +144,15 @@ body{
 }
 .material-symbols-outlined {
     font-size: 3rem;
-    margin-right: -10%;
+    margin-right: 2%;
     z-index: 3;
-    color: rgb(40, 76, 194);
+    color: rgb(255, 255, 255);
+}
+#_1, #_2, #_3 {
+    margin-top: -7px;
+    align-self: baseline;
+    position: absolute;
+    left: 27%;
 }
 #_2,#_3 {
     display: none;
@@ -123,14 +162,14 @@ body{
     position: absolute;
     width: 28.2%;
     height: 10%;
-    bottom: 5%;
+    top: 85%;
     left: 3%;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 .side_btn {
-    padding: 5px 10px;
+    padding: 8px 13px;
     border: none;
     border-radius: 20px;
     background-color: rgb(4, 4, 158);
@@ -182,6 +221,7 @@ input[type=text]::placeholder {
     box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 .header_title {
     font-size: 4rem;
@@ -361,6 +401,7 @@ input[type=text]::placeholder {
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
+    overflow: hidden;
 }
 #cloud {
     font-size: 10rem;
@@ -392,9 +433,10 @@ input[type=text]::placeholder {
     max-height: none;
 }
 #add_item {
-    position: fixed;
-    right: 5vw;
-    top: 24vh;
+    position: relative;
+    align-self: flex-end;
+    margin-right: 5px;
+    margin-bottom: -3vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -410,6 +452,7 @@ input[type=text]::placeholder {
     font-size: 2.2rem;
     color: white;
     border-radius: 50%;
+    margin-right: -10%;
 }
 
 .input_row {
@@ -426,6 +469,16 @@ input[type=text]::placeholder {
     padding: 5px;
     border: none;
     border-radius: 5px;
+}
+.commoditySpan {
+    height: 100%;
+}
+.priceSpan {
+    height: 100%;
+}
+.deleteSpan {
+    height: 100%;
+    margin-top: 10%;
 }
 .availabilitySpan {
     margin-left: 2%;
@@ -508,29 +561,32 @@ input[type=text]::placeholder {
 
 @media screen and (max-width: 983px) {
     #logo {
-        font-size: clamp(2.2rem, 4.8vw, 3.5rem);
+        font-size: clamp(2rem, 4.8vw, 3.5rem);
         text-shadow: 4px 4px rgba(255, 254, 195, 0.39);
     }
     .title_1 {
-        font-size: clamp(2.2rem, 4.8vw, 3.5rem);
+        font-size: clamp(2rem, 4.8vw, 3.5rem);
         font-weight: 700;
         color: white;
         text-shadow: 4px 4px rgba(195, 222, 255, 0.26);
     }
     .title_2 {
-        font-size: clamp(1.1rem, 3.5vw, 2.1rem);
+        font-size: clamp(1rem, 3.5vw, 2.1rem);
         font-weight: 700;
         color: #F85A3E;
         text-shadow: 4px 4px #f43210ac ;
     }
-
+    #_1, #_2, #_3 {
+        margin-top: -8px;
+        margin-right: 0;
+    }
     #shopSpan input {
         width: 40vw;
         padding: 0.1vh 0.3vw;
         margin-top: 1vh;
         margin-left: 0.3vw;
         border-radius: 5px;
-        font-size: clamp(1rem, 1.6vw, 1.8rem);
+        font-size: clamp(0.9rem, 1.9vw, 1.2rem);
     }
     #ownerSpan input {
         width: 20vw;
@@ -538,7 +594,7 @@ input[type=text]::placeholder {
         margin-top: 1vh;
         margin-left: 0.3vw;
         border-radius: 5px;
-        font-size: clamp(1rem, 1.6vw, 1.8rem);
+        font-size: clamp(0.9rem, 1.9vw, 1.2rem);
     }
     #phoneSpan {
         margin-left: 5vw;
@@ -549,7 +605,7 @@ input[type=text]::placeholder {
         margin-top: 1vh;
         margin-left: 0.3vw;
         border-radius: 5px;
-        font-size: clamp(1rem, 1.6vw, 1.8rem);
+        font-size: clamp(0.9rem, 1.9vw, 1.2rem);
     }
     #addressSpan input {
         width: 50vw;
@@ -557,7 +613,7 @@ input[type=text]::placeholder {
         margin-top: 1vh;
         margin-left: 0.3vw;
         border-radius: 5px;
-        font-size: clamp(1rem, 1.6vw, 1.8rem);
+        font-size: clamp(0.9rem, 1.9vw, 1.2rem);
     }
     #aboutSpan input {
         width: 50vw;
@@ -565,17 +621,17 @@ input[type=text]::placeholder {
         margin-top: 1vh;
         margin-left: 0.3vw;
         border-radius: 5px;
-        font-size: clamp(1rem, 1.6vw, 1.8rem);
+        font-size: clamp(0.9rem, 1.9vw, 1.2rem);
     }
-
     .input_row input[type="text"] {
-        padding: 0 5px;
+        padding: 0px 5px;
+        height: 36px;
     }
 }
 
 @media screen and (max-width: 865px) {
     .header_title {
-        font-size: clamp(2.5rem, 6vw, 4rem);
+        font-size: clamp(1.8rem, 6vw, 4rem);
         font-weight: bold;
         margin-left: 8%;
     }
@@ -591,38 +647,27 @@ input[type=text]::placeholder {
     .input_row input[type=text]::placeholder {
         font-size: clamp(0.8rem, 1.8vw, 0.9rem);
     }
+    .commoditySpan {
+        height: 100%;
+    }
+    .priceSpan {
+        height: 100%;
+    }
     .availabilitySpan {
         width: 35%;
     }
     .availabilitySpan label {
-        width: 80%;
-        font-size: 0.9rem;
-    }
-}
-
-@media screen and (max-width: 648px) {
-    .availabilitySpan{
-        font-size: clamp(0.4rem, 2vw, 1rem);
-    }
-    label {
-        font-size: clamp(0.4rem, 2vw, 1rem);
-    }
-    #add_item {
-        padding: 1px 0px;
-        font-size: 0.9rem;
-    }
-    #add_circle {
-        margin-left: -6%;
-        font-size: 2.1rem;
+        width: 81%;
+        font-size: clamp(0.6rem, 2vw, 0.9rem);
+        margin: 0;
     }
 }
 
 @media screen and (max-width: 788px) {
     #_1, #_2, #_3 {
-        font-size: 3rem;
-        margin-right: -2.8vw;
-        z-index: 3;
-        color: rgb(40, 76, 194);
+        font-size: 2.1rem;
+        margin-top: -3px;
+        left: 26%;
     }
     .flex {
         width: 98%;
@@ -643,23 +688,68 @@ input[type=text]::placeholder {
     }
 }
 
+@media screen and (max-width: 648px) {
+    .availabilitySpan{
+        font-size: clamp(0.9rem, 2vw, 1rem);
+        padding-top: 1vw;
+    }
+    .availabilitySpan label {
+        margin: 0;
+    }
+    label {
+        font-size: clamp(0.9rem, 2vw, 1rem);
+    }
+    #add_item {
+        transform: scale(0.9);
+    }
+    #add_circle {
+        margin-left: -6%;
+        font-size: 2.1rem;
+    }
+    #statusDiv > div {
+        font-size: clamp(0.9rem, 2vw, 1rem);
+    }
+    .side_btn {
+        padding: 8px 10px;  
+    }
+}
+
 @media screen and (max-width: 595px) {
+    * {
+        max-height: none;
+    }
+    #page {
+        height: 171vh;
+        width: 94vw;
+        margin: 5vh 3vw;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+    }
     #side_nav {
-        width: 15%;
+        width: 100%;
+        border-radius: 0;
+        height: 582px;
+    }
+    #brand_title {
+        margin-bottom: 13vh;
+    }
+    .title_1 {
+        font-size: 4.5rem;
+    }
+    .title_2 {
+        font-size: 2.5rem;
     }
     #form_box {
-        width: 85%;
+        width: 100%;
+        height: 582px;
     }
     #logo {
         font-size: clamp(1.2rem, 10vw, 5.5rem);
     }
-    .title_1,.title_2 {
-        display: none;
-    }
-    .form_title {
-        display: none;
-    }
     .flex {
+        width: 60%;
         justify-content: center;
     }
     .number {
@@ -668,21 +758,153 @@ input[type=text]::placeholder {
         font-size: clamp(0.84rem, 1.2rem + 0.4vw, 1.6rem);
         margin-left: 5%;
     }
-    #_1, #_2, #_3 {
-        font-size: 2.5rem;
-        margin-right: -3vw;
-        z-index: 3;
-        color: rgb(40, 76, 194);
-    }
     #buttonDiv {
-        flex-direction: column;
-        width: 14.2%;
-        height: 15%;
+        position: relative;
+        width: 66.2%;
+        height: 28%;
+        top: 3vw;
+        left: 17%;
+    }
+    .form_title {
+        font-size: 1.4rem;
+    }
+    #_1, #_2, #_3 {
+        align-self: baseline;
+        font-size: 2.5rem;
+        margin-top: -3px;
+        left: 74%;
+        margin-left: -7.8vw;
+        z-index: 3;
+        color: rgb(255, 255, 255);
+    }
+    #statusDiv div label {
+        position: absolute;
+        height: 10px;
+        width: 66px;
+        padding: 10px;
+    }
+    #status_btn_1 {
+        left: 25%;
+    }
+    #status_btn_2 {
+        left: 43%;
+    }
+    .status_design {
+        width: 15px;
+        height: 15px;
     }
     .side_btn {
-        font-size: 0.9rem;
-        padding: 5px;
-        border-radius: 8px;
+        font-size: 1.1rem;
+        padding: 10px 19px;
+        border-radius: 4px;
     }
+    .form_list {
+        height: 10vh;
+    }
+    .flex {
+        height: 100%;
+    }
+    .del_menu_btns {
+        font-size: clamp(1.2rem, 5vw, 1.8rem);
+    }
+    #shopSpan input {
+        width: 70vw;
+    }
+    #ownerSpan input {
+        width: 31vw;
+    }
+    #phoneSpan {
+        margin-left: 14vw;
+    }
+    #phoneSpan input {
+        width: 24.5vw;
+    }
+    #addressSpan input {
+        width: 70.5vw;
+    }
+    #aboutSpan input {
+        width: 70.5vw;
+    }
+    .input_row input[type="text"] {
+        font-size: clamp(0.8rem, 2.5vw, 2rem);
+    }
+    .availabilitySpan label {
+        padding: 2px 4px;
+        position: relative;
+    }
+    #add_item {
+        position: relative;
+        align-self: flex-end;
+        margin-right: 5px;
+        margin-bottom: -3vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(43, 91, 247);
+        padding: 2px 5px;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+}
 
+@media screen and (max-width: 493px) {
+    #add_item {
+        transform: scale(0.75);
+    }
+    #cloud {
+        font-size: 8rem;
+    }
+    .availabilitySpan {
+        width: 30%;
+    }
+    .availabilitySpan label {
+        padding: 2px 11px 2px 4px;
+    }
+    .number {
+        width: 6.5vw;
+        height: 6.5vw;
+        font-size: 1.5rem;
+    }
+    #_1, #_2, #_3 {
+        font-size: 2.5rem;
+        margin-left: -7.8vw;
+        z-index: 3;
+        color: rgb(255, 255, 255);
+    }
+    #add_menu .input_body {
+        overflow: auto;
+        max-height: none;
+    }
+    #status_btn_1 {
+        left: 23%;
+    }
+    #status_btn_2 {
+        left: 43%;
+    }
+}
+
+@media screen and (max-width: 423px) {
+    #status_btn_1 {
+        left: 24%;
+    }
+    #status_btn_2 {
+        left: 47%;
+    }
+    #_1, #_2, #_3 {
+        font-size: 2.5rem;
+        margin-left: 0;
+        z-index: 3;
+        color: rgb(255, 255, 255);
+    }
+    .number {
+        width: 8.7vw;
+        height: 8.7vw;
+        font-size: 1.5rem;
+    }
+    .flex {
+        width: 63%;
+    }
 }

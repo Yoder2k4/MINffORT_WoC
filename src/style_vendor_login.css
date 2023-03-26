@@ -23,6 +23,37 @@ body{
         background-position: 0 50%;
     }
 }
+#alertBox {
+    width: 95vw;
+    margin: 0 2.5vw;
+    z-index: 10;
+    position: fixed;
+    top: 10%;
+    display: flex;
+    justify-content: flex-end;
+}
+#alertMSG {
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px, inset rgba(255, 255, 255, 0.815) 2px 2px 5px, inset rgb(255, 255, 255, 0.815) -2px -2px 5px;
+    border: green solid 3px;
+    width: 300px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: rgb(205, 250, 204);
+    color: rgb(9, 81, 9);
+    font-weight: 600;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease-out;
+}
+#alertMSG.show {
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.5s ease-in;
+}
 
 #page {
     height: 90vh;
@@ -92,7 +123,8 @@ body{
     cursor: pointer;
 }
 .number {
-    width: 8.5%;
+    width: 2.2vw;
+    height: 2.2vw;
     margin-left: 10%;
     border-radius: 50%;
     font-size: 1.4rem;
@@ -102,19 +134,32 @@ body{
     background-color: rgb(3, 58, 238);
 }
 .form_title {
-    font-size: 1.4rem;
+    font-size: clamp(1.1rem, 1.5vw, 1.4rem);
     width: 66%;
     margin-left: 10%;
 }
 .material-symbols-outlined {
     font-size: 3rem;
-    margin-right: -10%;
+    margin-right: 2%;
     z-index: 3;
-    color: rgb(40, 76, 194);
+    color: rgb(255, 255, 255);
+}
+#_1, #_2 {
+    margin-top: -7px;
+    align-self: baseline;
+    position: absolute;
+    left: 27%;
+}
+#_3 {
+    position: absolute;
+    left: 27%;
+    margin-top: 10px;
+    align-self: baseline;
 }
 #_2,#_3 {
     display: none;
 }
+
 #buttonDiv {
     position: absolute;
     width: 28.2%;
@@ -144,7 +189,7 @@ body{
     padding: 8px 22px;
 }
 #logout{
-    padding: 8px 52px;
+    padding: 8px 50px;
 }
 .side_btn:hover {
     background-color: rgb(8, 8, 82);
@@ -183,6 +228,7 @@ input[type=text]:focus {
     box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 .header_title {
     font-size: 4rem;
@@ -220,9 +266,10 @@ input[type=text]:focus {
 }
 #shopSpan {
     margin-left: 8%;
+    width: 100%;
 }
 #shopSpan input {
-    width: 207%;
+    width: 92%;
     padding: 0.1vh 0.3vw;
     margin-top: 1vh;
     margin-left: 0.3vw;
@@ -230,13 +277,14 @@ input[type=text]:focus {
 }
 
 #ownerPhoneDiv {
-    width: 90%;
+    width: 100%;
     height: 20%;
     display: flex;
     align-items: center;
 }
 #ownerSpan {
     margin-left: 9%;
+    width: 50%;
 }
 #ownerSpan input {
     width: 90%;
@@ -246,10 +294,11 @@ input[type=text]:focus {
     border-radius: 5px;
 }
 #phoneSpan {
-    margin-left: 11.8%;
+    margin-left: 0%;
+    width: 50%;
 }
 #phoneSpan input {
-    width: 72%;
+    width: 84%;
     padding: 0.1vh 0.3vw;
     margin-top: 1vh;
     margin-left: 0.3vw;
@@ -264,9 +313,10 @@ input[type=text]:focus {
 }
 #addressSpan {
     margin-left: 8%;
+    width: 100%;
 }
 #addressSpan input {
-    width: 207%;
+    width: 92.4%;
     padding: 0.1vh 0.3vw;
     margin-top: 1vh;
     margin-left: 0.3vw;
@@ -281,9 +331,10 @@ input[type=text]:focus {
 }
 #aboutSpan {
     margin-left: 8%;
+    width: 100%;
 }
 #aboutSpan input {
-    width: 207%;
+    width: 92.4%;
     padding: 0.1vh 0.3vw;
     margin-top: 1vh;
     margin-left: 0.3vw;
@@ -374,9 +425,10 @@ input[type=text]:focus {
     max-height: none;
 }
 #add_item {
-    position: fixed;
-    right: 5vw;
-    top: 24vh;
+    position: relative;
+    align-self: flex-end;
+    margin-right: 5px;
+    margin-bottom: -3vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -392,6 +444,7 @@ input[type=text]:focus {
     font-size: 2.2rem;
     color: white;
     border-radius: 50%;
+    margin-right: -10%;
 }
 
 .input_row {
@@ -404,21 +457,32 @@ input[type=text]:focus {
 }
 .input_row input[type=text]{
     margin-top: 1vh;
-    padding: 0 14px;
+    width: 12vw;
+    padding: 5px;
     border: none;
     border-radius: 5px;
 }
+.commoditySpan {
+    height: 100%;
+}
+.priceSpan {
+    height: 100%;
+}
 .availabilitySpan {
+    margin-left: 2%;
     width: 25%;
     height: 100%;
     display: flex;
     flex-direction: column;
 }
+.deleteSpan {
+    height: 100%;
+}
 .availabilitySpan label {
     display: flex;
     align-items: center;
     height: 20px;
-    width: 157px;
+    width: 136px;
     border-radius: 40px;
     padding: 5px 6px;
     margin: 3px 0;
@@ -531,7 +595,7 @@ input[type=text]:focus {
     background-color: white;
     position: fixed;
     top: 25%;
-    left: 30%;
+    left: 29%;
     border-radius: 12px;
     z-index: 5;
     display: flex;
@@ -546,7 +610,7 @@ input[type=text]:focus {
 }
 #delModal.active {
     top: 25%;
-    left: 30%;
+    left: 29%;
     opacity: 1;
     visibility: visible;
     transform: scale(1);
@@ -605,4 +669,374 @@ input[type=text]:focus {
 
 #edit_menu, #check_response{
     display: none;
+}
+
+
+
+
+/* Media Queries */
+
+@media screen and (max-width: 1050px) {
+    #logo {
+        font-size: clamp(2.6rem, 4.2vw, 3.5rem);
+    }
+    .title_1 {
+        font-size: clamp(2.6rem, 4.2vw, 3.5rem);
+    }
+    .title_2 {
+        font-size: clamp(1.8rem, 3vw, 2.5rem);
+    }
+    .number {
+        width: 2.6vw;
+        height: 2.6vw;
+    }
+    .form_title {
+        margin-left: 3%;
+    }
+    #_1, #_2, #_3 {
+        font-size: 2.7rem;
+    }
+}
+
+@media screen and (max-width: 994px) {
+    .number {
+        margin-left: 3%;
+        font-size: 1.2rem;
+    }
+    .form_title {
+        width: 80%;
+    }
+    #_3 {
+        margin-top: 13px;
+    }
+    .header_title {
+        font-size: clamp(2rem, 5vw, 4rem);
+    }
+    .input_row input[type="text"] {
+        padding: 0px 5px;
+        height: 36px;
+    }
+}
+
+@media screen and (max-width: 878px) {
+    .number {
+        margin-left: 1%;
+        font-size: 1rem;
+    }
+    .form_title {
+        font-size: clamp(0.9rem, 1.7vw, 1.2rem);
+    }
+    #_1, #_2 {
+        font-size: 2.2rem;
+        margin-top: -6px;
+        left: 26%;
+    }
+    #_3 {
+        font-size: 2.2rem;
+        left: 26%;
+        margin-top: -4px;
+        margin-top: 15px;
+    }
+    .status_design {
+        width: 15px;
+        height: 15px;
+    }
+    #shopSpan input, #ownerSpan input, #phoneBox input, #addressSpan input, #aboutSpan input {
+        font-size: clamp(0.9rem, 1.9vw, 1.2rem);
+    }
+    #statusDiv div label {
+        height: 20px;
+        width: 83px;
+        padding: 9px 6px;
+    }
+    .input_row {
+        width: 97%;
+        height: 20%;
+        margin: 5% auto;
+    }
+    .ava_design {
+        width: 13px;
+        height: 13px;
+    }
+    .input_row input[type=text]::placeholder {
+        font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+    }
+    .input_row input[type=text] {
+        font-size: clamp(0.9rem, 1.9vw, 1rem);
+    }
+    .commoditySpan {
+        height: 100%;
+    }
+    .priceSpan {
+        height: 100%;
+    }
+    .availabilitySpan {
+        width: 35%;
+    }
+    .availabilitySpan label {
+        width: 81%;
+        font-size: clamp(0.6rem, 2vw, 0.9rem);
+        margin: 0;
+    }
+    #vote_count_box span {
+        font-size: clamp(1.8rem, 4vw, 2rem);
+    }
+    #comment_scrollbox {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 766px) {
+    * {
+        max-height: none;
+    }
+    #alertBox {
+        top: 5%;
+    }
+    #alertMSG {
+        margin: 0 auto;
+    }
+    #page {
+        height: 171vh;
+        width: 94vw;
+        margin: 5vh 3vw;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    #side_nav {
+        width: 100%;
+        border-radius: 0;
+        height: 582px;
+    }
+    .side_btn {
+        border-radius: 6px;
+        padding: 10px 25px;
+    }
+    #brand_title {
+        margin-bottom: 6vh;
+    }
+    #logo {
+        font-size: 3.6rem;
+    }
+    .title_1 {
+        font-size: 4.2rem;
+    }
+    .title_2 {
+        font-size: 2.2rem;
+    }
+    #form_box {
+        width: 100%;
+        height: 582px;
+    }
+    .flex {
+        width: 60%;
+        justify-content: center;
+    }
+    #_1, #_2, #_3 {
+        left: 70%;
+    }
+    #_1, #_2 {
+        margin-top: 0;
+    }
+    #_3 {
+        margin-top: 1.4vw;
+    }
+    .number {
+        width: 5vw;
+        height: 5vw;
+        font-size: clamp(0.84rem, 1.2rem + 0.4vw, 1.6rem);
+        margin-left: 5%;
+    }
+    .form_title {
+        font-size: 1.4rem;
+    }
+    #buttonDiv {
+        position: relative;
+        width: 66.2%;
+        height: 28%;
+        top: 7vw;
+        left: 17%;
+    }
+    #statusDiv div label {
+        position: absolute;
+        height: 10px;
+        width: 66px;
+        padding: 10px;
+    }
+    #status_btn_1 {
+        left: 23%;
+    }
+    #status_btn_2 {
+        left: 41%;
+    }
+    .availabilitySpan {
+        margin-left: 3%;
+    }
+    .availabilitySpan label {
+        position: relative;
+    }
+    .del_menu_btns {
+        font-size: clamp(1.2rem, 5vw, 1.8rem);
+    }
+    #add_item {
+        position: relative;
+        align-self: flex-end;
+        margin-right: 5px;
+        margin-bottom: -3vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(43, 91, 247);
+        padding: 2px 5px;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    .header_title {
+        font-size: clamp(2rem, 8vw, 4rem);
+    }
+}
+
+@media screen and (max-width: 658px) {
+    #_3 {
+        margin-top: 1.9vw;
+    }
+    #delModal {
+        height: 42vh;
+        width: 41vw;
+        top: 25%;
+        left: 25%;
+    }
+    #delModal.active {
+        top: 25%;
+        left: 25%;
+    }
+    .modal-content h4 {
+        font-size: clamp(1.5rem, 6vw, 2.4rem);
+    }
+    .modal-content p {
+        font-size: clamp(1.3rem, 4vw, 1.5rem);
+    }
+}
+
+@media screen and (max-width: 564px) {
+    #_3 {
+        margin-top: 1.9vw;
+    }
+    #delModal {
+        height: 36vh;
+        width: 50vw;
+        top: 30%;
+        left: 20%;
+    }
+    #delModal.active {
+        top: 30%;
+        left: 20%;
+    }
+    #status_btn_1 {
+        left: 23%;
+    }
+    #status_btn_2 {
+        left: 44%;
+    }
+    .collection-item i {
+        transform: scale(0.9);
+    }
+    .comment_username {
+        font-size: 1rem !important;
+    }
+    .comment_time {
+        font-size: 0.9rem !important;
+    }
+    .comment_line {
+        font-size: 0.8rem !important;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    #_1, #_2, #_3 {
+        left: 75%;
+    }
+    #_3 {
+        margin-top: 2.4vw;
+    }
+    .form_title {
+        font-size: clamp(1.1rem, 4vw, 1.4rem);
+    }
+    #image_box {
+        height: 33%;
+    }
+    #addressDiv {
+        width: 150%;
+    }
+    #addressSpan {
+        margin-left: 6%;
+    }
+    #aboutDiv {
+        width: 150%;
+    }
+    #aboutSpan {
+        margin-left: 6%;
+    }
+}
+
+@media screen and (max-width: 448px) {
+    #_1, #_2, #_3 {
+        left: 75%;
+        font-size: 2rem;
+    }
+    #_3 {
+        margin-top: 3vw;
+    }
+    .modal-content h4 {
+        font-size: clamp(1.3rem, 6vw, 2.4rem);
+    }
+    .modal-content p {
+        font-size: clamp(1rem, 4vw, 1.5rem);
+    }
+    #delModal {
+        height: 30vh;
+        width: 50vw;
+        top: 35%;
+        left: 20%;
+    }
+    #delModal.active {
+        top: 35%;
+        left: 20%;
+    }
+    #add_item {
+        transform: scale(0.8);
+    }
+    #status_btn_1 {
+        left: 25%;
+    }
+    #status_btn_2 {
+        left: 50%;
+    }
+    label {
+        font-size: 0.8rem;
+    }
+    .availabilitySpan {
+        font-size: 0.8rem;
+    }
+}
+@media screen and (max-width: 380px) {
+    #_3 {
+        margin-top: 3.7vw;
+    }
+    .collection-item i {
+        transform: scale(0.85);
+    }
+    .comment_username {
+        font-size: 0.9rem !important;
+    }
+    .comment_time {
+        font-size: 0.85rem !important;
+    }
+    .comment_line {
+        font-size: 0.8rem !important;
+    }
 }

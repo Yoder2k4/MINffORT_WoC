@@ -783,6 +783,7 @@ input:not([type]), input[type="text"]:not(.browser-default), input[type="passwor
     #descrip_box{
         color: white;
         margin: 1vw;
+        padding: 0 3%;
     } 
     #descrip1{
         font-size: 1rem;
