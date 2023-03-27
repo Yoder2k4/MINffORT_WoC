@@ -44,7 +44,7 @@
 
 body {
     height: inherit;
-    background: linear-gradient(to right, white, #aeedf7, #aeedf7, #aeedf7, #aeedf7);
+    background: linear-gradient(to right, #001b23, #011e2c, #011e2c, #011e2c, #011e2c);
 }
 
 #signed_in_msg {
@@ -67,7 +67,7 @@ body {
     position: sticky;
     top: 0;
     display: flex;
-    background: linear-gradient(to right, white, #aeedf7, #aeedf7, #aeedf7, #aeedf7);
+    background: linear-gradient(to right, #001b23, #011e2c, #011e2c, #011e2c, #011e2c);
     z-index: 6;
     border-radius: 20px 0 20px 20px;
     justify-content: center;
@@ -79,7 +79,7 @@ body {
     position: sticky;
     background-color: #3A54AA;
     border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: inset #080b7b78 0px 4px 4px, inset #080b7b78 0px -4px 4px;
     display: flex;
     align-items: center;
 }
@@ -117,11 +117,12 @@ body {
 }
 #profile i {
     font-size: 4.5rem;
+    color: white;
 }
 #profile_drop_down {
     width: 115px;
     height: 40px;
-    background-color: white;
+    background-color: #003e5d;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     position: absolute;
@@ -130,7 +131,7 @@ body {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    color: #3A54AA;
+    color: white;
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, transform 0.2s ease-in-out;
@@ -175,7 +176,7 @@ body {
     display: flex;
     flex-direction: column;
     transition: 0.5s;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: inset #080b7b78 0px 3px 4px 5px,inset #080b7b78 0px -3px 4px 5px;
 }
 #filter_box>span {
     margin: 8% 4%;
@@ -320,9 +321,11 @@ body {
     margin-bottom: 30px;
     border-radius: 11px;
     height: 35vh;
-    background-color: white;
+    color: white;
+    background-repeat: no-repeat !important;
+    background-size: 125% !important;
     display: flex;
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    justify-content: end;
     transition: all 0.25s ease-in-out;
 }
 
@@ -332,38 +335,9 @@ body {
     transform: scale(1.07);
     z-index: 4;
     cursor: pointer;
+    background-size: 113.2% !important;
+    background-position: -50px !important;
 }
-
-.card-item:hover .content{
-    /* background-color: #3A54AA; */
-    transition: all 0.25s ease-in-out;
-    /* color: white; */
-    border-radius: 0;
-}
-.card-item:hover .image img + .image{
-    border-radius: 0;
-    transition: all 0.25s ease-in-out;
-}
-
-
-/* Image Box */
-
-.image {
-    width: calc(40%);
-    height: 100%;
-}
-
-.image img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    border-radius: 11px 0 0 11px;
-}
-
-.card-item:hover .image img {
-    border-radius: 0;
-}
-
 
 
 /* Content Box */
@@ -375,7 +349,7 @@ body {
     border-radius: 11px;
     display: flex;
     flex-wrap: wrap;
-    background-color: white;
+    justify-content: center;
 }
 
 
@@ -384,89 +358,73 @@ body {
 
 .vendor_name_box {
     width: 100%;
-    height: 30%;
+    height: 45%;
+    overflow: hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
     display: flex;
-    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .vendor_name{
     font-size: 1.5rem;
     margin-left: 12px;
-    font-weight: 500;
+    font-weight: 700;
+    width: 217px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
 
 
 
 /* Vendor Address Box */
 
 .vendor_address_box {
-    width: 100%;
-    height: 19%;
-    display: flex;
-    align-items: center;
-    margin-left: 12px;
-}
-
-.box_title_a {
-    font-size: 1.2rem;
-    margin-right: 4px; 
-    font-weight: bold;
-    height: 100%;
+    width: 206.483px;
+    height: 15%;
+    overflow: hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.box_title_d {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-right: 4px; 
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.address {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.799);
 }
 
 /* Description Box */
 
 .vendor_description_box {
-    height: 30%;
+    height: 25%;
     width: 100%;
-    margin-left: 12px;
+    padding-right: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
     display: flex;
-    align-items: center;
+    color: white;
 }
-
-.box_title_v {
-    font-size: 1.2rem;
-    font-weight: bold;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
+.vendor_description_box i {
+    margin-right: 4px;
+    color: rgba(255, 255, 255, 0.718);
 }
-.description {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.vendor_description_box p {
     height: 100%;
+    margin: 2px 0 0;
+    width: 193px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Status Box */
 
 .status_box {
     width: 100%;
-    height: 11%;
+    height: 15%;
     display: flex;
     justify-content: center;
-
+    align-items: center;
 }
 
 
@@ -483,31 +441,22 @@ body {
 
 
 /* Phone Number Box */
-
-.phoneNo_box {
-    height: 10%;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-
-    background-color: rgba(156, 201, 201, 0.39);
-}
-
-.phone_label {
-    font-weight: bold;
-}
-
 .phoneNo_box i {
-    font-size: 1rem;
+    font-size: 0.95rem;
     
 }
 
 .phoneNo{
+    margin-top: 10px;
+    margin-right: 16px;
+    color: rgba(255, 255, 255, 0.799);
+    align-self: flex-end;
     display: flex;
     align-items: center;
 }
-
+.phoneNo i {
+    font-size: 0.9rem;
+}
 
 
 /*----------------------------------------------------------------------*/
@@ -600,16 +549,16 @@ body {
     background-color: #3A54AA;
     z-index: 1;
     padding-bottom: 1vh;
-    border-bottom: 1px solid grey;
     display: flex;
 }
 
 .shopName_title {
-    font-size: 3.8rem;
+    font-size: 3.1rem;
     color: white;
     font-weight: bold;
     padding-left: 4%;
     width: 81%;
+    overflow: hidden;
 }
 
 .side {
@@ -661,6 +610,7 @@ body {
     width: 100%;
     display: flex;
     align-items: center;
+    overflow: hidden;
 }
 .address_title {
     padding-left: 2vw;
@@ -683,7 +633,7 @@ body {
     padding-left: 2vw;
 }
 .about_title i {
-    font-size: 1.8rem;
+    font-size: 1.8vw;
 }
 .about_inbox {
     padding-left: 1.5vw;
@@ -702,7 +652,7 @@ body {
     font-size: 1.4rem;
 }
 .status_line {
-    font-weight: bold;
+    font-weight: 900;
     color: chartreuse;
 }
 
@@ -786,10 +736,10 @@ body {
 }
 .addComment {
     height: 9%;
-    width: 58%;
+    width: 58.3%;
     display: flex;
     position: absolute;
-    bottom: 6%;
+    bottom: 5%;
     background: white;
     padding: 6px 0;
 }
@@ -797,8 +747,8 @@ body {
     width: 80%;
 }
 .addComment i {
-    height: 100%;
-    width: 7.8%;
+    height: 46px;
+    width: 53px;
     color: white;
     text-align: center;
     display: flex;
@@ -840,4 +790,32 @@ table {
     align-self: center;
     width: 90%;
     border: 0.5px solid grey;
+}
+
+
+/* Media Queries */
+
+@media screen and (max-width: 1418px) {
+    .card-item {
+        margin: 0 1vw 41px 1vw;
+    }
+}
+
+@media screen and (max-width: 1112px) {
+    #filter_box {
+        width: 94%;
+        padding: 5% 3%;
+    }
+}
+
+@media screen and (max-width: 956px) {
+    #filter {
+        width: 26%;
+    }
+    #card-container {
+        width: 76%;
+    }
+    .card-item {
+        width: 55vw;
+    }
 }

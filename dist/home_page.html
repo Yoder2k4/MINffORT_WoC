@@ -43,7 +43,7 @@
                             id="brand_title3">ORT</span></span></a>
 
                 <span id="profile">
-                    <i class="material-icons circle white">person</i>
+                    <i class="material-icons circle black">person</i>
                 </span>
 
                 <span id="profile_drop_down" style="display: none;">
@@ -108,6 +108,36 @@
             
 
             <div id="card-container">
+
+                <!-- <div class="card-item" id="#barista@gmail.com">
+    
+                    <div class="content">
+        
+                        <div class="vendor_name_box">
+                            <span class="vendor_name">Amul Veg Canteen</span>
+                            <span class="phoneNo"><i class="material-icons">call</i><span> 1234567890</span></span>
+                        </div>
+        
+                        <div class="vendor_description_box">
+                            <i class="material-icons">info</i>
+                            <p>
+                                Good Shop, all Veg Food available, never opens up on time
+                            </p>
+                        </div>
+        
+                        <div class="status_box">
+                            <span class="status">Status: </span>
+                            <span class="open-close">OPEN</span>
+                        </div>
+                        
+                        <div class="vendor_address_box">
+                            Behind RD, beside Laundry King
+                        </div>
+        
+                    </div>
+        
+                </div> -->
+
 
                 <!-- <div class="card-item z-depth-3">
         
@@ -398,7 +428,7 @@
                 let card_phone;
 
                 if (filter_ob[1] != null && filter_ob[1] != "") {
-                    card_shopName = card_item.children[1].children[0].children[0].innerText.toLowerCase();
+                    card_shopName = card_item.children[0].children[0].children[0].innerText.toLowerCase();
                     if (card_shopName.indexOf(shopName_input) <= -1) {
                         check_input[0] = false;
                     }
@@ -407,7 +437,7 @@
                     }
                 }
                 if (filter_ob[2] != null && filter_ob[2] != "") {
-                    card_address = card_item.children[1].children[1].children[1].children[0].innerText.toLowerCase();
+                    card_address = card_item.children[0].children[3].innerText.toLowerCase();
                     if (card_address.indexOf(address_input) <= -1) {
                         check_input[1] = false;
                     }
@@ -416,7 +446,7 @@
                     }
                 }
                 if (filter_ob[3] != null && filter_ob[3] != "") {
-                    card_phone = card_item.children[1].children[4].children[0].children[1].innerText.toLowerCase();
+                    card_phone = card_item.children[0].children[0].children[1].children[1].innerText.toLowerCase();
                     if (card_phone.indexOf(phone_input) <= -1) {
                         check_input[2] = false;
                     }

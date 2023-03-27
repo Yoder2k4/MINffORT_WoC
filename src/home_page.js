@@ -101,13 +101,8 @@ onAuthStateChanged(auth1, (user) => {
                 card_item.classList.add('card-item');
                 card_item.setAttribute('id', card_id);
 
-
-                // Image Container
-                let image = document.createElement('div');
-                image.classList.add('image');
-                let img = document.createElement('img');
-                img.src = img_src;
-                image.appendChild(img);
+                card_item.style.background = `linear-gradient(to right, rgba(0, 44, 77, 0.147), rgba(0, 44, 77, 0.147), rgba(0, 47, 68, 0.797), rgba(0, 56, 78, 0.934), rgba(0, 56, 78, 0.97), rgb(1, 44, 74)), url('${img_src}') center center`; 
+                card_item.style.backgroundSize = "cover";
 
 
                 // Content Container
@@ -122,56 +117,38 @@ onAuthStateChanged(auth1, (user) => {
                 let vendor_name = document.createElement('span');
                 vendor_name.classList.add('vendor_name');
                 vendor_name.innerText = v_name;
+                let phoneNo = document.createElement('span');
+                phoneNo.classList.add('phoneNo');
+                let i_phone = document.createElement('i');
+                i_phone.classList.add('material-icons');
+                i_phone.innerText = "call";
+                phoneNo.appendChild(i_phone);
+                let phone_inside_text = document.createElement('span');
+                phone_inside_text.innerText = ' ' + v_phone;
+                phoneNo.appendChild(phone_inside_text);
                 vendor_name_box.appendChild(vendor_name);
+                vendor_name_box.appendChild(phoneNo);
 
                 content.appendChild(vendor_name_box);
 
 
 
-                // Vendor Address Box
-                let vendor_address_box = document.createElement('div');
-                vendor_address_box.classList.add('vendor_address_box');
-                let box_title_a = document.createElement('span');
-                box_title_a.classList.add('box_title_a');
-                let i_home = document.createElement('i');
-                i_home.classList.add('material-icons');
-                i_home.innerText = "home";
-                box_title_a.appendChild(i_home);
-                let address = document.createElement('span');
-                address.classList.add('address');
-                let address_inside_text = document.createElement('span');
-                address_inside_text.innerText = v_address;
-                address.appendChild(address_inside_text);
-                vendor_address_box.appendChild(box_title_a);
-                vendor_address_box.appendChild(address);
-
-                content.appendChild(vendor_address_box);
-
-
-
                 // Vendor Description Box
-
                 let vendor_description_box = document.createElement('div');
                 vendor_description_box.classList.add('vendor_description_box');
-                let box_title_d = document.createElement('span');
-                box_title_d.classList.add('box_title_d');
-                let i_description = document.createElement('i');
-                i_description.classList.add('material-icons');
-                i_description.innerText = "description";
-                box_title_d.appendChild(i_description);
-                let description = document.createElement('span');
-                description.classList.add('description');
-                let description_inside_text = document.createElement('span');
+                let info_icon = document.createElement('i');
+                info_icon.classList.add('material-icons');
+                info_icon.innerText = "info";
+                let description_inside_text = document.createElement('p');
                 description_inside_text.innerText = v_about;
-                description.appendChild(description_inside_text);
-                vendor_description_box.appendChild(box_title_d);
-                vendor_description_box.appendChild(description);
+                vendor_description_box.appendChild(info_icon);
+                vendor_description_box.appendChild(description_inside_text);
 
                 content.appendChild(vendor_description_box);
 
 
-                // Status_side_text
 
+                // Status_side_text
                 let status_box = document.createElement('div');
                 status_box.classList.add('status_box');
                 let status = document.createElement('span');
@@ -192,24 +169,14 @@ onAuthStateChanged(auth1, (user) => {
                 content.appendChild(status_box);
 
 
-                // Phone Number Box
+                // Vendor Address Box
+                let vendor_address_box = document.createElement('div');
+                vendor_address_box.classList.add('vendor_address_box');
+                vendor_address_box.innerText = v_address;
 
-                let phoneNo_box = document.createElement('div');
-                phoneNo_box.classList.add('phoneNo_box');
-                let phoneNo = document.createElement('span');
-                phoneNo.classList.add('phoneNo');
-                let i_phone = document.createElement('i');
-                i_phone.classList.add('material-icons');
-                i_phone.innerText = "call";
-                phoneNo.appendChild(i_phone);
-                let phone_inside_text = document.createElement('span');
-                phone_inside_text.innerText = ' ' + v_phone;
+                content.appendChild(vendor_address_box);
 
-                phoneNo.appendChild(phone_inside_text);
-                phoneNo_box.appendChild(phoneNo);
-                content.appendChild(phoneNo_box);
 
-                card_item.appendChild(image);
                 card_item.appendChild(content);
 
 
@@ -366,7 +333,7 @@ onAuthStateChanged(auth1, (user) => {
 
                     let description_icon = document.createElement('i');
                     description_icon.classList.add('material-icons');
-                    description_icon.innerText = "description";
+                    description_icon.innerText = "info";
                     about_title.appendChild(description_icon);
 
                     let about_inbox = document.createElement('span');
