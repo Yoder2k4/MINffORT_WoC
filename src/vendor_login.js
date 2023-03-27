@@ -608,6 +608,14 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
+//View Other Canteens
+let view_other = document.getElementById("view_other");
+view_other.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.location.replace('home_page.html');
+})
+
+
 // Log Out
 let log_out = document.getElementById('logout');
 

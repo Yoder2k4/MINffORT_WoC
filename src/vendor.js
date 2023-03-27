@@ -118,7 +118,17 @@ onAuthStateChanged(auth, (user) => {
                 status: st
             };
 
-            await setDoc(docRef, { ImgURL: img_url, data });
+            if(img_url == undefined){
+                let alertMSG2 = document.getElementById('alertMSG2');
+                alertMSG2.classList.add('show');
+                setTimeout(() => {
+                    alertMSG2.classList.remove('show');
+                }, 4000);
+            }
+            else{
+                await setDoc(docRef, { ImgURL: img_url, data });
+            }
+
                 
 
 

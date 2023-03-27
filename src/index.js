@@ -56,20 +56,24 @@ cSignUpForm.addEventListener('submit', (e) => {
             .catch((err) => {
                 console.log(err.code);
                 console.log(err.message);
-                if(err.code === "auth/invalid-email"){
+                if (err.code === "auth/invalid-email") {
                     c_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Invalid Email ID. &nbsp; &nbsp; ( example@gmail.com )</span>";
                 }
-                if(err.code === "auth/weak-password"){
+                if (err.code === "auth/weak-password") {
                     c_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Weak Password. Password should be at least 6 characters</span>";
                 }
-                if(err.code === "auth/email-already-in-use"){
+                if (err.code === "auth/email-already-in-use") {
                     c_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Email ID already in use. Please try different email address</span>";
                 }
+
             })
     }
     else {
         c_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Passwords do not match.</span>";
     }
+    setTimeout(() => {
+        c_signup_error.innerHTML = "";
+    }, 4000);
 })
 
 
@@ -91,19 +95,23 @@ cLogInForm.addEventListener('submit', (e) => {
         .catch((err) => {
             console.log(err.code);
             console.log(err.message);
-            if(err.code === "auth/invalid-email"){
+            if (err.code === "auth/invalid-email") {
                 c_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Invalid Email ID. &nbsp; &nbsp; ( example@gmail.com ) </span>";
             }
-            if(err.code === "auth/user-not-found"){
+            if (err.code === "auth/user-not-found") {
                 c_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>User address does not exist. Please make a New Account.</span>";
             }
-            if(err.code === "auth/wrong-password"){
+            if (err.code === "auth/wrong-password") {
                 c_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Wrong Email/Password. &nbsp; Please try again.</span>";
             }
-            if(err.code === "auth/too-many-requests"){
+            if (err.code === "auth/too-many-requests") {
                 c_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; Too many failed attempts. Please try again later.";
             }
         })
+
+    setTimeout(() => {
+        c_login_error.innerHTML = "";
+    }, 4000);
 })
 
 // Forgot Password
@@ -147,13 +155,13 @@ vSignUpForm.addEventListener('submit', (e) => {
             .catch((err) => {
                 console.log(err.code);
                 console.log(err.message);
-                if(err.code === "auth/invalid-email"){
+                if (err.code === "auth/invalid-email") {
                     v_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Invalid Email ID. &nbsp; &nbsp; ( example@gmail.com )</span>";
                 }
-                if(err.code === "auth/weak-password"){
+                if (err.code === "auth/weak-password") {
                     v_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Weak Password. Password should be at least 6 characters</span>";
                 }
-                if(err.code === "auth/email-already-in-use"){
+                if (err.code === "auth/email-already-in-use") {
                     v_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Email ID already in use. Please try different email address</span>";
                 }
             })
@@ -161,6 +169,9 @@ vSignUpForm.addEventListener('submit', (e) => {
     else {
         v_signup_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Passwords do not match.</span>";
     }
+    setTimeout(() => {
+        v_signup_error.innerHTML = "";
+    }, 4000);
 })
 
 // Sign In
@@ -181,19 +192,22 @@ vLogInForm.addEventListener('submit', (e) => {
         .catch((err) => {
             console.log(err.code);
             console.log(err.message);
-            if(err.code === "auth/invalid-email"){
+            if (err.code === "auth/invalid-email") {
                 v_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Invalid Email ID. &nbsp; &nbsp; ( example@gmail.com ) </span>";
             }
-            if(err.code === "auth/user-not-found"){
+            if (err.code === "auth/user-not-found") {
                 v_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>User address does not exist. Please make a New Account.</span>";
             }
-            if(err.code === "auth/wrong-password"){
+            if (err.code === "auth/wrong-password") {
                 v_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; <span>Wrong Email/Password. &nbsp;&nbsp; Please try again.</span>";
             }
-            if(err.code === "auth/too-many-requests"){
+            if (err.code === "auth/too-many-requests") {
                 v_login_error.innerHTML = "<i class='material-icons' id='cancel'>cancel</i> &nbsp; Too many failed attempts. Please try again later.";
             }
         })
+    setTimeout(() => {
+        v_login_error.innerHTML = "";
+    }, 4000);
 })
 
 // Forgot Password

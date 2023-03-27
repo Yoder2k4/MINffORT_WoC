@@ -67,6 +67,41 @@ body{
     visibility: visible;
     transition: all 0.5s ease-in;
 }
+#alertBox2 {
+    width: 95vw;
+    margin: 0 2.5vw;
+    z-index: 10;
+    position: fixed;
+    top: 10%;
+    display: flex;
+    justify-content: flex-end;
+}
+#alertMSG2 {
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px, inset rgba(255, 255, 255, 0.815) 2px 2px 5px, inset rgb(255, 255, 255, 0.815) -2px -2px 5px;
+    border: red solid 3px;
+    width: 400px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: rgb(242, 156, 135);
+    color: rgb(83, 0, 0);
+    font-weight: 600;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease-out;
+}
+#alertMSG2.show {
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.5s ease-in;
+}
+#alertMSG2 span {
+    font-size: 2rem;
+    color: red;
+}
 
 /* Side Nav Bar */
 
@@ -717,6 +752,17 @@ input[type=text]::placeholder {
 @media screen and (max-width: 595px) {
     * {
         max-height: none;
+    }
+    #alertBox {
+        top: 5%;
+    }
+    #alertMSG {
+        margin: 0 auto;
+    }#alertBox2 {
+        top: 5%;
+    }
+    #alertMSG2 {
+        margin: 0 auto;
     }
     #page {
         height: 171vh;
