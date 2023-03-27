@@ -102,13 +102,27 @@ onAuthStateChanged(auth, async (user) => {
         let st;
 
         let docRef = doc(db, 'Canteen', email);
-
+        
+        let notify_c = [];
+        let previous_status;
+        let after_status;
+        
         await getDoc(docRef)
             .then((doc) => {
 
-                let ob = doc.data().data;
+                if(doc.data().c_addresses != undefined){
+                    for (const key in doc.data().c_addresses) {
+                        if (doc.data().c_addresses.hasOwnProperty(key)) {
+                            notify_c.push(doc.data().c_addresses[key]);
+                        }
+                    }
+                }
+
+                console.log(notify_c);
 
                 pfp.src = doc.data().ImgURL;
+                
+                let ob = doc.data().data;
 
                 shopName.value = ob.shopName;
                 ownerName.value = ob.ownerName;
@@ -118,9 +132,11 @@ onAuthStateChanged(auth, async (user) => {
 
                 if (ob.status === false) {
                     s[0].checked = true;
+                    previous_status = false;
                 }
                 else {
                     s[1].checked = true;
+                    previous_status = true;
                 }
             })
             .catch((err) => {
@@ -387,7 +403,6 @@ onAuthStateChanged(auth, async (user) => {
         let vendor_comments = [];
         await getDoc(com_docRef)
             .then((snapshot) => {
-                console.log(snapshot.data());
                 for (const key in snapshot.data()) {
                     if (snapshot.data().hasOwnProperty(key)) {
                         vendor_comments.push(snapshot.data()[key]);
@@ -397,7 +412,6 @@ onAuthStateChanged(auth, async (user) => {
         
             
         vendor_comments.sort(function (a, b) { return b.createdAt - a.createdAt });
-        console.log(vendor_comments);
 
         let collection_box = document.getElementsByClassName('collection')[0];
 
@@ -422,7 +436,6 @@ onAuthStateChanged(auth, async (user) => {
             comment_username.innerText = c.username;
             collection_item.appendChild(comment_username);
 
-            console.log(c.comment);
 
             let comment_time = document.createElement('p');
             comment_time.classList.add('comment_time');
@@ -448,9 +461,11 @@ onAuthStateChanged(auth, async (user) => {
 
             if (s[0].checked) {
                 st = false;
+                after_status = false;
             }
             if (s[1].checked) {
                 st = true;
+                after_status = true;
             }
             let data = {
                 shopName: shopName.value,
@@ -471,6 +486,39 @@ onAuthStateChanged(auth, async (user) => {
                         alertMSG.classList.remove('show');
                     }, 3000);
                 })
+
+
+            // SMS Notification System
+            if(previous_status == false && after_status == true){
+                for(let i = 0; i < notify_c.length; i++){
+                    let email_subject = shopName.value + " is now open!";
+                    let email_body = `<b>Dear ${notify_c[i]},</b>
+                    <br>
+                    <b>${shopName.value}  is open now!</b>
+                    <br>
+                    <b>Go grab your urgent necessity</b>
+                    <br>
+                    <b>With Regards,</b>
+                    <br>
+                    <b>Team MINffORT</b>`;
+                    Email.send({
+                        SecureToken : "e654578c-601b-48d4-a1d5-35bb69d8d0f7",
+                        To : notify_c[i],
+                        From : "sharma0701yash@gmail.com",
+                        Subject : email_subject,
+                        Body : email_body
+                    }).then(
+                      message => alert(message)
+                    );
+                }
+    
+                await updateDoc(docRef, {
+                    c_addresses : deleteField()
+                })
+                    .then(() => {
+                        console.log("c_addresses deleted");
+                    })
+            }
 
             // appending changes in menu
             let input_row_list = Array.from(document.getElementsByClassName('input_row'));

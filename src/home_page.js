@@ -14,6 +14,7 @@ import {
     updateDoc,
     onSnapshot,
     deleteField,
+    getDoc,
     getDocs,
     serverTimestamp,
 } from 'firebase/firestore'
@@ -298,6 +299,12 @@ onAuthStateChanged(auth1, (user) => {
                     status_inbox.appendChild(status_line);
                     status_container.appendChild(status_inbox);
 
+                    let notify_me_btn = document.createElement('i');
+                    notify_me_btn.classList.add('material-icons');
+                    notify_me_btn.setAttribute('id', 'notify_me_btn');
+                    notify_me_btn.innerText = "notifications";
+                    status_container.appendChild(notify_me_btn);
+
                     let address_about_box = document.createElement('div');
                     address_about_box.classList.add('address_about_box');
                     info_box.appendChild(address_about_box);
@@ -311,6 +318,7 @@ onAuthStateChanged(auth1, (user) => {
                     address_box.appendChild(address_title);
 
                     let home_icon = document.createElement('i');
+                    home_icon.classList.add('material-icons');
                     home_icon.classList.add('material-icons');
                     home_icon.innerText = "home";
                     address_title.appendChild(home_icon);
@@ -490,7 +498,7 @@ onAuthStateChanged(auth1, (user) => {
                                 let vendor_result = [];
                                 let vote_check;
 
-                                let voter = 'vote' + customer_email.slice(0, -4);
+                                let voter = 'vote' + customer_email.slice(0, -6);
 
                                 // Checking if the voter exists in the database or 1st time voter + fetching vote data
                                 snapshot.docs.forEach((docum) => {
@@ -529,14 +537,14 @@ onAuthStateChanged(auth1, (user) => {
 
                                 if (vote_check === true) {
                                     arrow_up.style.color = "orange";
-                                    arrow_down.style.color = "black";
+                                    arrow_down.style.color = "white";
                                 }
                                 if (vote_check == undefined) {
-                                    arrow_up.style.color = "black";
-                                    arrow_down.style.color = "black";
+                                    arrow_up.style.color = "white";
+                                    arrow_down.style.color = "white";
                                 }
                                 if (vote_check === false) {
-                                    arrow_up.style.color = "black";
+                                    arrow_up.style.color = "white";
                                     arrow_down.style.color = "orange";
                                 }
 
@@ -620,7 +628,7 @@ onAuthStateChanged(auth1, (user) => {
                                     e.preventDefault();
 
                                     let comment_value = document.getElementById('comment_value').value;
-                                    let map_name = 'comment' + customer_email.slice(0, -4) + comment_value;
+                                    let map_name = 'comment' + customer_email.slice(0, -6) + comment_value;
                                     let comment_ob = {};
                                     comment_ob[map_name] = {
                                         username: customer_email,
@@ -657,6 +665,11 @@ onAuthStateChanged(auth1, (user) => {
                                     comment_username.innerText = customer_email;
                                     collection_item.appendChild(comment_username);
                                     
+                                    let comment_time = document.createElement('p');
+                                    comment_time.classList.add('comment_time');
+                                    comment_time.innerHTML = 'Just Now' + '<br>';
+                                    collection_item.appendChild(comment_time);
+
                                     let comment_line = document.createElement('p');
                                     comment_line.classList.add('comment_line');
                                     comment_line.innerText = comment_value;
@@ -752,6 +765,70 @@ onAuthStateChanged(auth1, (user) => {
                                 tr_body.appendChild(td_ava);
 
                                 tbody.appendChild(tr_body);
+                            })
+
+                            // Notification System
+                            
+                            
+                            let notify_me_btn = document.getElementById('notify_me_btn');
+                            if(v_status == "OPEN"){
+                                notify_me_btn.style.display = "none";
+                            }
+                            if(v_status == "CLOSE"){
+                                notify_me_btn.style.display = "block";
+                            }
+                            
+                            notify_me_btn.addEventListener('click', async (e) => {
+                                e.preventDefault();
+                                notify_me_btn.style.color = "Orange";
+                                let not_docRef = doc(db2, 'Canteen', canteen.id);
+                                
+                                await getDoc(not_docRef)
+                                .then((snapshot) => {
+                                    console.log(snapshot.data().c_addresses);
+                                    let notify_arr = [];
+                                    if(snapshot.data().c_addresses != undefined){
+                                        for(const key in snapshot.data().c_addresses){
+                                            if(snapshot.data().c_addresses.hasOwnProperty(key)){
+                                                notify_arr.push(snapshot.data().c_addresses[key]);
+                                            }
+                                        }
+                                        let notif_push = false;
+                                        for(let i = 0; i < notify_arr.length; i++){
+                                            if(notify_arr[i] == customer_email){
+                                                notif_push = true;
+                                                break;
+                                            }
+                                        }
+                                        if(notif_push == false){
+                                            notify_arr.push(customer_email);
+                                        }
+                                        console.log(notify_arr);
+
+                                        let c_addresses = {};
+                                        for (let j = 0; j < notify_arr.length; j++) {
+                                            c_addresses[notify_arr[j].slice(0,-6)] = notify_arr[j];
+                                        }
+
+                                        console.log(c_addresses);
+
+                                        updateDoc(not_docRef,{c_addresses})
+                                            .then(() => {
+                                                console.log("Email Uploaded");
+                                            })
+                                    }
+                                    else {
+                                        console.log("No c_addresses");
+                                        let c_addresses = {};
+                                        c_addresses[customer_email.slice(0,-6)] = customer_email;
+
+                                        updateDoc(not_docRef, {c_addresses})
+                                            .then(() => {
+                                                console.log("New Email list added");
+                                            })
+                                    }
+                                })
+
                             })
                         }
                     })
