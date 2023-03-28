@@ -606,12 +606,14 @@ body {
 .address_about_box {
     width: 50%;
     height: 100%;
+    display: flex;
 }
 
 .address_box {
-    height: 50%;
+    height: 100%;
     width: 100%;
     display: flex;
+    justify-content: center;
     align-items: center;
     overflow: hidden;
 }
@@ -619,27 +621,24 @@ body {
     padding-left: 2vw;
 }
 .address_title i {
-    font-size: 1.8vw;
-}
-.address_inbox {
-    padding-left: 1.5vw;
+    cursor: default;
+    font-size: 3vw;
 }
 
 
 .about_box {
-    height: 60%;
+    height: 100%;
     width: 100%;
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 .about_title {
     padding-left: 2vw;
 }
 .about_title i {
-    font-size: 1.8vw;
-}
-.about_inbox {
-    padding-left: 1.5vw;
+    cursor: default;
+    font-size: 3vw;
 }
 
 

@@ -479,15 +479,9 @@
         // ---------------------------------------------------------------------------
 
         // Notify Me Hover
-        let notify_me_btn = document.getElementById('notify_me_btn');
-        if (notify_me_btn != null) {
-            notify_me_btn.addEventListener('mouseover', () => {
-                console.log("Notify Me Working");
-                document.addEventListener('DOMContentLoaded', function () {
-                    var elems = document.querySelectorAll('.tooltipped');
-                    var instances = M.Tooltip.init(elems, {});
-                })
-            })
+        function tooltip() {
+            var elems = document.querySelectorAll('.tooltipped');
+            var instances = M.Tooltip.init(elems, {});
         }
 
 

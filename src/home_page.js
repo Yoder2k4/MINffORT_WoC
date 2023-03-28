@@ -48,7 +48,7 @@ let db2 = getFirestore(app2);
 console.log(document.referrer);
 
 // For Vendor login
-if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/vendor-login-form.html"){
+if(document.referrer == "http://127.0.0.1:5501/dist/vendor-login-form.html"){
     onAuthStateChanged(auth2, (user) => {
         // If user is authenticated
         if (user) {
@@ -669,7 +669,7 @@ if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/vendor-log
 }
 
 // For Customer Login
-if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.html"){
+if(document.referrer == "http://127.0.0.1:5501/dist/index.html"){
     onAuthStateChanged(auth1, (user) => {
     
         // If user is authenticated
@@ -928,6 +928,7 @@ if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.html
                         notify_me_btn.classList.add('tooltipped');
                         notify_me_btn.setAttribute('id', 'notify_me_btn');
                         notify_me_btn.setAttribute('data-tooltip', 'Notify Me');
+                        notify_me_btn.setAttribute('onmouseover', 'tooltip()');
                         notify_me_btn.innerText = "notifications";
                         status_container.appendChild(notify_me_btn);
     
@@ -945,17 +946,10 @@ if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.html
     
                         let home_icon = document.createElement('i');
                         home_icon.classList.add('material-icons');
-                        home_icon.classList.add('material-icons');
+                        home_icon.classList.add('tooltipped');
+                        home_icon.setAttribute('onmouseover', 'tooltip()');
                         home_icon.innerText = "home";
                         address_title.appendChild(home_icon);
-    
-                        let address_inbox = document.createElement('span');
-                        address_inbox.classList.add('address_inbox');
-                        address_box.appendChild(address_inbox);
-    
-                        let address_line = document.createElement('span');
-                        address_line.classList.add('address_line');
-                        address_inbox.appendChild(address_line);
     
                         let about_box = document.createElement('div');
                         about_box.classList.add('about_box');
@@ -967,16 +961,10 @@ if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.html
     
                         let description_icon = document.createElement('i');
                         description_icon.classList.add('material-icons');
+                        description_icon.classList.add('tooltipped');
+                        description_icon.setAttribute('onmouseover', 'tooltip()');
                         description_icon.innerText = "info";
                         about_title.appendChild(description_icon);
-    
-                        let about_inbox = document.createElement('span');
-                        about_inbox.classList.add('about_inbox');
-                        about_box.appendChild(about_inbox);
-    
-                        let about_line = document.createElement('span');
-                        about_line.classList.add('about_line');
-                        about_inbox.appendChild(about_line);
     
                         // Adding Tabs + Menu System
     
@@ -1109,8 +1097,8 @@ if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.html
                                     status_line.style.color = "red";
                                 }
     
-                                address_line.innerText = canteen.data.address;
-                                about_line.innerText = canteen.data.about;
+                                home_icon.setAttribute('data-tooltip',canteen.data.address);
+                                description_icon.setAttribute('data-tooltip', canteen.data.about);
     
     
                                 // Voting System
