@@ -48,7 +48,7 @@ let db2 = getFirestore(app2);
 console.log(document.referrer);
 
 // For Vendor login
-if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/vendor-login-form.html"){
+if(document.referrer == "http://127.0.0.1:5501/dist/vendor-login-form.html"){
     onAuthStateChanged(auth2, (user) => {
         // If user is authenticated
         if (user) {
@@ -669,7 +669,7 @@ if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/vendor-log
 }
 
 // For Customer Login
-if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.html"){
+if(document.referrer == "http://127.0.0.1:5501/dist/index.html"){
     onAuthStateChanged(auth1, (user) => {
     
         // If user is authenticated
