@@ -507,9 +507,9 @@ onAuthStateChanged(auth, async (user) => {
                         From : "sharma0701yash@gmail.com",
                         Subject : email_subject,
                         Body : email_body
-                    }).then(
-                      message => alert(message)
-                    );
+                    }).then(() => {
+                        console.log("Email sent");
+                    });
                 }
     
                 await updateDoc(docRef, {
