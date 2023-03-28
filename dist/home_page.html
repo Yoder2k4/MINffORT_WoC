@@ -13,7 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="style_home_page.css">
 </head>
 
@@ -105,7 +106,7 @@
                 </span>
             </div>
 
-            
+
 
             <div id="card-container">
 
@@ -474,6 +475,21 @@
 
             }
         }
+
+        // ---------------------------------------------------------------------------
+
+        // Notify Me Hover
+        let notify_me_btn = document.getElementById('notify_me_btn');
+        if (notify_me_btn != null) {
+            notify_me_btn.addEventListener('mouseover', () => {
+                console.log("Notify Me Working");
+                document.addEventListener('DOMContentLoaded', function () {
+                    var elems = document.querySelectorAll('.tooltipped');
+                    var instances = M.Tooltip.init(elems, {});
+                })
+            })
+        }
+
 
         // --------------------------------------------------------------------------------------------------------
 
