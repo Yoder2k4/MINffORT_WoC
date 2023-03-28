@@ -84,6 +84,10 @@ body {
     align-items: center;
 }
 
+#expand_filter {
+    display: none;
+    position: absolute;
+}
 
 /* Brand Title */
 .brand-logo {
@@ -126,7 +130,7 @@ body {
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     position: absolute;
-    right: 3.4%;
+    right: -34%;
     top: 80%;
     justify-content: center;
     align-items: center;
@@ -169,7 +173,7 @@ body {
 #filter_box {
     background-color: #2e4388;
     border-radius: 15px;
-    height: 88%;
+    height: 95%;
     width: 92%;
     padding: 5% 10%;
     color: white;
@@ -177,6 +181,9 @@ body {
     flex-direction: column;
     transition: 0.5s;
     box-shadow: inset #080b7b78 0px 3px 4px 5px,inset #080b7b78 0px -3px 4px 5px;
+}
+#close_filter {
+    display: none;
 }
 #filter_box>span {
     margin: 8% 4%;
@@ -204,6 +211,7 @@ body {
     margin-top: -20px;
     transform: scaleX(0.1);
     transition: all 0.2s ease-in-out;
+    flex-direction: column;
     z-index: -3;
 }
 
@@ -216,7 +224,9 @@ body {
 #shopName_filter i,#address_filter i,#phone_filter i,#status_filter i {
     margin-top: 4%;
     color: white;
-    margin-left: -15%;
+    margin-left: -20%;
+    background: #2b2f31;
+    border-radius: 0 8px 8px 0;
 }
 #shopName_btn,#address_btn,#phone_btn,#status_btn {
     display: flex;
@@ -238,14 +248,14 @@ body {
     background-color: rgb(43, 47, 49);
     color: white;
     border: none;
-    border-radius: 14px;
+    border-radius: 10px;
     padding-left: 10px;
     padding-right: 10px;
 }
 #status_filter label {
     margin: 4% 2% 4% 0;
     padding: 4px 6px;
-    width: 59%;
+    width: 109px;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -335,7 +345,7 @@ body {
 .card-item:hover {
     transform: scale(1.07);
     z-index: 4;
-    border-radius: 0;
+    /* border-radius: 0; */
     cursor: pointer;
     background-size: 113.2% !important;
     background-position: -50px !important;
@@ -540,7 +550,7 @@ body {
     transition: all 0.2s ease-in-out;
 }
 .cross_btn i:hover {
-    color: rgb(247, 247, 107);
+    color: rgb(255, 255, 6);
     transition: all 0.2s ease-in-out;
 }
 
@@ -560,8 +570,10 @@ body {
     color: white;
     font-weight: bold;
     padding-left: 4%;
-    width: 81%;
+    width: 76%;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .side {
@@ -639,6 +651,10 @@ body {
 .about_title i {
     cursor: default;
     font-size: 3vw;
+}
+
+.material-tooltip {
+    max-width: 600px !important;
 }
 
 
@@ -749,8 +765,11 @@ table.striped > tbody > tr:nth-child(2n+1) {
     color: gray;
 }
 .addComment {
-    height: 9%;
+    height: 56.75px;
+    border: 0.5px solid;
+    border-color: rgb(57, 61, 64);
     width: 58.3%;
+    border-radius: 0 0 5px 5px;
     display: flex;
     position: absolute;
     bottom: 5%;
@@ -815,22 +834,219 @@ table {
         margin: 0 1vw 41px 1vw;
     }
 }
-
-@media screen and (max-width: 1112px) {
+@media screen and (max-width: 1296px) {
+    .phone_side i , .phone_side span {
+        font-size: 1rem;
+    }
+}
+@media screen and (max-width: 1212px) {
     #filter_box {
         width: 94%;
         padding: 5% 3%;
     }
+    #profile_drop_down {
+        right: -40%;
+    }
+    .card_select {
+        width: 90vw;
+        margin: 5vh 5vw;
+    }
+    .shopName_title {
+        font-size: 2.5rem;
+    }
+}
+
+@media screen and (max-width: 1025px) {
+    
 }
 
 @media screen and (max-width: 956px) {
+    .brand-logo {
+        margin: 0 auto;
+    }
+    #profile_drop_down {
+        right: -42%;
+    }
     #filter {
         width: 26%;
+        height: 82vh;
+    }
+    #shopName_filter i, #address_filter i, #phone_filter i, #status_filter i {
+        margin-left: -15%;
     }
     #card-container {
         width: 76%;
     }
     .card-item {
         width: 55vw;
+    }
+    .image_container {
+        width: 30%;
+    }
+    .card_select_content {
+        width: 70%;
+    }
+    .shopName_box {
+        width: 70%;
+    }
+    .addComment {
+        width: 62.8%;
+    }
+}
+
+@media screen and (min-height: 1000px) {
+    .shopName_title {
+        white-space: normal;
+    }
+}
+
+@media screen and (max-width: 845px) {
+    body {
+        max-width: 100vw;
+    }
+    .card_select {
+        flex-direction: column;
+    }
+    .image_container {
+        width: 100%;
+        height: 20%;
+    }
+    .card_select_content {
+        width: 100%;
+    }
+    .shopName_box {
+        width: 100%;
+        height: 17%;
+    }
+    .shopName_title {
+        white-space: normal;
+        font-size: clamp(1rem, 7vw, 2.5rem);
+    }
+    .info_box {
+        margin-top: 18vh;
+    }
+    .status_container {
+        width: 50%;
+    }
+    .address_about_box {
+        width: 40%;
+    }
+    .address_title i {
+        font-size: 5vw;
+    }
+    .about_title i {
+        font-size: 5vw;
+    }
+    .tabs_box {
+        margin-top: 3vh;
+    }
+    .comment_scrollbox {
+        margin-top: 2vh;
+    }
+    .addComment {
+        position: relative;
+        width: 90%;
+    }
+}
+
+
+@media screen and (max-width: 690px) {
+    .brand-logo {
+        transform: scale(0.8);
+    }
+    #profile {
+        transform: scale(0.8);
+    }
+    #expand_filter {
+        display: flex;
+        position: absolute;
+        top: 120%;
+        left: 1%;
+        color: #2e4388;
+        font-size: 3rem;
+        cursor: default;
+        z-index: 30;
+    }
+    #close_filter {
+        display: flex;
+        position: absolute;
+        top: 4%;
+        left: 80%;
+        color: #2e4388;
+        font-size: 3rem;
+        cursor: pointer;
+    }
+    #filter {
+        top: 20%;
+        left: -100%;
+        width: 40%;
+        position: absolute;
+        z-index: 10;
+        transition: all 0.3s cubic-bezier(.74,0,.9,.83);
+    }
+    #filter.showup {
+        left: 1%;
+        transition: all 0.3s cubic-bezier(0,0,.4,1.09);
+    }
+    #filter_box>span {
+        margin: 4%;
+    }
+    #card-container {
+        margin: 0;
+        padding: 25px 8px;
+        height: 79vh;
+        width: 100vw;
+        overflow: auto;
+    }
+    .card-item {
+        width: 77vw;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .shopName_title {
+        padding-left: 1%;
+        width: 67%;
+    }
+    .phone_side span {
+        font-size: 0.9rem;
+    }
+    .ownerName {
+        font-size: 0.8rem;
+    }
+    .collection .collection-item.avatar .title {
+        font-size: 1rem;
+    }
+    .comment_time {
+        font-size: 0.8rem ;
+    }
+    .comment_line {
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 473px) {
+    #signed_in_msg {
+        font-size: 1rem;
+    }
+    .brand-logo {
+        transform: scale(0.6);
+        margin-left: -0.1%;
+    }   
+}
+@media screen and (max-width: 373px) {
+    .brand-logo {
+        margin-left: -4%;
+    }
+}
+@media screen and (max-width: 400px) {
+    .collection .collection-item.avatar .title {
+        font-size: 0.9rem;
+    }
+    .comment_time {
+        font-size: 0.7rem ;
+    }
+    .comment_line {
+        font-size: 0.8rem;
     }
 }

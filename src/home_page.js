@@ -321,17 +321,10 @@ if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/vendor-log
     
                         let home_icon = document.createElement('i');
                         home_icon.classList.add('material-icons');
-                        home_icon.classList.add('material-icons');
+                        home_icon.classList.add('tooltipped');
+                        home_icon.setAttribute('onmouseover', 'tooltip()');
                         home_icon.innerText = "home";
                         address_title.appendChild(home_icon);
-    
-                        let address_inbox = document.createElement('span');
-                        address_inbox.classList.add('address_inbox');
-                        address_box.appendChild(address_inbox);
-    
-                        let address_line = document.createElement('span');
-                        address_line.classList.add('address_line');
-                        address_inbox.appendChild(address_line);
     
                         let about_box = document.createElement('div');
                         about_box.classList.add('about_box');
@@ -343,16 +336,10 @@ if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/vendor-log
     
                         let description_icon = document.createElement('i');
                         description_icon.classList.add('material-icons');
+                        description_icon.classList.add('tooltipped');
+                        description_icon.setAttribute('onmouseover', 'tooltip()');
                         description_icon.innerText = "info";
                         about_title.appendChild(description_icon);
-    
-                        let about_inbox = document.createElement('span');
-                        about_inbox.classList.add('about_inbox');
-                        about_box.appendChild(about_inbox);
-    
-                        let about_line = document.createElement('span');
-                        about_line.classList.add('about_line');
-                        about_inbox.appendChild(about_line);
     
                         // Adding Tabs + Menu System
     
@@ -462,8 +449,8 @@ if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/vendor-log
                                     status_line.style.color = "red";
                                 }
     
-                                address_line.innerText = canteen.data.address;
-                                about_line.innerText = canteen.data.about;
+                                home_icon.setAttribute('data-tooltip', canteen.data.address);
+                                description_icon.setAttribute('data-tooltip', canteen.data.about);
     
     
                                 // Voting System
@@ -845,6 +832,7 @@ if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.html
                         let close_icon = document.createElement('i');
                         close_icon.classList.add('material-icons');
                         close_icon.setAttribute('id', 'closeBTN');
+                        close_icon.setAttribute('onclick', 'toolTipClose()');
                         close_icon.innerText = "close";
                         cross_btn.appendChild(close_icon);
                         card_select_content.appendChild(cross_btn);
@@ -948,6 +936,8 @@ if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.html
                         home_icon.classList.add('material-icons');
                         home_icon.classList.add('tooltipped');
                         home_icon.setAttribute('onmouseover', 'tooltip()');
+                        home_icon.setAttribute('id', 'addressToolTip');
+                        home_icon.setAttribute('onclick', 'tooltipClick1()');
                         home_icon.innerText = "home";
                         address_title.appendChild(home_icon);
     
@@ -963,6 +953,8 @@ if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.html
                         description_icon.classList.add('material-icons');
                         description_icon.classList.add('tooltipped');
                         description_icon.setAttribute('onmouseover', 'tooltip()');
+                        description_icon.setAttribute('id', 'aboutToolTip');
+                        description_icon.setAttribute('onclick', 'tooltipClick2()');
                         description_icon.innerText = "info";
                         about_title.appendChild(description_icon);
     
@@ -1638,4 +1630,27 @@ profile.addEventListener('click', (e) => {
     setTimeout(() => {
         profile_drop_down.classList.toggle('active');
     }, 2);
+})
+
+
+// Filter Side Menu
+let expand_filter = document.getElementById('expand_filter');
+expand_filter.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    let filter = document.getElementById('filter');
+    filter.classList.add('showup');
+    setTimeout(() => {
+        expand_filter.style.display = "none";
+    }, 240);
+})
+let close_filter = document.getElementById('close_filter');
+close_filter.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    let filter = document.getElementById('filter');
+    filter.classList.remove('showup');
+    setTimeout(() => {
+        expand_filter.style.display = "";
+    }, 200);
 })
