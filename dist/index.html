@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="MINffORT.png" type="image/x-icon">
     <title>MINffORT - A Canteen Live Status Website</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap" rel="stylesheet">
@@ -17,6 +17,34 @@
 <body>
 
     <div class="container">
+
+        <div id="contact_us_box">
+
+            <i class="material-icons circle z-depth-3" id="contact_us_btn">contact_support</i>
+
+            <div id="contact_us">
+
+                <h5 id="contact_us_header">Contact Us</h5>
+
+                <h6 id="contact_us_email"><i class="material-icons" id="alternate_email">alternate_email</i>&nbsp;<span id="email">sharma0701yash@gmail.com</span></h6>
+
+                <h6 id="contact_us_phone"><i class="material-icons" id="call">call</i>&nbsp;<span id="phone">9831842478</span></h6>
+
+                <ul id="links">
+                    <li><a href="#" class="tooltipped btn-floating btn-small indigo darken-4" data-tooltip="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a></li>
+                    <li><a href="#" class="tooltipped btn-floating btn-small indigo darken-4" data-tooltip="Facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a></li>
+                    <li><a href="#" class="tooltipped btn-floating btn-small indigo darken-4" data-tooltip="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a></li>
+                </ul>
+
+            </div>
+
+        </div>
 
         <div class="box">
 
@@ -307,6 +335,12 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <script>
+            let contact_us_btn = document.getElementById('contact_us_btn');
+            contact_us_btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                let contact_us = document.getElementById('contact_us');
+                contact_us.classList.toggle('active');
+            })
             document.addEventListener('DOMContentLoaded', function () {
                 let elems = document.querySelectorAll('.tabs');
                 let instances = M.Tabs.init(elems, {});

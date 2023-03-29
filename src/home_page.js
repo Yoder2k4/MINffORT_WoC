@@ -45,6 +45,8 @@ let auth2 = getAuth(app2);
 
 let db2 = getFirestore(app2);
 
+console.log(document.referrer);
+
 // For Vendor login
 if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/vendor-login-form.html"){
     onAuthStateChanged(auth2, (user) => {
@@ -972,7 +974,7 @@ if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.html
                         let comment_a = document.createElement('a');
                         comment_a.setAttribute('onclick', 'c_tab_toggle()');
                         comment_a.setAttribute('id', 'tab_c');
-                        comment_a.innerText = "Comments";
+                        comment_a.innerText = "Reviews";
                         comment_tab.appendChild(comment_a);
     
                         let menu_tab = document.createElement('li');

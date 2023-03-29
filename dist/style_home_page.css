@@ -654,7 +654,7 @@ body {
 }
 
 .material-tooltip {
-    max-width: 600px !important;
+    max-width: 360px !important;
 }
 
 
@@ -924,6 +924,9 @@ table {
     }
     .info_box {
         margin-top: 18vh;
+    }
+    .phone_side {
+        align-items: flex-end;
     }
     .status_container {
         width: 50%;

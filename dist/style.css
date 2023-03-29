@@ -18,6 +18,72 @@ body{
     }
 }
 
+#contact_us_box {
+    position: absolute;
+    right: 4%;
+    top: 2%;
+}
+#contact_us_box>i {
+    font-size: 3rem;
+    color: white;
+    background-color: #3A54AA;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+#contact_us_box>i:hover {
+    transform: scale(1.1);
+    transition: all 0.2s ease-in-out;
+}
+#contact_us {
+    position: absolute;
+    right: 0;
+    top: -30px;
+    width: 240px;
+    height: 210px;
+    background-color: white;
+    z-index: 10;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0,0,.4,1.08);
+}
+#contact_us.active {
+    top: 60px;
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.3s cubic-bezier(0,0,.4,1.08);
+}
+#contact_us_header {
+    margin-top: 10%;
+}
+#contact_us_email {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+#alternate_email {
+    color: #3A54AA;
+}
+#email {
+    font-size: 0.9rem;
+}
+#contact_us_phone {
+    display: flex;
+    align-items: center;
+}
+#call {
+    color: #3A54AA;
+}
+#links {
+    display: flex;
+}
+#links > li > a {
+    margin: 0 8px;
+}
+
 .container{
     width: 80vw;
     height: 100vh;
