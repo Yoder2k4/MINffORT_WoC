@@ -45,8 +45,6 @@ let auth2 = getAuth(app2);
 
 let db2 = getFirestore(app2);
 
-console.log(document.referrer);
-
 // For Vendor login
 if(document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/vendor-login-form.html"){
     onAuthStateChanged(auth2, (user) => {
