@@ -764,6 +764,29 @@ table.striped > tbody > tr:nth-child(2n+1) {
     font-size: 0.9rem;
     color: gray;
 }
+.comment_line {
+    width: 97%;
+}
+.comment_textarea {
+    margin-top: 8px;
+    display: none;
+    border: none;
+    width: 95%;
+    height: max-content !important;
+    min-height: 105px;
+    resize: none;
+    color: white;
+    font-family: 'Poppins', sans-serif !important;
+    line-height: 1.5rem;
+    padding-top: 4px;
+    padding-left: 0;
+}
+.comment_textarea:focus-visible {
+    outline: 0.5px solid grey;
+    outline-offset: 4px;
+    text-decoration: none;
+    border-radius: 3px;
+}
 .del_comment_btn {
     right: 8px;
     top: 20px;
@@ -772,6 +795,39 @@ table.striped > tbody > tr:nth-child(2n+1) {
     transition: all 0.2s ease-in-out;
 }
 .del_comment_btn:hover {
+    color: yellow;
+    transition: all 0.2s ease-in-out;
+}
+.edit_comment_btn {
+    right: 8px;
+    top: 50px;
+    position: absolute;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.edit_comment_btn:hover {
+    color: yellow;
+    transition: all 0.2s ease-in-out;
+}
+.new_del_comment_btn {
+    right: 8px;
+    top: 20px;
+    position: absolute;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.new_del_comment_btn:hover {
+    color: yellow;
+    transition: all 0.2s ease-in-out;
+}
+.new_edit_comment_btn {
+    right: 8px;
+    top: 50px;
+    position: absolute;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.new_edit_comment_btn:hover {
     color: yellow;
     transition: all 0.2s ease-in-out;
 }

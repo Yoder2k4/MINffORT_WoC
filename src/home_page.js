@@ -958,7 +958,7 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
                         description_icon.innerText = "info";
                         about_title.appendChild(description_icon);
 
-                        // Adding Tabs + Menu System
+                        // Adding Tabs + Comment System + Menu System
 
                         let tabs_box = document.createElement('div');
                         tabs_box.classList.add('tabs_box');
@@ -1250,48 +1250,136 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
                                             check = true;
                                             console.log("Created comments");
                                         }
-
+                                        
                                         // Appending to Local List
                                         let collection_item = document.createElement('li');
                                         collection_item.classList.add('collection-item');
                                         collection_item.classList.add('avatar');
                                         collection_box.prepend(collection_item);
-
+                                        
                                         let i_person = document.createElement('i');
                                         i_person.classList.add('material-icons');
                                         i_person.classList.add('circle');
                                         i_person.classList.add('cyan');
                                         i_person.innerText = "person";
                                         collection_item.appendChild(i_person);
-
+                                        
                                         let comment_username = document.createElement('span');
                                         comment_username.classList.add('title');
                                         comment_username.classList.add('comment_username');
                                         comment_username.setAttribute('style', 'font-weight: bold;')
                                         comment_username.innerText = customer_email;
                                         collection_item.appendChild(comment_username);
-
+                                        
                                         let comment_time = document.createElement('p');
                                         comment_time.classList.add('comment_time');
                                         comment_time.innerHTML = 'Just Now' + '<br>';
                                         collection_item.appendChild(comment_time);
-
+                                        
                                         let del_comment_btn = document.createElement('i');
                                         del_comment_btn.classList.add('material-icons');
-                                        del_comment_btn.classList.add('del_comment_btn');
+                                        del_comment_btn.classList.add('new_del_comment_btn');
                                         del_comment_btn.innerText = "delete";
                                         collection_item.appendChild(del_comment_btn);
-
+                                        
+                                        let edit_comment_btn = document.createElement('i');
+                                        edit_comment_btn.classList.add('material-icons');
+                                        edit_comment_btn.classList.add('new_edit_comment_btn');
+                                        edit_comment_btn.innerText = "edit";
+                                        collection_item.appendChild(edit_comment_btn);
+                                        
                                         let comment_line = document.createElement('p');
                                         comment_line.classList.add('comment_line');
                                         comment_line.innerText = comment_value;
+                                        let comment_textarea = document.createElement('textarea');
+                                        comment_textarea.classList.add('comment_textarea');
+                                        comment_textarea.innerText = comment_value;
+                                        collection_item.appendChild(comment_textarea);
                                         collection_item.appendChild(comment_line);
-
+                                        
                                         // to reset comment input
                                         let comment_input = document.getElementById('comment_value');
                                         comment_input.value = "";
+
+                                        // Deleting Comment from local list
+                                        let new_del_comment_btn_list = Array.from(document.getElementsByClassName('new_del_comment_btn'));
+                                        new_del_comment_btn_list.forEach((new_del_comment_btn) => {
+                                            new_del_comment_btn.addEventListener('click', (e) => {
+                                                e.preventDefault();
+
+                                                let comment_value = new_del_comment_btn.parentElement.children[6].innerText;
+                                                let map_name = 'comment' + customer_email.slice(0, -6) + comment_value;
+
+                                                updateDoc(com_docRef, {
+                                                    [`${map_name}`]: deleteField()
+                                                });
+
+                                                new_del_comment_btn.parentElement.remove();
+                                            })
+                                        })
+
+                                        // Editing Comment from local list
+                                        let new_edit_comment_btn_list = Array.from(document.getElementsByClassName('new_edit_comment_btn'));
+                                        new_edit_comment_btn_list.forEach((new_edit_comment_btn) => {
+                                            new_edit_comment_btn.addEventListener('click', (e) => {
+                                                e.preventDefault();
+
+                                                if (!new_edit_comment_btn.classList.contains('editing')) {
+                                                    new_edit_comment_btn.classList.add('editing');
+                                                    new_edit_comment_btn.parentElement.children[6].style.display = "none";
+                                                    new_edit_comment_btn.parentElement.children[5].style.display = "inline-block";
+                                                }
+                                                else {
+                                                    new_edit_comment_btn.classList.remove('editing');
+
+                                                    let map_name = 'comment' + customer_email.slice(0, -6) + new_edit_comment_btn.parentElement.children[5].value;
+                                                    let comment_ob = {};
+                                                    comment_ob[map_name] = {
+                                                        username: customer_email,
+                                                        comment: new_edit_comment_btn.parentElement.children[5].value,
+                                                        createdAt: serverTimestamp()
+                                                    };
+
+                                                    let map_name_old = 'comment' + customer_email.slice(0, -6) + new_edit_comment_btn.parentElement.children[6].innerText;
+
+                                                    updateDoc(com_docRef, {
+                                                        [`${map_name_old}`]: deleteField()
+                                                    });
+
+                                                    updateDoc(com_docRef, comment_ob);
+
+                                                    new_edit_comment_btn.parentElement.children[6].innerText = new_edit_comment_btn.parentElement.children[5].value;
+
+                                                    new_edit_comment_btn.parentElement.children[5].style.display = "none";
+                                                    new_edit_comment_btn.parentElement.children[6].style.display = "inline-block";
+                                                }
+
+                                            })
+
+                                            // Edit by pressing enter
+                                            document.addEventListener('keypress', (e) => {
+                                                if (e.code == "Enter") {
+                                                    e.preventDefault();
+                                                    if(new_edit_comment_btn.classList.contains('editing')){
+                                                        new_edit_comment_btn.click();
+                                                    }
+                                                    return false;
+                                                }
+                                            })
+                                        })
                                     });
                                 }
+                                // Commenting by pressing enter
+                                document.addEventListener('keypress', (e) => {
+                                    if (e.code == "Enter") {
+                                        e.preventDefault();
+                                        if(document.getElementById('comment_value').value != ""){
+                                            let comment_btn = document.getElementById('send_btn');
+                                            comment_btn.click();
+                                        }
+                                        return false;
+                                    }
+                                })
 
                                 // Appending each comment to ul
                                 vendor_comments.forEach((c) => {
@@ -1329,9 +1417,21 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
                                         collection_item.appendChild(del_comment_btn);
                                     }
 
+                                    let edit_comment_btn = document.createElement('i');
+                                    edit_comment_btn.classList.add('material-icons');
+                                    edit_comment_btn.classList.add('edit_comment_btn');
+                                    edit_comment_btn.innerText = "edit";
+                                    if (customer_email == c.username) {
+                                        collection_item.appendChild(edit_comment_btn);
+                                    }
+
                                     let comment_line = document.createElement('p');
                                     comment_line.classList.add('comment_line');
                                     comment_line.innerText = c.comment;
+                                    let comment_textarea = document.createElement('textarea');
+                                    comment_textarea.classList.add('comment_textarea');
+                                    comment_textarea.innerText = c.comment;
+                                    collection_item.appendChild(comment_textarea);
                                     collection_item.appendChild(comment_line);
 
                                 })
@@ -1342,19 +1442,64 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
                                     del_comment_btn_item.addEventListener('click', (e) => {
                                         e.preventDefault();
 
-                                        console.log("Del btn working");
-
-                                        let comment_value = del_comment_btn_item.parentElement.children[4].innerText;
+                                        let comment_value = del_comment_btn_item.parentElement.children[6].innerText;
                                         let map_name = 'comment' + customer_email.slice(0, -6) + comment_value;
 
                                         updateDoc(com_docRef, {
                                             [`${map_name}`]: deleteField()
-                                        })
-                                            .then(() => {
-                                                console.log('deleted comment');
-                                            })
+                                        });
 
                                         del_comment_btn_item.parentElement.remove();
+                                    })
+                                })
+
+                                // Editing Comment
+                                let edit_comment_btn_list = Array.from(document.getElementsByClassName('edit_comment_btn'));
+                                edit_comment_btn_list.forEach((edit_comment_btn_item) => {
+                                    edit_comment_btn_item.addEventListener('click', (e) => {
+                                        e.preventDefault();
+
+                                        if (!edit_comment_btn_item.classList.contains('editing')) {
+                                            edit_comment_btn_item.classList.add('editing');
+                                            edit_comment_btn_item.parentElement.children[6].style.display = "none";
+                                            edit_comment_btn_item.parentElement.children[5].style.display = "inline-block";
+                                        }
+                                        else {
+                                            edit_comment_btn_item.classList.remove('editing');
+
+                                            let map_name = 'comment' + customer_email.slice(0, -6) + edit_comment_btn_item.parentElement.children[5].value;
+                                            let comment_ob = {};
+                                            comment_ob[map_name] = {
+                                                username: customer_email,
+                                                comment: edit_comment_btn_item.parentElement.children[5].value,
+                                                createdAt: serverTimestamp()
+                                            };
+
+                                            let map_name_old = 'comment' + customer_email.slice(0, -6) + edit_comment_btn_item.parentElement.children[6].innerText;
+
+                                            updateDoc(com_docRef, {
+                                                [`${map_name_old}`]: deleteField()
+                                            });
+
+                                            updateDoc(com_docRef, comment_ob);
+
+                                            edit_comment_btn_item.parentElement.children[6].innerText = edit_comment_btn_item.parentElement.children[5].value;
+
+                                            edit_comment_btn_item.parentElement.children[5].style.display = "none";
+                                            edit_comment_btn_item.parentElement.children[6].style.display = "inline-block";
+                                        }
+
+                                    })
+
+                                    // Edit by pressing enter
+                                    document.addEventListener('keypress', (e) => {
+                                        if (e.code == "Enter") {
+                                            e.preventDefault();
+                                            if(edit_comment_btn_item.classList.contains('editing')){
+                                                edit_comment_btn_item.click();
+                                            }
+                                            return false;
+                                        }
                                     })
                                 })
 
@@ -1491,6 +1636,13 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
 
                         if (closeBTN != null) {
                             closeBTN.addEventListener('click', () => {
+                                let notify_me_btn = document.getElementById('notify_me_btn');
+                                notify_me_btn.classList.remove('tooltipped');
+                                let aboutToolTip = document.getElementById('aboutToolTip');
+                                aboutToolTip.classList.remove('tooltipped');
+                                let addressToolTip = document.getElementById('addressToolTip');
+                                addressToolTip.classList.remove('tooltipped');
+
                                 setTimeout(() => {
                                     popup.classList.toggle('active');
                                 }, 10);
