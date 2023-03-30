@@ -317,7 +317,7 @@ body {
 
 #card-container {
     width: 84vw;
-    margin: 11vh 0;
+    margin: 3vh 0;
     height: inherit;
     display: flex;
     flex-wrap: wrap;
@@ -763,6 +763,17 @@ table.striped > tbody > tr:nth-child(2n+1) {
 .comment_time {
     font-size: 0.9rem;
     color: gray;
+}
+.del_comment_btn {
+    right: 8px;
+    top: 20px;
+    position: absolute;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.del_comment_btn:hover {
+    color: yellow;
+    transition: all 0.2s ease-in-out;
 }
 .addComment {
     height: 56.75px;

@@ -118,6 +118,7 @@ onAuthStateChanged(auth, (user) => {
                 status: st
             };
 
+            // Error when image is not uploaded else setDoc
             if(img_url == undefined){
                 let alertMSG2 = document.getElementById('alertMSG2');
                 alertMSG2.classList.add('show');
@@ -126,14 +127,23 @@ onAuthStateChanged(auth, (user) => {
                 }, 4000);
             }
             else{
-                await setDoc(docRef, { ImgURL: img_url, data });
+                // upload when input data not missed out
+                if(data.status != undefined && data.shopName != undefined && data.ownerName != undefined && data.phoneNo != undefined && data.address != undefined){
+                    await setDoc(docRef, { ImgURL: img_url, data });
+                }
+                else {
+                    let alertMSG3 = document.getElementById('alertMSG3');
+                    alertMSG3.classList.add('show');
+                    setTimeout(() => {
+                       alertMSG3.classList.remove('show');
+                    }, 4000);
+                }
             }
 
                 
 
 
             // Adding Menu
-
             let menu_docRef = doc(db, 'Menu System', email);
 
             let input_row_list = Array.from(document.getElementsByClassName('input_row'));
@@ -202,7 +212,7 @@ import {
 
 
 let reader = new FileReader();
-// Lets users asynchronously read contents of file stored on user' pc 
+// Lets users asynchronously read contents of file stored on user's pc 
 
 let files = [];
 
@@ -246,8 +256,6 @@ async function UploadProcess() {
 
     await uploadBytesResumable(storageRef, ImgToUpload, metaData)
         .then(async (snapshot) => {
-            console.log("Uploading... ");
-            console.log((snapshot.bytesTransferred / snapshot.totalBytes) * 100, "%");
             await getDownloadURL(snapshot.ref).then((downloadURL) => {
                 img_url = downloadURL;
                 console.log(downloadURL);
