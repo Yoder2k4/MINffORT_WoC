@@ -1647,10 +1647,8 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
 
                                                 let c_addresses = {};
                                                 for (let j = 0; j < notify_arr.length; j++) {
-                                                    c_addresses[notify_arr[j].slice(0, -6)] = notify_arr[j];
+                                                    c_addresses[notify_arr[j].split('.').join('')] = notify_arr[j];
                                                 }
-
-                                                console.log(c_addresses);
 
                                                 updateDoc(not_docRef, { c_addresses })
                                                     .then(() => {
@@ -1660,7 +1658,7 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
                                             else {
                                                 console.log("No c_addresses");
                                                 let c_addresses = {};
-                                                c_addresses[customer_email.slice(0, -6)] = customer_email;
+                                                c_addresses[customer_email.split('.').join('')] = customer_email;
 
                                                 updateDoc(not_docRef, { c_addresses })
                                                     .then(() => {
