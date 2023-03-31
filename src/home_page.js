@@ -459,21 +459,12 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/vendor-lo
 
                                 onSnapshot(vot_colRef, (snapshot) => {
 
-                                    let check = false;
                                     let vendor_result = [];
-                                    let vote_check;
-
-                                    let voter = 'vote' + customer_email.slice(0, -6);
 
                                     // Checking if the voter exists in the database or 1st time voter + fetching vote data
                                     snapshot.docs.forEach((docum) => {
                                         // taking the chosen canteen
                                         if (docum.id === item.id) {
-                                            check = true;
-                                            if (docum.data()[voter] != undefined) {
-                                                vote_check = docum.data()[voter].vote;
-                                            }
-
                                             for (const key in docum.data()) {
                                                 if (docum.data().hasOwnProperty(key)) {
                                                     vendor_result.push(docum.data()[key].vote);
@@ -1103,21 +1094,23 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
                                     let check = false;
                                     let vendor_result = [];
                                     let vote_check;
-
-                                    let voter = 'vote' + customer_email.slice(0, -6);
+                                    let voter_id;
+                                    let voter_id_new = rid();
+                                    let voter_exists = false; 
 
                                     // Checking if the voter exists in the database or 1st time voter + fetching vote data
                                     snapshot.docs.forEach((docum) => {
                                         // taking the chosen canteen
                                         if (docum.id === item.id) {
                                             check = true;
-                                            if (docum.data()[voter] != undefined) {
-                                                // voter exists
-                                                vote_check = docum.data()[voter].vote;
-                                            }
 
                                             for (const key in docum.data()) {
                                                 if (docum.data().hasOwnProperty(key)) {
+                                                    if (docum.data()[key].email == customer_email) {
+                                                        voter_exists = true;
+                                                        vote_check = docum.data()[key].vote;
+                                                        voter_id = docum.data()[key].rid;
+                                                    }
                                                     vendor_result.push(docum.data()[key].vote);
                                                 }
                                             }
@@ -1155,49 +1148,109 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
                                     }
 
                                     arrow_up.addEventListener('click', () => {
-                                        let vote_ob = {};
-                                        vote_ob[voter] = {
-                                            vote: true
-                                        };
+                                        if (voter_exists) {
+                                            let vote_ob = {};
+                                            vote_ob[voter_id] = {
+                                                email: customer_email,
+                                                vote: true,
+                                                rid: voter_id
+                                            };
 
-                                        if (vote_check != true) {
-                                            if (check === true) {
-                                                updateDoc(vot_docRef, vote_ob);
+                                            if (vote_check != true) {
+                                                if (check === true) {
+                                                    updateDoc(vot_docRef, vote_ob);
+                                                }
+                                                else {
+                                                    setDoc(vot_docRef, vote_ob);
+                                                }
                                             }
-                                            else {
-                                                setDoc(vot_docRef, vote_ob);
+
+                                            if (vote_check === true) {
+                                                if (check === true) {
+                                                    updateDoc(vot_docRef, {
+                                                        [`${voter_id}.vote`]: deleteField()
+                                                    });
+                                                }
                                             }
                                         }
+                                        else {
+                                            let vote_ob = {};
+                                            vote_ob[voter_id_new] = {
+                                                email: customer_email,
+                                                vote: true,
+                                                rid: voter_id_new
+                                            };
 
-                                        if (vote_check === true) {
-                                            if (check === true) {
-                                                updateDoc(vot_docRef, {
-                                                    [`${voter}.vote`]: deleteField()
-                                                });
+                                            if (vote_check != true) {
+                                                if (check === true) {
+                                                    updateDoc(vot_docRef, vote_ob);
+                                                }
+                                                else {
+                                                    setDoc(vot_docRef, vote_ob);
+                                                }
+                                            }
+
+                                            if (vote_check === true) {
+                                                if (check === true) {
+                                                    updateDoc(vot_docRef, {
+                                                        [`${voter_id_new}.vote`]: deleteField()
+                                                    });
+                                                }
                                             }
                                         }
                                     });
 
                                     arrow_down.addEventListener('click', () => {
-                                        let vote_ob = {};
-                                        vote_ob[voter] = {
-                                            vote: false
-                                        };
+                                        if (voter_exists) {
+                                            let vote_ob = {};
+                                            vote_ob[voter_id] = {
+                                                email: customer_email,
+                                                vote: false,
+                                                rid: voter_id
+                                            };
 
-                                        if (vote_check != false) {
-                                            if (check === true) {
-                                                updateDoc(vot_docRef, vote_ob);
+
+                                            if (vote_check != false) {
+                                                if (check === true) {
+                                                    updateDoc(vot_docRef, vote_ob);
+                                                }
+                                                else {
+                                                    setDoc(vot_docRef, vote_ob);
+                                                }
                                             }
-                                            else {
-                                                setDoc(vot_docRef, vote_ob);
+
+                                            if (vote_check === false) {
+                                                if (check === true) {
+                                                    updateDoc(vot_docRef, {
+                                                        [`${voter_id}.vote`]: deleteField()
+                                                    });
+                                                }
                                             }
                                         }
+                                        else {
+                                            let vote_ob = {};
+                                            vote_ob[voter_id_new] = {
+                                                email: customer_email,
+                                                vote: false,
+                                                rid: voter_id_new
+                                            };
 
-                                        if (vote_check === false) {
-                                            if (check === true) {
-                                                updateDoc(vot_docRef, {
-                                                    [`${voter}.vote`]: deleteField()
-                                                });
+
+                                            if (vote_check != false) {
+                                                if (check === true) {
+                                                    updateDoc(vot_docRef, vote_ob);
+                                                }
+                                                else {
+                                                    setDoc(vot_docRef, vote_ob);
+                                                }
+                                            }
+
+                                            if (vote_check === false) {
+                                                if (check === true) {
+                                                    updateDoc(vot_docRef, {
+                                                        [`${voter_id_new}.vote`]: deleteField()
+                                                    });
+                                                }
                                             }
                                         }
                                     });
@@ -1234,12 +1287,13 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
                                         e.preventDefault();
 
                                         let comment_value = document.getElementById('comment_value').value;
-                                        let map_name = 'comment' + customer_email.slice(0, -6) + comment_value;
+                                        let map_name = rid();
                                         let comment_ob = {};
                                         comment_ob[map_name] = {
                                             username: customer_email,
                                             comment: comment_value,
-                                            createdAt: serverTimestamp()
+                                            createdAt: serverTimestamp(),
+                                            rid: map_name
                                         };
                                         if (check) {
                                             updateDoc(com_docRef, comment_ob);
@@ -1250,44 +1304,44 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
                                             check = true;
                                             console.log("Created comments");
                                         }
-                                        
+
                                         // Appending to Local List
                                         let collection_item = document.createElement('li');
                                         collection_item.classList.add('collection-item');
                                         collection_item.classList.add('avatar');
                                         collection_box.prepend(collection_item);
-                                        
+
                                         let i_person = document.createElement('i');
                                         i_person.classList.add('material-icons');
                                         i_person.classList.add('circle');
                                         i_person.classList.add('cyan');
                                         i_person.innerText = "person";
                                         collection_item.appendChild(i_person);
-                                        
+
                                         let comment_username = document.createElement('span');
                                         comment_username.classList.add('title');
                                         comment_username.classList.add('comment_username');
                                         comment_username.setAttribute('style', 'font-weight: bold;')
                                         comment_username.innerText = customer_email;
                                         collection_item.appendChild(comment_username);
-                                        
+
                                         let comment_time = document.createElement('p');
                                         comment_time.classList.add('comment_time');
                                         comment_time.innerHTML = 'Just Now' + '<br>';
                                         collection_item.appendChild(comment_time);
-                                        
+
                                         let del_comment_btn = document.createElement('i');
                                         del_comment_btn.classList.add('material-icons');
                                         del_comment_btn.classList.add('new_del_comment_btn');
                                         del_comment_btn.innerText = "delete";
                                         collection_item.appendChild(del_comment_btn);
-                                        
+
                                         let edit_comment_btn = document.createElement('i');
                                         edit_comment_btn.classList.add('material-icons');
                                         edit_comment_btn.classList.add('new_edit_comment_btn');
                                         edit_comment_btn.innerText = "edit";
                                         collection_item.appendChild(edit_comment_btn);
-                                        
+
                                         let comment_line = document.createElement('p');
                                         comment_line.classList.add('comment_line');
                                         comment_line.innerText = comment_value;
@@ -1296,7 +1350,7 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
                                         comment_textarea.innerText = comment_value;
                                         collection_item.appendChild(comment_textarea);
                                         collection_item.appendChild(comment_line);
-                                        
+
                                         // to reset comment input
                                         let comment_input = document.getElementById('comment_value');
                                         comment_input.value = "";
@@ -1306,9 +1360,6 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
                                         new_del_comment_btn_list.forEach((new_del_comment_btn) => {
                                             new_del_comment_btn.addEventListener('click', (e) => {
                                                 e.preventDefault();
-
-                                                let comment_value = new_del_comment_btn.parentElement.children[6].innerText;
-                                                let map_name = 'comment' + customer_email.slice(0, -6) + comment_value;
 
                                                 updateDoc(com_docRef, {
                                                     [`${map_name}`]: deleteField()
@@ -1330,20 +1381,18 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
                                                     new_edit_comment_btn.parentElement.children[5].style.display = "inline-block";
                                                 }
                                                 else {
+                                                    let map_name_new = rid();
                                                     new_edit_comment_btn.classList.remove('editing');
-
-                                                    let map_name = 'comment' + customer_email.slice(0, -6) + new_edit_comment_btn.parentElement.children[5].value;
                                                     let comment_ob = {};
-                                                    comment_ob[map_name] = {
+                                                    comment_ob[map_name_new] = {
                                                         username: customer_email,
                                                         comment: new_edit_comment_btn.parentElement.children[5].value,
-                                                        createdAt: serverTimestamp()
+                                                        createdAt: serverTimestamp(),
+                                                        rid: map_name_new
                                                     };
 
-                                                    let map_name_old = 'comment' + customer_email.slice(0, -6) + new_edit_comment_btn.parentElement.children[6].innerText;
-
                                                     updateDoc(com_docRef, {
-                                                        [`${map_name_old}`]: deleteField()
+                                                        [`${map_name}`]: deleteField()
                                                     });
 
                                                     updateDoc(com_docRef, comment_ob);
@@ -1358,9 +1407,9 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
 
                                             // Edit by pressing enter
                                             document.addEventListener('keypress', (e) => {
-                                                if (e.code == "Enter") {
+                                                if (e.key == "Enter") {
                                                     e.preventDefault();
-                                                    if(new_edit_comment_btn.classList.contains('editing')){
+                                                    if (new_edit_comment_btn.classList.contains('editing')) {
                                                         new_edit_comment_btn.click();
                                                     }
                                                     return false;
@@ -1371,9 +1420,9 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
                                 }
                                 // Commenting by pressing enter
                                 document.addEventListener('keypress', (e) => {
-                                    if (e.code == "Enter") {
+                                    if (e.key == "Enter") {
                                         e.preventDefault();
-                                        if(document.getElementById('comment_value').value != ""){
+                                        if (document.getElementById('comment_value').value != "") {
                                             let comment_btn = document.getElementById('send_btn');
                                             comment_btn.click();
                                         }
@@ -1434,6 +1483,11 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
                                     collection_item.appendChild(comment_textarea);
                                     collection_item.appendChild(comment_line);
 
+                                    let comment_rid = document.createElement('span');
+                                    comment_rid.classList.add('comment_rid');
+                                    comment_rid.innerText = c.rid;
+                                    collection_item.appendChild(comment_rid);
+
                                 })
 
                                 // Deleting Comment 
@@ -1442,8 +1496,7 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
                                     del_comment_btn_item.addEventListener('click', (e) => {
                                         e.preventDefault();
 
-                                        let comment_value = del_comment_btn_item.parentElement.children[6].innerText;
-                                        let map_name = 'comment' + customer_email.slice(0, -6) + comment_value;
+                                        let map_name = del_comment_btn_item.parentElement.children[7].innerText;
 
                                         updateDoc(com_docRef, {
                                             [`${map_name}`]: deleteField()
@@ -1467,15 +1520,16 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
                                         else {
                                             edit_comment_btn_item.classList.remove('editing');
 
-                                            let map_name = 'comment' + customer_email.slice(0, -6) + edit_comment_btn_item.parentElement.children[5].value;
+                                            let map_name_new = rid();
                                             let comment_ob = {};
-                                            comment_ob[map_name] = {
+                                            comment_ob[map_name_new] = {
                                                 username: customer_email,
                                                 comment: edit_comment_btn_item.parentElement.children[5].value,
-                                                createdAt: serverTimestamp()
+                                                createdAt: serverTimestamp(),
+                                                rid: map_name_new
                                             };
 
-                                            let map_name_old = 'comment' + customer_email.slice(0, -6) + edit_comment_btn_item.parentElement.children[6].innerText;
+                                            let map_name_old = edit_comment_btn_item.parentElement.children[7].innerText;
 
                                             updateDoc(com_docRef, {
                                                 [`${map_name_old}`]: deleteField()
@@ -1493,15 +1547,17 @@ if (document.referrer == "https://yoder2k4.github.io/MINffORT_WoC/dist/index.htm
 
                                     // Edit by pressing enter
                                     document.addEventListener('keypress', (e) => {
-                                        if (e.code == "Enter") {
+                                        if (e.key == "Enter") {
                                             e.preventDefault();
-                                            if(edit_comment_btn_item.classList.contains('editing')){
+                                            if (edit_comment_btn_item.classList.contains('editing')) {
                                                 edit_comment_btn_item.click();
                                             }
                                             return false;
                                         }
                                     })
                                 })
+
+                                // -----------------------------------------------------------------
 
                                 // Menu System
 
@@ -1841,3 +1897,11 @@ close_filter.addEventListener('click', (e) => {
         expand_filter.style.display = "";
     }, 200);
 })
+
+// Generate Random ID
+
+function rid() {
+    var randLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+    var uniqid = randLetter + Date.now();
+    return uniqid;
+}

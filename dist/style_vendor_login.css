@@ -484,6 +484,9 @@ input[type=text]:focus {
 .deleteSpan {
     height: 100%;
 }
+.del_menu_btns {
+    margin-top: 24px;
+}
 .availabilitySpan label {
     display: flex;
     align-items: center;

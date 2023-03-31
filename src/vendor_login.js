@@ -293,6 +293,7 @@ onAuthStateChanged(auth, async (user) => {
             let item_name_input = document.createElement('input');
             item_name_input.setAttribute('type', 'text');
             item_name_input.setAttribute('placeholder', '   Input');
+            item_name_input.setAttribute('onkeypress', 'return blockSpecialChar(event)');
             item_name_input.classList.add('item_name');
             commoditySpan.appendChild(item_name_input);
 
@@ -304,10 +305,11 @@ onAuthStateChanged(auth, async (user) => {
             label_price.setAttribute('for', 'item_name');
             label_price.innerHTML = "Price <br>";
             priceSpan.appendChild(label_price);
-
+            
             let item_price_input = document.createElement('input');
             item_price_input.setAttribute('type', 'text');
             item_price_input.setAttribute('placeholder', '  Input');
+            item_price_input.setAttribute('onkeypress', 'return blockAllChar(event)');
             item_price_input.classList.add('item_price');
             priceSpan.appendChild(item_price_input);
 
@@ -345,19 +347,19 @@ onAuthStateChanged(auth, async (user) => {
 
                     let commodity_name = del_input_row.children[0].children[1].value;
 
-                    updateDoc(del_menu_db, {
-                        [`${commodity_name}`]: deleteField()
-                    })
-                        .then(() => {
-                            console.log("Delete menu item");
-                        })
-                        .catch((e) => {
-                            console.log(e.code);
-                        })
-
-                    console.log("Done");
-
                     del_input_row.remove();
+
+                    if(commodity_name != "") {
+                        updateDoc(del_menu_db, {
+                            [`${commodity_name}`]: deleteField()
+                        })
+                            .then(() => {
+                                console.log("Delete menu item");
+                            })
+                            .catch((e) => {
+                                console.log(e.code);
+                            })
+                    }
                 })
             })
         })
